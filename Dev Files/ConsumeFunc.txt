@@ -1,0 +1,20 @@
+async IAP_ConsumeProds() {
+
+    try {
+        const purchases = await RNIap.getAvailablePurchases();
+        let restoredTitles = '';
+
+        purchases.forEach(purchase => {
+          if (purchase.productId === 'com.hugewall.quickguitarriffs.unlockall') {
+            RNIap.consumePurchase(purchase.purchaseToken);
+            AsyncStorage.setItem('localPurc', "0");
+            restoredTitles += 'Unlock All';
+          }
+        })
+        Alert.alert('Consumed', 'Consumed: ' + restoredTitles);
+        this.forceUpdate();
+      } catch(err) {
+        console.warn(err); // standardized err.code and err.message available
+        Alert.alert(err.message);
+      }
+  }
