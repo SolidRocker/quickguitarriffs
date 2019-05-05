@@ -1,23 +1,26 @@
 import React, {Component} from 'react';
 import {AppRegistry, View, BackHandler, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {Header, Left, Right, Body, Container, Content, Separator, ListItem, Button, Icon, Text} from 'native-base';
+import { setChooseList } from '../redux/songlistActions';
+import { connect } from 'react-redux';
 
-import { RiffList, RiffList_Sort } from '../data/T_DATA';
 import commons, {styles} from './common';
 
-export default class ScreenChooseList extends Component{
+class ScreenChooseList extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      artistCount : 0,
       appUnlocked : this.props.navigation.getParam('rAppUnlocked'),
       artistArrayID : 0,
-      listLoadStage: 0
+      listLoadStage: 0,
+
+      currArtist: "",
     };
     this.GetAppUnlocked();
   }
 
   componentDidMount() {
+
     BackHandler.addEventListener('hardwareBackPress', this.BackToMainMenu);
     return true;
   }
@@ -43,32 +46,53 @@ export default class ScreenChooseList extends Component{
   }
 
   // Renders each song from the given block, which only contains songs from one artist.
-  RenderSongList = (RID) => {
+  RenderSongList = (songBlock) => {
       return(
-        <ListItem icon key={RID} title={RID} onPress={()=>this.GoToSong(RID)}>
+        <ListItem icon key={songBlock.RID} title={songBlock.RID} onPress={()=>this.GoToSong(songBlock.RID)}>
           <Left>
           </Left>
           <Body>
-            <Text style={styles.chooselist_songName} allowFontScaling={false}>{RiffList[RID-1].Song}</Text>
+            <Text style={styles.chooselist_songName} allowFontScaling={false}>{songBlock.Song}</Text>
           </Body>
-          {commons.GetDifficultyIconHeader(RiffList[RID-1].Diff)}
+          {commons.GetDifficultyIconHeader(songBlock.Diff)}
         </ListItem>
         );
   }
 
-  // Renders all the artists' name sub-header, and maps the list of songs under the artist.
-  RenderArtistSet = (artistBlock, index)  => {
-    var artistName_ = RiffList[artistBlock[0]-1].Artist.toUpperCase();
-    return (
-        <View key={this.state.artistCount++}>
-          <Separator bordered>
-            <Text style={styles.chooselist_artistName} allowFontScaling={false} key={index}>{artistName_}</Text>
-          </Separator>
-            
-          {artistBlock.map(this.RenderSongList)}
-        </View>
-    );
+  RenderSong = (songBlock, index) => {
+
+    if(this.state.currArtist != songBlock.Artist) {
+      this.state.currArtist = songBlock.Artist;
+      return (
+        <View key={index}>
+        <Separator bordered>
+          <Text style={styles.chooselist_artistName} allowFontScaling={false} key={index}>{this.state.currArtist}</Text>
+        </Separator>
+
+          <ListItem icon key={index} title={index} onPress={()=>this.GoToSong(index)}>
+          <Left>
+          </Left>
+          <Body>
+            <Text style={styles.chooselist_songName} allowFontScaling={false}>{songBlock.Song}</Text>
+          </Body>
+          {commons.GetDifficultyIconHeader(songBlock.Diff)}
+        </ListItem>
+      </View>
+      )
+    }
+  
+    return(
+      <ListItem icon key={index} title={index} onPress={()=>this.GoToSong(index)}>
+        <Left>
+        </Left>
+        <Body>
+          <Text style={styles.chooselist_songName} allowFontScaling={false}>{songBlock.Song}</Text>
+        </Body>
+        {commons.GetDifficultyIconHeader(songBlock.Diff)}
+      </ListItem>
+    )
   }
+
 
   RenderCurrentContents() {
     let disp = null;
@@ -77,6 +101,7 @@ export default class ScreenChooseList extends Component{
     if(this.state.listLoadStage == 0) {
       disp =  <View style={{paddingTop:20}}>
                 <ActivityIndicator size="small" color="#0000ff" />
+                <Text style={{alignSelf:'center', paddingTop:4}}>Loading...</Text>
               </View>
       this.state.listLoadStage = 1;
       setTimeout(() => {
@@ -84,7 +109,9 @@ export default class ScreenChooseList extends Component{
       }, 100);
     }
     else if(this.state.listLoadStage == 1) {
-      disp = RiffList_Sort[this.state.artistArrayID].map(this.RenderArtistSet);
+
+      console.log("TOTAL S: " + this.props.songs[3].length);
+      disp = this.props.songs[3].map(this.RenderSong);
       this.state.listLoadStage = 2;
     }
     return disp;
@@ -118,4 +145,9 @@ export default class ScreenChooseList extends Component{
   }
 }
 
-AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenChooseList);
+const mapStateToProps = state => ({
+  songs: state.songlist.songs,
+  choselist: state.songlist.choselist
+});
+
+export default connect(mapStateToProps, {setChooseList})(ScreenChooseList);

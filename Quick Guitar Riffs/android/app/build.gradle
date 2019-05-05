@@ -100,10 +100,10 @@ android {
         applicationId "com.HugeWall.QuickGuitarRiffs"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 48
-        versionName "1.1.2"
+        versionCode 51
+        versionName "1.1.2c"
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
         }
     }
     splits {
@@ -151,10 +151,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-push-notification')
-    compile project(':react-native-iap')
-    compile project(':react-native-firebase')
-    compile project(':react-native-admob')
     implementation project(':react-native-firebase')
 	implementation "com.google.android.gms:play-services-base:16.0.1"
     implementation "com.google.firebase:firebase-core:16.0.4"

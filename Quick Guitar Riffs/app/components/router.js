@@ -5,6 +5,7 @@ import ScreenMainMenu from './ScreenMainMenu';
 import ScreenRiff from './ScreenRiff';
 import ScreenChooseList from './ScreenChooseList';
 import ScreenFullTab from './ScreenFullTab';
+import ScreenViewLibraryPacks from './ScreenViewLibraryPacks';
 import ScreenViewLibrary from './ScreenViewLibrary';
 import ScreenSuggestSongs from './ScreenSuggestSongs';
 import ScreenSuggestConfirm from './ScreenSuggestConfirm';
@@ -42,6 +43,7 @@ export const Root = StackNavigator({
   ScreenRiff: {screen: ScreenRiff},
   ScreenChooseList: {screen: ScreenChooseList},
   ScreenFullTab: {screen: ScreenFullTab},
+  ScreenViewLibraryPacks: {screen: ScreenViewLibraryPacks},
   ScreenViewLibrary: {screen: ScreenViewLibrary},
   ScreenSuggestSongs: {screen: ScreenSuggestSongs},
   ScreenSuggestConfirm: {screen: ScreenSuggestConfirm},

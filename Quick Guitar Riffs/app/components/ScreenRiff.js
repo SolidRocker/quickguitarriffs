@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import {AppRegistry, Alert, BackHandler, NetInfo, Dimensions, View, WebView, Platform, ScrollView, TouchableOpacity} from 'react-native';
 import {Header, Footer, FooterTab, Card, Body, Left, Right, Container, Button, Icon, Text} from 'native-base';
+import { connect } from 'react-redux';
 
-import { RiffList, RiffList_AllID } from '../data/T_DATA';
 import commons, {styles} from './common';
 import AdsRelated from './adsRelated';
 
-export default class ScreenRiff extends Component{
+class ScreenRiff extends Component{
   constructor(props) {
     super(props);
     // Get value from previous screen passed in
     this.state = {
       cListType: this.props.navigation.getParam('rListType'),
-      cUnlocked: this.props.navigation.getParam('rUnlocked'),
       cChoseSongID: this.props.navigation.getParam('rChoseSongID'),  // Only used if user chose song instead of randoming one.
+      isChoosingSong: false,
 
       cDifficulty: '',
       cRiffID: 1,
@@ -26,7 +26,6 @@ export default class ScreenRiff extends Component{
 
       tabstringID : 0,
       maxSavedSet : 1,
-      rigTest: this.props.navigation.getParam('rigTest')
     }
 
     this.GetDifficulty();
@@ -41,23 +40,20 @@ export default class ScreenRiff extends Component{
   GetDifficulty = () => {
     switch(this.state.cListType) {
       case 0:
-      case 4:
         this.state.cDifficulty = "Beginner";
         break;
       case 1:
-      case 5:
         this.state.cDifficulty = "Intermediate";
         break;
       case 2:
-      case 6:
         this.state.cDifficulty = "Advanced";
         break;
       case 3:
-      case 7:
         this.state.cDifficulty =  "All";
         break;
       case 99:
         this.state.cDifficulty = "Chosen"
+        this.state.isChoosingSong = true;
         break;
       default:
         break;
@@ -88,56 +84,33 @@ export default class ScreenRiff extends Component{
   // Refreshes this page with another random riff.
   GetRandomRiff = () => {
 
-    if(this.state.cListType == 99) {
+    if(this.state.isChoosingSong) {
       this.state.cRiffID = this.state.cChoseSongID;
+      this.state.cListType = 3;
+      //this.state.cRiffID = this.props.songs[this.state.cListType][this.state.cRiffID].RID;
     }
     else {
 
-      if(this.state.rigTest == -1)
-      {
-        var nMax = RiffList_AllID[this.state.cListType].arr.length;
-        const arrayPos = Math.floor(Math.random() * nMax)
-        this.state.cRiffID = RiffList_AllID[this.state.cListType].arr[arrayPos];
-      }
-      else
-      {
-        switch(this.state.rigTest)
-        {
-        case 0: // Highway To Hell
-          this.state.cRiffID = RiffList_AllID[7].arr[21];
-          this.state.rigTest = 1;
-          break;
-        case 1: // Billie Jean
-          this.state.cRiffID = RiffList_AllID[7].arr[16];
-          this.state.rigTest = 2;
-          break;
-        case 2: // Plug In Baby
-          this.state.cRiffID = RiffList_AllID[7].arr[75];
-          this.state.rigTest = 3;
-          break;
-        case 3: // Purple Haze
-          this.state.cRiffID = RiffList_AllID[7].arr[56];
-          this.state.rigTest = -1;
-          break;
-        default:
-          break;
-        }
-      }
+      var nMax = this.props.songs[this.state.cListType].length;
+      this.state.cRiffID = Math.floor(Math.random() * nMax)
+      //this.state.cRiffID = this.props.songs[this.state.cListType][arrayPos].RID;
     }
-    console.log("rID Riff Page: ", this.state.cRiffID);
+    console.log("rID INDEX: ", this.state.cListType + ", " + this.state.cRiffID);
+    console.log("rID Riff Page: ", this.props.songs[this.state.cListType][this.state.cRiffID].Song);
+    console.log("rID Riff ID: ", this.props.songs[this.state.cListType][this.state.cRiffID].RID);
   }
 
   BackToMainMenu = () => {
 
     // Go back to choosing songs if that's where user came from
-    if(this.state.cListType == 99) {
-      this.props.navigation.navigate('ScreenChooseList');
+    if(this.state.isChoosingSong) {
+      this.props.navigation.goBack();
     }
     else {
       const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
       console.log("chance ", chanceToShowAd);
       if(chanceToShowAd < 25) {
-        this.state.AdsStuff.DisplayInterstitialAd(!this.state.cUnlocked);
+        this.state.AdsStuff.DisplayInterstitialAd(!this.state.pack1 && !this.state.pack2);
       }
       this.props.navigation.navigate('ScreenMainMenu');
     }
@@ -159,8 +132,15 @@ export default class ScreenRiff extends Component{
 
     // Make sure the video does not continue playing after reload!
     this.state.isPlayingVid = false;
+
+    const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
+    console.log("chance ", chanceToShowAd);
+    if(chanceToShowAd < 8) {
+      this.state.AdsStuff.DisplayInterstitialAd(!this.state.pack1 && !this.state.pack2);
+    }
+
     this.forceUpdate();
-    this.props.navigation.push('ScreenRiff', {rListType : this.state.cListType, rPrevID: this.state.cPrevID, rigTest: this.state.rigTest});
+    this.props.navigation.push('ScreenRiff', {rListType : this.state.cListType, rPrevID: this.state.cPrevID});
   }
 
   TogglePlayVid = () => {
@@ -173,7 +153,7 @@ export default class ScreenRiff extends Component{
   ToggleDispTab = () => {
     this.state.isPlayingVid = false;
     this.forceUpdate();
-    this.props.navigation.push('ScreenFullTab', {rRiff: this.state.cRiffID, rSong: RiffList[this.state.cRiffID-1].Song, rTabLink: RiffList[this.state.cRiffID-1].TabL});
+    this.props.navigation.push('ScreenFullTab', {rRiff: this.state.cRiffID, rSong: this.props.songs[this.state.cListType][this.state.cRiffID].Song, rTabLink: this.props.songs[this.state.cListType][this.state.cRiffID].TabL});
   }
 
   PlayVidError = () => {
@@ -187,7 +167,7 @@ export default class ScreenRiff extends Component{
   // If the user chose a song instead of randoming, we dont have to show NextSong button.
   ShowNextSongButton() {
     let showbtn = null;
-    if(this.state.cListType != 99)
+    if(!this.state.isChoosingSong)
     {
       showbtn = 
       <Button vertical>
@@ -210,7 +190,7 @@ export default class ScreenRiff extends Component{
       <Text allowFontScaling={false} style={styles.songTabNotes}>| +  harmonic </Text>
       <Text allowFontScaling={false} style={styles.songTabNotes}>| x  Mute note </Text>
       <Text allowFontScaling={false} style={styles.songTabNotes}> </Text>
-      <Text allowFontScaling={false} style={styles.songTabNotes}>View the full tab from {RiffList[this.state.cRiffID-1].TabSrc} by clicking on the "FULL TAB" button!</Text>
+      <Text allowFontScaling={false} style={styles.songTabNotes}>View the full tab from {this.props.songs[this.state.cListType][this.state.cRiffID].TabSrc} by clicking on the "FULL TAB" button!</Text>
       <Text allowFontScaling={false} style={styles.songTabNotes}> </Text>
     </View>
     return disp;
@@ -234,7 +214,7 @@ export default class ScreenRiff extends Component{
 
   // Basically a text-overflow function... but truncated text displays as a new set of tab, after 6 lines.
   DisplayTab() {
-    var textString = RiffList[this.state.cRiffID-1].Tab;
+    var textString = this.props.songs[this.state.cListType][this.state.cRiffID].Tab;
     var oString = [];
     var savedStrings = [];
     var savedStringsID = [];  // There is a chance that 1 line needs to be split in 3 or 4 parts. But all 6 strings have to be printed in sets! So ID keeps track of the sets to be pushed later.
@@ -335,7 +315,7 @@ export default class ScreenRiff extends Component{
       urlBeginning = "https://www.youtube.com/watch?v=";
     }
 
-    urlBeginning += RiffList[this.state.cRiffID-1].YT;
+    urlBeginning += this.props.songs[this.state.cListType][this.state.cRiffID].YT;
 
     let renderVideo
     if(this.state.isPlayingVid) {
@@ -378,20 +358,20 @@ export default class ScreenRiff extends Component{
         
           <View style={styles.riffCardView}>
             <Card style={styles.riffCard}>
-              <View style={{backgroundColor:RiffList[this.state.cRiffID-1].Gcol, borderBottomColor:RiffList[this.state.cRiffID-1].Gcol, borderBottomWidth:7}}></View>
+              <View style={{backgroundColor:this.props.songs[this.state.cListType][this.state.cRiffID].Gcol, borderBottomColor:this.props.songs[this.state.cListType][this.state.cRiffID].Gcol, borderBottomWidth:7}}></View>
               
-              <Text style={[styles.songTitle, {color:RiffList[this.state.cRiffID-1].Gcol}]}>{RiffList[this.state.cRiffID-1].Song}</Text>
-              <Text style={styles.songArtist}>{RiffList[this.state.cRiffID-1].Artist.toUpperCase()}</Text>     
-              {commons.GetDifficultyIconBody(RiffList[this.state.cRiffID-1].Diff)}
+              <Text style={[styles.songTitle, {color:this.props.songs[this.state.cListType][this.state.cRiffID].Gcol}]}>{this.props.songs[this.state.cListType][this.state.cRiffID].Song}</Text>
+              <Text style={styles.songArtist}>{this.props.songs[this.state.cListType][this.state.cRiffID].Artist.toUpperCase()}</Text>     
+              {commons.GetDifficultyIconBody(this.props.songs[this.state.cListType][this.state.cRiffID].Diff)}
               
-              <View style={{borderBottomColor: RiffList[this.state.cRiffID-1].Gcol, borderBottomWidth: 1}}/>
+              <View style={{borderBottomColor: this.props.songs[this.state.cListType][this.state.cRiffID].Gcol, borderBottomWidth: 1}}/>
               <View style={styles.songInfoTuningView}> 
-                <Text style={{width: 77, color:RiffList[this.state.cRiffID-1].Gcol}} allowFontScaling={false} selectable={true}>TUNING</Text>
-                <Text style={styles.songInfoTuning} allowFontScaling={false} selectable={true}>{RiffList[this.state.cRiffID-1].Tune}</Text>
+                <Text style={{width: 77, color:this.props.songs[this.state.cListType][this.state.cRiffID].Gcol}} allowFontScaling={false} selectable={true}>TUNING</Text>
+                <Text style={styles.songInfoTuning} allowFontScaling={false} selectable={true}>{this.props.songs[this.state.cListType][this.state.cRiffID].Tune}</Text>
               </View>
               <View style={styles.songInfoKeyView}>
-                <Text style={{width: 77, color:RiffList[this.state.cRiffID-1].Gcol}} allowFontScaling={false} selectable={true}>KEY</Text>
-                <Text style={styles.songInfoKey} allowFontScaling={false} selectable={true}>{RiffList[this.state.cRiffID-1].Key}</Text>
+                <Text style={{width: 77, color:this.props.songs[this.state.cListType][this.state.cRiffID].Gcol}} allowFontScaling={false} selectable={true}>KEY</Text>
+                <Text style={styles.songInfoKey} allowFontScaling={false} selectable={true}>{this.props.songs[this.state.cListType][this.state.cRiffID].Key}</Text>
               </View>
             </Card>
           </View>
@@ -433,4 +413,9 @@ export default class ScreenRiff extends Component{
   }
 }
 
+const mapStateToProps = state => ({
+  songs: state.songlist.songs
+});
+
+export default connect(mapStateToProps, {})(ScreenRiff);
 AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenRiff);

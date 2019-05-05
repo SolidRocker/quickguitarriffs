@@ -305,6 +305,31 @@ export const styles = StyleSheet.create({
         flexDirection: 'row'
     },
 
+    packButton: {
+        margin: '4%',
+        height: '20%',
+        width: '90%',
+        borderRadius: 4,
+
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    packButtonIcon: {
+        alignSelf: 'center',
+    },
+
+    packButtonTitle: {
+        alignSelf: 'center',
+        fontFamily: 'Roboto',
+        fontSize: 30,
+    },
+
+    packButtonText: {
+        alignSelf: 'center',
+    },
+
     libView: {
         flex: 1,
         flexDirection:'row',

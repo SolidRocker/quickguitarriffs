@@ -1,55 +1,51 @@
 import React, {Component} from 'react';
 import {AppRegistry, Alert, StatusBar, AsyncStorage, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
 import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, Button, Icon, Text} from 'native-base';
+import { setPack1, setPack2, setSongs } from '../redux/songlistActions';
+import { connect } from 'react-redux';
 
 import commons, {styles} from './common';
 import SideBar from './SideBar';
 import AdsRelated from './adsRelated';
 import PushNotification from 'react-native-push-notification'
 import * as RNIap from 'react-native-iap';
-import { RiffList, RiffList_AllID } from '../data/T_DATA';
 
 const itemSkus = Platform.select({
   ios: [
     'com.hugewall.quickguitarriffs.unlockall',
   ],
   android: [
-    'com.hugewall.quickguitarriffs.unlockall',
+    'com.hugewall.quickguitarriffs.unlockall',    // Pack 1
+    'com.hugewall.quickguitarriffs.pack2',        // Pack 2
   ],
 });
 
-export default class ScreenMainMenu extends Component{
+class ScreenMainMenu extends Component{
   constructor(props) {
     super(props);
 
-    // rAppUnlocked: 0 = noIAP, 1 = haveIAP
     this.state = {
      riffID: 0,
      productList : [],
-     appUnlocked : (this.props.navigation.getParam('rAppUnlocked') == 1 ? true : false),
      AdsStuff: new AdsRelated(),
      notificationSeconds: 5,
      sideBarCoverRatio: 0.8,
      isDrawerOpen: false,
     };
     this.ChangeRatio();
-
-    /* If user JUST unlocked songs, we need to forceUpdate.
-    if(this.props.navigation.getParam('rAppUnlocked') == 3) {
-      console.log("IS IS INZ");
-      this.state.appUnlocked = true;
-      this.TriggerUpdateAfterBuy();
-    }*/
   }
   
   componentDidMount() {
+
+    // Load data
+    this.LoadSongList();
 
     // Push notifications
     this.configure();
     AppState.addEventListener('change', this.handleAppStateChange);
 
     // IAP
-    if(!this.state.appUnlocked) {
+    if(!this.props.checked_pack1 || !this.props.checked_pack2) {
       this.IAP_Init();
       this.IAP_RestorePurchases();
     }
@@ -89,13 +85,21 @@ export default class ScreenMainMenu extends Component{
           const purchases = await RNIap.getAvailablePurchases();
           purchases.forEach(purchase => {
               if (purchase.productId === 'com.hugewall.quickguitarriffs.unlockall') {
-                  this.setState({appUnlocked : true});
+                  this.props.setPack1(true);
                   this.forceUpdate();
               }
               else {
-                this.setState( {appUnlocked : false});
+                this.props.setPack1(false);
                 this.forceUpdate();
               }
+              if (purchase.productId === 'com.hugewall.quickguitarriffs.pack2') {
+                this.props.setPack2(true);
+                this.forceUpdate();
+            }
+            else {
+                this.props.setPack2(false);
+                this.forceUpdate();
+            }
           })
       } catch(err) {
           console.warn(err); // standardized err.code and err.message available
@@ -121,17 +125,20 @@ export default class ScreenMainMenu extends Component{
         date = date.toISOString();
       }*/
 
-      var noofDays = Math.floor(1 + Math.random() * 2)  // 1 to 2 days
-      var noofHours = (noofDays * 24) - 4;
+      // Cancel before making again
+      PushNotification.cancelAllLocalNotifications();
 
-      for(var i = 0; i < 2; ++i) {
+      //var noofDays = 1 //Math.floor(1 + Math.random() * 2)  // 1 to 2 days
+      var noofHours;// = (noofDays * 24) - 4;
+
+      for(var i = 0; i < 4; ++i) {
         var msgType = Math.floor(1 + Math.random() * 4);
         var msg = 'Remember to practice your riffs!';     // Default msg in case switch case fails
 
         switch(msgType) {
           case 1:
-            var randSong = Math.floor(Math.random() * RiffList_AllID[7].arr.length-1)
-            msg = "Still remember how to play " + RiffList[randSong].Song + " by " + RiffList[randSong].Artist + "?";
+            var randSong = Math.floor(Math.random() * this.props.songs[3].length);
+            msg = "Still remember how to play " + this.props.songs[3][randSong].Song + " by " + this.props.songs[3][randSong].Artist + "?";
             break;
           case 2:
             msg = "Remember to practice your riffs!"
@@ -146,15 +153,25 @@ export default class ScreenMainMenu extends Component{
             break;
         }
 
-        var timeInMilli = noofHours * 60 * 60 * 1000;
-        
-        // Cancel before making again
-        PushNotification.cancelAllLocalNotifications();
+        if(i == 1) {
+          noofHours = 20;
+        }
+        if(i == 2) {
+          noofHours = 70;
+        }
+        if(i == 3) {
+          noofHours = 116;
+        }
+        if(i == 4) {
+          noofHours = 185;
+        }
 
-        // First notification
+        var timeInMilli = noofHours * 60 * 60 * 1000;
+    
+        // Notification
         PushNotification.localNotificationSchedule({
           message: msg,
-          date: new Date(Date.now() + (timeInMilli * (i+1)))
+          date: new Date(Date.now() + timeInMilli)
         });
       }
     }
@@ -169,6 +186,13 @@ export default class ScreenMainMenu extends Component{
         console.log( 'NOTIFICATION:', notification );
       },
     });
+  }
+
+  async LoadSongList() {
+
+    if(this.props.checked_pack1 && this.props.checked_pack2) {
+      this.props.setSongs(this.props.pack1, this.props.pack2);
+    }
   }
 
   AddMenuItem(item_) {
@@ -189,53 +213,34 @@ export default class ScreenMainMenu extends Component{
     return disp;
   }
 
-  // Callback function for child (SideBar) to pass data back to MainMenu
-  TriggerUpdateAfterBuy = () => {
-    this.state.appUnlocked = true;
-    AsyncStorage.setItem('localPurc', "1");
-    this.forceUpdate();
-  }
-
   DoStuffOnClick = (btnName) => {
     switch(btnName) {
       case 'Beginner':
-      if(!this.state.appUnlocked)
         this.GoToRiffs(0);
-      else
-        this.GoToRiffs(4);
         break;
 
       case 'Intermediate':
-        if(!this.state.appUnlocked)
-          this.GoToRiffs(1);
-        else
-          this.GoToRiffs(5);
+        this.GoToRiffs(1);
         break;
 
       case 'Advanced':
-        if(!this.state.appUnlocked)
-          this.GoToRiffs(2);
-        else
-          this.GoToRiffs(6);
+        this.GoToRiffs(2);
         break;
 
       case 'All':
-        if(!this.state.appUnlocked)
-          this.GoToRiffs(3);
-        else
-          this.GoToRiffs(7);
+        this.GoToRiffs(3);
         break;
 
       case 'ChooseRiff':
-        this.props.navigation.navigate('ScreenChooseList', {rAppUnlocked : this.state.appUnlocked});
+        this.props.navigation.navigate('ScreenChooseList');
         break;
 
       case 'SuggestSongs':
-        this.props.navigation.navigate('ScreenSuggestSongs', {rAppUnlocked : this.state.appUnlocked});
+        this.props.navigation.navigate('ScreenSuggestSongs');
         break;
 
       case 'ViewLibrary':
-        this.props.navigation.navigate('ScreenViewLibrary', {rAppUnlocked : this.state.appUnlocked, rUpdateBuy: this.TriggerUpdateAfterBuy});
+        this.props.navigation.navigate('ScreenViewLibraryPacks');
         break;
 
       default:
@@ -247,9 +252,7 @@ export default class ScreenMainMenu extends Component{
     this.props.navigation.navigate('ScreenRiff',
       { rListType : listType,
         rChoseSongID : 1,
-        rUnlocked : this.state.appUnlocked,
         rRefresh: this.IAP_RestorePurchases,
-        rigTest : -1,
       });
   }
 
@@ -314,7 +317,6 @@ export default class ScreenMainMenu extends Component{
         <Drawer
           ref={(ref) => { this.drawer = ref; }}
           content={<SideBar navigator={this.navigator}
-                            rUnlocked={this.state.appUnlocked}
                             coverRatio={this.state.sideBarCoverRatio}
                             rUpdateBuy={this.TriggerUpdateAfterBuy}
                             rGoToPage={this.props.navigation.navigate}/>}
@@ -354,7 +356,7 @@ export default class ScreenMainMenu extends Component{
         
         </Content>
 
-        {this.state.AdsStuff.DisplayBannerAd(!this.state.appUnlocked)}
+        {this.state.AdsStuff.DisplayBannerAd(!this.props.pack1 && !this.props.pack2)}
         {this.configure()}
 
       </Container>
@@ -364,4 +366,13 @@ export default class ScreenMainMenu extends Component{
   }
 }
 
+const mapStateToProps = state => ({
+  songs: state.songlist.songs,
+  pack1: state.songlist.pack1,
+  pack2: state.songlist.pack2,
+  checked_pack1: state.songlist.checked_pack1,
+  checked_pack2: state.songlist.checked_pack2
+});
+
+export default connect(mapStateToProps, {setPack1, setPack2, setSongs})(ScreenMainMenu);
 AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenMainMenu);
