@@ -6,12 +6,14 @@ import com.facebook.react.ReactApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.dooboolab.RNIap.RNIapPackage;
 import io.invertase.firebase.RNFirebasePackage;
-import com.sbugert.rnadmob.RNAdMobPackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativePushNotificationPackage(),
             new RNIapPackage(),
             new RNFirebasePackage(),
-            new RNAdMobPackage(),
+            new RNFirebaseAdMobPackage(),
+			new RNFirebaseAnalyticsPackage(),
 			new RNFirebaseDatabasePackage()
       );
     }
@@ -51,5 +54,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+	MobileAds.initialize(this, "ca-app-pub-8431641625411729~2623241602");
   }
 }

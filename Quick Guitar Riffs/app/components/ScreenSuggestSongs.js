@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, Alert, NetInfo, Platform, Dimensions, AsyncStorage, BackHandler, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Header, Left, Right, Body, Container, Button, Picker, Icon, Item, Text, Textarea } from 'native-base';
-import commons, {styles} from './common';
+import commons, {styles, androidConfig} from './common';
 import firebase from 'react-native-firebase'
 
 export default class ScreenSuggestSongs extends Component {
@@ -30,6 +30,8 @@ export default class ScreenSuggestSongs extends Component {
         NetInfo.isConnected.fetch().then(isConnected_ => {
             this.state.isConnected = isConnected_;
         });
+
+        this.state.appState = firebase.initializeApp(androidConfig,"QuickGuitarRiffs");
     }
 
     // Whole list of countries.
@@ -137,40 +139,43 @@ export default class ScreenSuggestSongs extends Component {
 
     SubmitSongs = () => {
 
-        if(!this.state.isConnected) {
-            commons.ShowConnectionErrorMsg();
-            return;
-        }
+        this.state.appState.onReady().then((app) => {
 
-        this.state.isButtonClicked = true;
-        this.forceUpdate();
-
-        // Set a timeout in case internet has issues. (Clear after insertion, and componentWillUnmount)
-        this.timeOut = setTimeout(() => {
-            commons.ShowConnectionErrorMsg();
-            this.state.isButtonClicked = false;
-            this.forceUpdate();
-            return;
-        }, 9000);
-
-        // INSERT
-        var currDate = new Date();
-        var newSuggestion = firebase.database().ref('users/' + this.state.localID).push();
-        newSuggestion.set (
-            {
-                date: currDate,
-                country: this.state.countrySelected,
-                platform: Platform.OS === 'ios' ? "iOS" : "Android",
-                paidVersion: this.state.appUnlocked ? "YES" : "NO",
-                suggestion: this.state.suggestedSongs
+            if(!this.state.isConnected) {
+                commons.ShowConnectionErrorMsg();
+                return;
             }
-        ).then(() => {
-            this.state.isButtonClicked = false;
-            clearTimeout(this.timeOut);
-            AsyncStorage.setItem('localCountry', this.state.countrySelected);
-            this.props.navigation.navigate('ScreenSuggestConfirm');
-        }).catch((error) => {
-            console.log(error);
+
+            this.state.isButtonClicked = true;
+            this.forceUpdate();
+
+            // Set a timeout in case internet has issues. (Clear after insertion, and componentWillUnmount)
+            this.timeOut = setTimeout(() => {
+                commons.ShowConnectionErrorMsg();
+                this.state.isButtonClicked = false;
+                this.forceUpdate();
+                return;
+            }, 9000);
+
+            // INSERT
+            var currDate = new Date();
+            var newSuggestion = firebase.database().ref('users/' + this.state.localID).push();
+            newSuggestion.set (
+                {
+                    date: currDate,
+                    country: this.state.countrySelected,
+                    platform: Platform.OS === 'ios' ? "iOS" : "Android",
+                    paidVersion: this.state.appUnlocked ? "YES" : "NO",
+                    suggestion: this.state.suggestedSongs
+                }
+            ).then(() => {
+                this.state.isButtonClicked = false;
+                clearTimeout(this.timeOut);
+                AsyncStorage.setItem('localCountry', this.state.countrySelected);
+                this.props.navigation.navigate('ScreenSuggestConfirm');
+            }).catch((error) => {
+                console.log(error);
+            });
         });
     }
 

@@ -37,7 +37,6 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		72BE8E1F064B4B9A9CE35F8B /* libRNAdMobManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C9D6224FF444D2F8097CA65 /* libRNAdMobManager.a */; };
 		8822A98009774909A983A528 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCCE14E0EA34DB5A2A746CC /* libRNFirebase.a */; };
 		0DCCEA18F1734BF6A8709AFE /* libRNIap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987A77DF44A344E49FD3C50B /* libRNIap.a */; };
 		A75D7DC873F9434A8EEF2B1A /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B578459B24F4765B0AF5DAF /* Entypo.ttf */; };
@@ -54,6 +53,11 @@
 		409D9DD39D2A4335B2AF4A85 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB13D4E8D6DA414B9D3453A8 /* rubicon-icon-font.ttf */; };
 		E683E13C256647C99B2E94EC /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DD0243FB3B344629CA89419 /* SimpleLineIcons.ttf */; };
 		50945264B745410BA0C97716 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC8BCCE1571743EDAEA1577E /* Zocial.ttf */; };
+		CAF30F77BEBD41F8AC4D785A /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB7635DA3B1842919790C938 /* AntDesign.ttf */; };
+		5690C91A6EB54C63A2E6AE51 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6CB64C42DCD47128B9CF151 /* FontAwesome5_Brands.ttf */; };
+		69F8B8B5AFCA465BB20CB646 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1ECF903C8013400082B84890 /* FontAwesome5_Regular.ttf */; };
+		2E39136204FB4EC4BF9975B4 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C15AE754DA6474DAB483D7F /* FontAwesome5_Solid.ttf */; };
+		8F98441F832F458EA19E58AF /* libRNAdMobManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80D586E6CCD4488D8A0B0A60 /* libRNAdMobManager.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -359,8 +363,6 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		E219C7D3381F4087B6A686C3 /* RNAdMobManager.xcodeproj */ = {isa = PBXFileReference; name = "RNAdMobManager.xcodeproj"; path = "../node_modules/react-native-admob/ios/RNAdMobManager.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		5C9D6224FF444D2F8097CA65 /* libRNAdMobManager.a */ = {isa = PBXFileReference; name = "libRNAdMobManager.a"; path = "libRNAdMobManager.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		2EDAF79C66C943A0BE22687D /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; name = "RNFirebase.xcodeproj"; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		4BCCE14E0EA34DB5A2A746CC /* libRNFirebase.a */ = {isa = PBXFileReference; name = "libRNFirebase.a"; path = "libRNFirebase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		4529095C118446F8B431BAA7 /* RNIap.xcodeproj */ = {isa = PBXFileReference; name = "RNIap.xcodeproj"; path = "../node_modules/react-native-iap/ios/RNIap.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
@@ -379,6 +381,12 @@
 		DB13D4E8D6DA414B9D3453A8 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0DD0243FB3B344629CA89419 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		AC8BCCE1571743EDAEA1577E /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DB7635DA3B1842919790C938 /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A6CB64C42DCD47128B9CF151 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Brands.ttf"; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1ECF903C8013400082B84890 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Regular.ttf"; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C15AE754DA6474DAB483D7F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Solid.ttf"; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BEB9B62ED1154CE2A2F1FEBA /* RNAdMobManager.xcodeproj */ = {isa = PBXFileReference; name = "RNAdMobManager.xcodeproj"; path = "../node_modules/react-native-admob/ios/RNAdMobManager.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		80D586E6CCD4488D8A0B0A60 /* libRNAdMobManager.a */ = {isa = PBXFileReference; name = "libRNAdMobManager.a"; path = "libRNAdMobManager.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,9 +415,9 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				72BE8E1F064B4B9A9CE35F8B /* libRNAdMobManager.a in Frameworks */,
 				8822A98009774909A983A528 /* libRNFirebase.a in Frameworks */,
 				0DCCEA18F1734BF6A8709AFE /* libRNIap.a in Frameworks */,
+				8F98441F832F458EA19E58AF /* libRNAdMobManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,9 +604,9 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				E219C7D3381F4087B6A686C3 /* RNAdMobManager.xcodeproj */,
 				2EDAF79C66C943A0BE22687D /* RNFirebase.xcodeproj */,
 				4529095C118446F8B431BAA7 /* RNIap.xcodeproj */,
+				BEB9B62ED1154CE2A2F1FEBA /* RNAdMobManager.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -664,6 +672,10 @@
 				DB13D4E8D6DA414B9D3453A8 /* rubicon-icon-font.ttf */,
 				0DD0243FB3B344629CA89419 /* SimpleLineIcons.ttf */,
 				AC8BCCE1571743EDAEA1577E /* Zocial.ttf */,
+				DB7635DA3B1842919790C938 /* AntDesign.ttf */,
+				A6CB64C42DCD47128B9CF151 /* FontAwesome5_Brands.ttf */,
+				1ECF903C8013400082B84890 /* FontAwesome5_Regular.ttf */,
+				6C15AE754DA6474DAB483D7F /* FontAwesome5_Solid.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1129,6 +1141,10 @@
 				409D9DD39D2A4335B2AF4A85 /* rubicon-icon-font.ttf in Resources */,
 				E683E13C256647C99B2E94EC /* SimpleLineIcons.ttf in Resources */,
 				50945264B745410BA0C97716 /* Zocial.ttf in Resources */,
+				CAF30F77BEBD41F8AC4D785A /* AntDesign.ttf in Resources */,
+				5690C91A6EB54C63A2E6AE51 /* FontAwesome5_Brands.ttf in Resources */,
+				69F8B8B5AFCA465BB20CB646 /* FontAwesome5_Regular.ttf in Resources */,
+				2E39136204FB4EC4BF9975B4 /* FontAwesome5_Solid.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,14 +1279,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Debug;
@@ -1292,14 +1306,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Release;
@@ -1321,9 +1333,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Debug;
@@ -1344,9 +1356,9 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Release;
@@ -1377,14 +1389,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Debug;
@@ -1415,14 +1425,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Release;
@@ -1452,14 +1460,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Debug;
@@ -1489,14 +1495,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
+					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
 				);
 			};
 			name = Release;
