@@ -8,3 +8,6 @@ export const SET_PACK_1 = 'SET_PACK_1';
 export const SET_PACK_2 = 'SET_PACK_2';
 
 export const SET_CHOSE_LIST = 'SET_CHOSE_LIST';
+
+export const SET_FIREBASE = 'SET_FIREBASE';
+export const SET_PRODUCTS = 'SET_PRODUCTS';

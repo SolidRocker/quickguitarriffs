@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {AppRegistry, Platform, AsyncStorage, Image, View} from 'react-native';
 import commons, {styles} from './common';
 import * as RNIap from 'react-native-iap';
-import { setPack1, setPack2 } from '../redux/songlistActions';
+import { setPack1, setPack2, initFirebase, setProducts} from '../redux/songlistActions';
 import { connect } from 'react-redux';
 
 const itemSkus = Platform.select({
@@ -58,6 +58,8 @@ class ScreenSplash extends Component{
         try {
             const products = await RNIap.getProducts(itemSkus);
             console.log('Products', products);
+            this.props.setProducts(products);
+
             //this.setState({ productList: products });
         } catch(err) {
             console.warn(err); // standardized err.code and err.message available
@@ -98,6 +100,7 @@ class ScreenSplash extends Component{
 
         this.IAP_Init();   
         this.LoadLocalPurchase();
+        this.props.initFirebase();
 
         // If everything is already marked as purchased in local, then no need to restore purchases.
         if(this.state.rPack1 != 1 || this.state.rPack2 != 1)
@@ -141,5 +144,5 @@ const mapStateToProps = state => ({
     checked_pack2: state.songlist.checked_pack2
 });
 
-export default connect(mapStateToProps, {setPack1, setPack2})(ScreenSplash);
+export default connect(mapStateToProps, {setPack1, setPack2, initFirebase, setProducts})(ScreenSplash);
 AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenSplash);

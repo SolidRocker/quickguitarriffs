@@ -1,21 +1,17 @@
 import React, {Component} from 'react'
 import {Platform} from 'react-native'
-import {androidConfig} from './common';
 import firebase from 'react-native-firebase'
 
 export default class AdsRelated extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            appState: null,
             receipt: '',
             bannerID: '',
             interID: '',
             isDebug: false
         };
-
         this.SetAdID();
-        this.state.appState = firebase.initializeApp(androidConfig,"QuickGuitarRiffs");
     };
 
     SetAdID() {
@@ -39,39 +35,36 @@ export default class AdsRelated extends Component {
     DisplayBannerAd(shouldDisplay) {
         let disp = null;
 
-        this.state.appState.onReady().then((app) => {
+        if(shouldDisplay) {
+            const Banner = firebase.admob.Banner;
+            const AdRequest = firebase.admob.AdRequest;
+            const request = new AdRequest();
 
-            if(shouldDisplay) {
-                const Banner = firebase.admob.Banner;
-                const AdRequest = firebase.admob.AdRequest;
-                const request = new AdRequest();
-    
-                disp = 
-                <Banner
-                    unitId={this.state.bannerID}
-                    size={'SMART_BANNER'}
-                    request={request.build()}
-                    onAdLoaded={() => {
-                    }}
-                />
-            }
-        });
+            disp = 
+            <Banner
+                unitId={this.state.bannerID}
+                size={'SMART_BANNER'}
+                request={request.build()}
+                onAdLoaded={() => {
+                }}
+            />
+        }
         return disp;
     }
 
     DisplayInterstitialAd(shouldDisplay) {
 
-        this.state.appState.onReady().then((app) => {
-            if(shouldDisplay) {
-                const advert = firebase.admob().interstitial(this.state.bannerID);
-                const AdRequest = firebase.admob.AdRequest;
-                const request = new AdRequest();
-                advert.loadAd(request.build());
+        if(shouldDisplay) {
+            const advert = firebase.admob().interstitial(this.state.interID);
+            const AdRequest = firebase.admob.AdRequest;
+            const request = new AdRequest();
 
-                advert.on('onAdLoaded', () => {
-                    advert.show();
-                });
-            }
-        });
+            advert.loadAd(request.build());
+
+            advert.on('onAdLoaded', () => {
+                advert.show();
+                console.log('Show inter');
+            });
+        }
     }
 }

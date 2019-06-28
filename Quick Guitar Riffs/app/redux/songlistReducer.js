@@ -2,7 +2,9 @@ import {
     SET_SONGS,
     SET_PACK_1,
     SET_PACK_2,
-    SET_CHOSE_LIST
+    SET_CHOSE_LIST,
+    SET_FIREBASE,
+    SET_PRODUCTS
  } from './types';
     
 const songlist = {
@@ -13,7 +15,12 @@ const songlist = {
     checked_pack1: false,
     checked_pack2: false,
     songs_loaded: false,
-    choselist: null
+    choselist: null,
+
+    fb_app: null,
+    isfbInit: false,
+
+    products: []
 }
 
 export default function(state = songlist, action) {
@@ -40,6 +47,17 @@ export default function(state = songlist, action) {
         return {
             ...state,
             choselist: action.payload
+        }
+        case SET_FIREBASE:
+        return {
+            ...state,
+            fb_app: action.payload,
+            isfbInit: action.payload_bool
+        }
+        case SET_PRODUCTS:
+        return {
+            ...state,
+            products: action.payload
         }
         default:
             return state;

@@ -129,24 +129,20 @@ class ScreenMainMenu extends Component{
       PushNotification.cancelAllLocalNotifications();
 
       //var noofDays = 1 //Math.floor(1 + Math.random() * 2)  // 1 to 2 days
-      var noofHours;// = (noofDays * 24) - 4;
+      var noofHours = 20;// = (noofDays * 24) - 4;
 
       for(var i = 0; i < 4; ++i) {
-        var msgType = Math.floor(1 + Math.random() * 4);
+        var msgType = Math.floor(1 + Math.random() * 3);
         var msg = 'Remember to practice your riffs!';     // Default msg in case switch case fails
 
         switch(msgType) {
           case 1:
-            var randSong = Math.floor(Math.random() * this.props.songs[3].length);
-            msg = "Still remember how to play " + this.props.songs[3][randSong].Song + " by " + this.props.songs[3][randSong].Artist + "?";
-            break;
-          case 2:
             msg = "Remember to practice your riffs!"
             break;
-          case 3:
+          case 2:
             msg = "Need some inspiration? Check out the riffs in our library!"
             break;
-          case 4:
+          case 3:
             msg = "Don't forget to keep your fingers nimble!"
             break;
           default:

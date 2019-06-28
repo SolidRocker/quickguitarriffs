@@ -90,7 +90,6 @@ class ScreenRiff extends Component{
       //this.state.cRiffID = this.props.songs[this.state.cListType][this.state.cRiffID].RID;
     }
     else {
-
       var nMax = this.props.songs[this.state.cListType].length;
       this.state.cRiffID = Math.floor(Math.random() * nMax)
       //this.state.cRiffID = this.props.songs[this.state.cListType][arrayPos].RID;
@@ -109,7 +108,7 @@ class ScreenRiff extends Component{
     else {
       const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
       console.log("chance ", chanceToShowAd);
-      if(chanceToShowAd < 25) {
+      if(chanceToShowAd < 35) {
         this.state.AdsStuff.DisplayInterstitialAd(!this.state.pack1 && !this.state.pack2);
       }
       this.props.navigation.navigate('ScreenMainMenu');
@@ -135,7 +134,7 @@ class ScreenRiff extends Component{
 
     const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
     console.log("chance ", chanceToShowAd);
-    if(chanceToShowAd < 8) {
+    if(chanceToShowAd < 10) {
       this.state.AdsStuff.DisplayInterstitialAd(!this.state.pack1 && !this.state.pack2);
     }
 

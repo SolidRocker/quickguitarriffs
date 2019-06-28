@@ -2,19 +2,6 @@ import React from 'react';
 import {Platform, StatusBar, Alert, Dimensions, StyleSheet, View} from 'react-native';
 import {Right, Icon} from 'native-base';
 
-export const androidConfig = {
-    clientId: "459661689591-4472u0sv0nigbac33n5d3kfae6urm4t4.apps.googleusercontent.com",
-    appId: "1:459661689591:android:ff5dc3ad3841ec1b",
-    apiKey: "AIzaSyCE_Q_joJlBfybpfk7dSzSjmVtgusuF8EU",
-    databaseURL: "https://quickguitarriffs-9febc.firebaseio.com",
-    storageBucket: "quickguitarriffs-9febc.appspot.com",
-    messagingSenderId: "459661689591",
-    projectId: "quickguitarriffs-9febc",
-
-    // enable persistence by adding the below flag
-    persistence: true,
-};
-
 const commons = {
     ChangeStatusBar() {
         return <StatusBar backgroundColor="#151515" barStyle="light-content"/>
@@ -341,6 +328,11 @@ export const styles = StyleSheet.create({
 
     packButtonText: {
         alignSelf: 'center',
+    },
+
+    packError: {
+        alignSelf: 'center',
+        padding: 30
     },
 
     libView: {
