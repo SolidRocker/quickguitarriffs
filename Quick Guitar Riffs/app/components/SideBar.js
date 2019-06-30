@@ -146,10 +146,10 @@ export default class SideBar extends Component {
             <ListItem onPress={()=>{this.PressShare()}}>
               <Text style={styles.sidebarText} allowFontScaling={false} selectable={true}>Share</Text>
             </ListItem>
-            <ListItem onPress={()=>{this.IAP_RestorePurchases()}}>
+            {/*<ListItem onPress={()=>{this.IAP_RestorePurchases()}}>
               <Text style={styles.sidebarText} allowFontScaling={false} selectable={true}>Restore</Text>
-            </ListItem>
-            {this.ShowBuyBtn()}
+            </ListItem>*/}
+            {/*this.ShowBuyBtn()*/}
             {/*<ListItem onPress={()=>{this.IAP_ConsumeProds()}}>
               <Text style={styles.sidebarText} allowFontScaling={false} selectable={true}>Consume (TEST PURPOSE)</Text>
             </ListItem>*/}

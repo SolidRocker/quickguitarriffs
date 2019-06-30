@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, BackHandler, TouchableOpacity } from 'react-native';
+import { AppRegistry, BackHandler, ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Header, Left, Right, Body, Container, Button, Icon, Text } from 'native-base';
 import commons, {styles} from './common';
 import { connect } from 'react-redux';
@@ -59,17 +59,31 @@ class ScreenViewLibraryPacks extends Component {
 
         disp =
         <Container>
-            <Button style={[styles.packButton, {backgroundColor: '#EB9361'}]}  onPress={()=>this.GoToLib(1)} vertical>
-                <Text style={styles.packButtonTitle}>THE ESSENTIAL PACK</Text>
-                <Text allowFontScaling={false} style={styles.packButtonText}>130 Songs</Text>
-                <Text allowFontScaling={false} style={styles.packButtonText}>{pCost1}</Text>
-            </Button>
+            <View style={styles.packDescView}>
+                <Text style={styles.packDescText}>Click on a pack to view the details of its song library!</Text>
+            </View>
+            
+            <TouchableOpacity
+                style={styles.packButton} 
+                activeOpacity={0.8}
+                onPress={()=>this.GoToLib(1)}>
+                    <ImageBackground source={require('../img/PackEssential.jpg')} style={styles.packButtonBG}>
+                        <Text style={styles.packButtonTitle}>THE ESSENTIAL PACK</Text>
+                        <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 130 Songs</Text>
+                        <Text allowFontScaling={false} style={styles.packButtonCost}>{pCost1}</Text>
+                    </ImageBackground>
+              </TouchableOpacity>
 
-            <Button style={[styles.packButton, {backgroundColor: '#A0C3EE'}]}  onPress={()=>this.GoToLib(2)} vertical>
-                <Text style={styles.packButtonTitle}>THE EXTENDED PACK</Text>
-                <Text allowFontScaling={false} style={styles.packButtonText}>60 Songs</Text>
-                <Text allowFontScaling={false} style={styles.packButtonText}>{pCost2}</Text>
-            </Button>
+              <TouchableOpacity
+                style={styles.packButton} 
+                activeOpacity={0.8}
+                onPress={()=>this.GoToLib(2)}>
+                    <ImageBackground source={require('../img/PackExtended.jpg')} style={styles.packButtonBG}>
+                        <Text style={styles.packButtonTitle}>THE EXTENDED PACK</Text>
+                        <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 60 Songs</Text>
+                        <Text allowFontScaling={false} style={styles.packButtonCost}>{pCost2}</Text>
+                    </ImageBackground>
+              </TouchableOpacity>
         </Container>
 
         return disp;

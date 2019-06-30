@@ -305,15 +305,40 @@ export const styles = StyleSheet.create({
         flexDirection: 'row'
     },
 
-    packButton: {
-        margin: '4%',
-        height: '20%',
+    packDescView: {
+        marginTop: 15,
         width: '90%',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
+    },
+
+    packDescText: {
+        textAlign: 'center',
+        fontFamily: 'Roboto',
+        fontSize: 15,
+        color: 'black'
+    },
+
+    packButton: {
+        height: '40%',
+        width: '90%',
+        marginTop: 15,
+
         borderRadius: 4,
+        borderStyle: 'solid',
+        borderWidth: 2,
 
         alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    packButtonBG: {
+        flex:1,
+        width:'100%',
+        height:'100%'
     },
 
     packButtonIcon: {
@@ -321,18 +346,33 @@ export const styles = StyleSheet.create({
     },
 
     packButtonTitle: {
+        marginTop: 5,
         alignSelf: 'center',
         fontFamily: 'Roboto',
         fontSize: 30,
+        color: 'white'
     },
 
     packButtonText: {
         alignSelf: 'center',
+        fontSize: 14,
+        color: '#E2E2E2',
+        textAlign: 'center'
+        
+    },
+
+    packButtonCost: {
+        alignSelf: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#E2E2E2',
+        textAlign: 'center'
     },
 
     packError: {
         alignSelf: 'center',
-        padding: 30
+        padding: 30,
+        textAlign: 'center'
     },
 
     libView: {
