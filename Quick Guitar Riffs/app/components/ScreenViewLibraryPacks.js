@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, BackHandler, ImageBackground, TouchableOpacity, View } from 'react-native';
+import { AppRegistry, BackHandler, ImageBackground, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { Header, Left, Right, Body, Container, Button, Icon, Text } from 'native-base';
 import commons, {styles} from './common';
 import { connect } from 'react-redux';
@@ -7,9 +7,23 @@ import * as RNIap from 'react-native-iap';
 
 class ScreenViewLibraryPacks extends Component {
 
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            checkingProducts: false
+        };
+      }
+
     componentDidMount() {
         RNIap.initConnection();
         BackHandler.addEventListener('hardwareBackPress', this.BackToMainMenu);
+
+        if(!this.props.productsLoaded) {
+            this.IAP_Init();
+            this.IAP_RestorePurchases();
+            this.state.checkingProducts = true;
+        }
         return true;
     }
 
@@ -18,6 +32,46 @@ class ScreenViewLibraryPacks extends Component {
         BackHandler.removeEventListener('hardwareBackPress', this.BackToMainMenu);
         return true;
     }
+
+    async IAP_Init() {
+        
+        try {
+            const products = await RNIap.getProducts(itemSkus);
+            console.log('Products', products);
+            this.props.setProducts(products);
+        } catch(err) {
+            console.warn(err); // standardized err.code and err.message available
+        }
+      }
+    
+      async IAP_RestorePurchases(showAlert = false) {
+    
+          try {
+              const purchases = await RNIap.getAvailablePurchases();
+              purchases.forEach(purchase => {
+                  if (purchase.productId === 'com.hugewall.quickguitarriffs.unlockall') {
+                      this.props.setPack1(true);
+                      this.forceUpdate();
+                  }
+                  else {
+                    this.props.setPack1(false);
+                    this.forceUpdate();
+                  }
+                  if (purchase.productId === 'com.hugewall.quickguitarriffs.pack2') {
+                    this.props.setPack2(true);
+                    this.forceUpdate();
+                }
+                else {
+                    this.props.setPack2(false);
+                    this.forceUpdate();
+                }
+              })
+          } catch(err) {
+              console.warn(err); // standardized err.code and err.message available
+              //Alert.alert(err.message);
+          }
+          this.forceUpdate();
+      }
     
     IAP_EndConnection() {
         RNIap.endConnection();
@@ -33,6 +87,25 @@ class ScreenViewLibraryPacks extends Component {
         return true;
     }
 
+    SetCost(productID, hasBought) {
+
+        var disp = null;
+
+        this.props.products.forEach(prod => {
+
+            if(prod.productId === productID) {
+
+                if(hasBought) {
+                    disp = <Text allowFontScaling={false} style={styles.packButtonCost_Bought}>PURCHASED!</Text>
+                }
+                else {
+                    disp = <Text allowFontScaling={false} style={styles.packButtonCost_NotBought}>{prod.localizedPrice}</Text>
+                }
+            }
+        }); 
+        return disp;  
+    }
+
     RenderProductInfo() {
         disp = null;
 
@@ -44,24 +117,9 @@ class ScreenViewLibraryPacks extends Component {
             return disp;
         }
 
-        var pCost1 = "";
-        var pCost2 = "";
-
-        this.props.products.forEach(prod => {
-
-            if(prod.productId === 'com.hugewall.quickguitarriffs.unlockall') {
-                pCost1 = prod.localizedPrice;
-            }
-            else if(prod.productId === 'com.hugewall.quickguitarriffs.pack2') {
-                pCost2 = prod.localizedPrice;
-            }
-        });
-
         disp =
         <Container>
-            <View style={styles.packDescView}>
-                <Text style={styles.packDescText}>Click on a pack to view the details of its song library!</Text>
-            </View>
+
             
             <TouchableOpacity
                 style={styles.packButton} 
@@ -70,7 +128,7 @@ class ScreenViewLibraryPacks extends Component {
                     <ImageBackground source={require('../img/PackEssential.jpg')} style={styles.packButtonBG}>
                         <Text style={styles.packButtonTitle}>THE ESSENTIAL PACK</Text>
                         <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 130 Songs</Text>
-                        <Text allowFontScaling={false} style={styles.packButtonCost}>{pCost1}</Text>
+                        {this.SetCost('com.hugewall.quickguitarriffs.unlockall', this.props.pack1)}
                     </ImageBackground>
               </TouchableOpacity>
 
@@ -81,7 +139,7 @@ class ScreenViewLibraryPacks extends Component {
                     <ImageBackground source={require('../img/PackExtended.jpg')} style={styles.packButtonBG}>
                         <Text style={styles.packButtonTitle}>THE EXTENDED PACK</Text>
                         <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 60 Songs</Text>
-                        <Text allowFontScaling={false} style={styles.packButtonCost}>{pCost2}</Text>
+                        {this.SetCost('com.hugewall.quickguitarriffs.pack2', this.props.pack2)}
                     </ImageBackground>
               </TouchableOpacity>
         </Container>
@@ -90,6 +148,21 @@ class ScreenViewLibraryPacks extends Component {
     }
 
     render() {
+
+        if(!this.props.productsLoaded)
+        {
+            let disp = 
+                <View style={{paddingTop:20}}>
+                    <ActivityIndicator size="small" color="#0000ff" />
+                    <Text style={{alignSelf:'center', paddingTop:4}}>Loading...</Text>
+                </View>
+
+                setTimeout(() => {
+                    this.forceUpdate();
+                }, 100);
+
+                return disp;
+        }
         return (
             <Container>
                <Header style={styles.riffHeaderBG}>
@@ -115,7 +188,10 @@ class ScreenViewLibraryPacks extends Component {
 };
 
 const mapStateToProps = state => ({
-    products: state.songlist.products
+    products: state.songlist.products,
+    productsLoaded: state.songlist.products_loaded,
+    pack1: state.songlist.pack1,
+    pack2: state.songlist.pack2,
   });
   
 export default connect(mapStateToProps, {})(ScreenViewLibraryPacks);

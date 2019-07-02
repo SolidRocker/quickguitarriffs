@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, Alert, StatusBar, AsyncStorage, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
 import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, Button, Icon, Text} from 'native-base';
-import { setPack1, setPack2, setSongs } from '../redux/songlistActions';
+import { setPack1, setPack2, setSongs, setProducts } from '../redux/songlistActions';
 import { connect } from 'react-redux';
 
 import commons, {styles} from './common';
@@ -26,7 +26,6 @@ class ScreenMainMenu extends Component{
 
     this.state = {
      riffID: 0,
-     productList : [],
      AdsStuff: new AdsRelated(),
      notificationSeconds: 5,
      sideBarCoverRatio: 0.8,
@@ -45,7 +44,7 @@ class ScreenMainMenu extends Component{
     AppState.addEventListener('change', this.handleAppStateChange);
 
     // IAP
-    if(!this.props.checked_pack1 || !this.props.checked_pack2) {
+    if(!this.props.productsLoaded) {
       this.IAP_Init();
       this.IAP_RestorePurchases();
     }
@@ -73,7 +72,7 @@ class ScreenMainMenu extends Component{
     try {
         const products = await RNIap.getProducts(itemSkus);
         console.log('Products', products);
-        this.setState({ productList: products });
+        this.props.setProducts(products);
     } catch(err) {
         console.warn(err); // standardized err.code and err.message available
     }
@@ -367,8 +366,9 @@ const mapStateToProps = state => ({
   pack1: state.songlist.pack1,
   pack2: state.songlist.pack2,
   checked_pack1: state.songlist.checked_pack1,
-  checked_pack2: state.songlist.checked_pack2
+  checked_pack2: state.songlist.checked_pack2,
+  productsLoaded: state.songlist.products_loaded
 });
 
-export default connect(mapStateToProps, {setPack1, setPack2, setSongs})(ScreenMainMenu);
+export default connect(mapStateToProps, {setPack1, setPack2, setSongs, setProducts})(ScreenMainMenu);
 AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenMainMenu);

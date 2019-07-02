@@ -15,7 +15,6 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-native": "^0.59.9",
-    "react-native-admob": "^2.0.0-beta.5",
     "react-native-firebase": "^5.5.3",
     "react-native-iap": "^2.5.5",
     "react-native-pinch-zoom-view": "^0.2.0",

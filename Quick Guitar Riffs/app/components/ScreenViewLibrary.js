@@ -14,6 +14,7 @@ class ScreenViewLibrary extends Component {
         this.timeOut = null;
         this.state = {
             packID : this.props.navigation.getParam('rPackID'),
+            packName: '',
             packSize: 0,
             listLoadStage: 0
         }
@@ -22,9 +23,11 @@ class ScreenViewLibrary extends Component {
     componentDidMount() {
 
         if(this.state.packID == 1) {
+            this.state.packName = 'com.hugewall.quickguitarriffs.unlockall';
             this.state.packSize = Pack1_Song.length;
         }
         else if(this.state.packID == 2) {
+            this.state.packName = 'com.hugewall.quickguitarriffs.pack2';
             this.state.packSize = Pack2_Song.length;
         }
         RNIap.initConnection();
@@ -40,33 +43,16 @@ class ScreenViewLibrary extends Component {
 
     async IAP_BuyItem() {
 
-        if(packID == 1) {
-
-            try {
-                RNIap.initConnection();
-                const purchase = await RNIap.buyProduct('com.hugewall.quickguitarriffs.unlockall');
-                this.setState({ receipt: purchase.transactionReceipt});
-                this.setPack1(true);
-                this.props.navigation.state.params.rUpdateBuy();
-                this.props.navigation.navigate('ScreenAfterBuy');
-            } catch (err) {
-                console.warn(err.code, err.message);
-                Alert.alert(err.message);
-            }
-        }
-        if(packID == 2) {
-
-            try {
-                RNIap.initConnection();
-                const purchase = await RNIap.buyProduct('com.hugewall.quickguitarriffs.pack2');
-                this.setState({ receipt: purchase.transactionReceipt});
-                this.setPack2(true);
-                this.props.navigation.state.params.rUpdateBuy();
-                this.props.navigation.navigate('ScreenAfterBuy');
-            } catch (err) {
-                console.warn(err.code, err.message);
-                Alert.alert(err.message);
-            }
+        try {
+            RNIap.initConnection();
+            const purchase = await RNIap.buyProduct(this.state.packName);
+            this.setState({ receipt: purchase.transactionReceipt});
+            this.setPack1(true);
+            this.props.navigation.state.params.rUpdateBuy();
+            this.props.navigation.navigate('ScreenAfterBuy');
+        } catch (err) {
+            console.warn(err.code, err.message);
+            Alert.alert(err.message);
         }
     }
     

@@ -322,13 +322,8 @@ export const styles = StyleSheet.create({
     },
 
     packButton: {
-        height: '40%',
-        width: '90%',
-        marginTop: 15,
-
-        borderRadius: 4,
-        borderStyle: 'solid',
-        borderWidth: 2,
+        height: '50%',
+        width: '100%',
 
         alignSelf: 'center',
         justifyContent: 'center',
@@ -361,11 +356,19 @@ export const styles = StyleSheet.create({
         
     },
 
-    packButtonCost: {
+    packButtonCost_NotBought: {
         alignSelf: 'center',
         fontSize: 20,
         fontWeight: 'bold',
         color: '#E2E2E2',
+        textAlign: 'center'
+    },
+
+    packButtonCost_Bought: {
+        alignSelf: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FFC33D',
         textAlign: 'center'
     },
 

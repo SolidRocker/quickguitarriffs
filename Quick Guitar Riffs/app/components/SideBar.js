@@ -150,9 +150,9 @@ export default class SideBar extends Component {
               <Text style={styles.sidebarText} allowFontScaling={false} selectable={true}>Restore</Text>
             </ListItem>*/}
             {/*this.ShowBuyBtn()*/}
-            {/*<ListItem onPress={()=>{this.IAP_ConsumeProds()}}>
+            {<ListItem onPress={()=>{this.IAP_ConsumeProds()}}>
               <Text style={styles.sidebarText} allowFontScaling={false} selectable={true}>Consume (TEST PURPOSE)</Text>
-            </ListItem>*/}
+            </ListItem>}
           </List>
         </Content>
       </Container>

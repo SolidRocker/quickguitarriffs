@@ -20,7 +20,8 @@ const songlist = {
     fb_app: null,
     isfbInit: false,
 
-    products: []
+    products: [],
+    products_loaded: false
 }
 
 export default function(state = songlist, action) {
@@ -57,7 +58,8 @@ export default function(state = songlist, action) {
         case SET_PRODUCTS:
         return {
             ...state,
-            products: action.payload
+            products: action.payload,
+            products_loaded: action.payload_bool
         }
         default:
             return state;

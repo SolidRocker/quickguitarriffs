@@ -91,6 +91,8 @@ export const initFirebase = () => dispatch => {
 export const setProducts = (products) => dispatch => {
 
     let prodlist = [];
+    let prodlist_bool = false;
+
     for(var i = 0; i < products.length; ++i) {
 
         let newProd = {
@@ -101,10 +103,12 @@ export const setProducts = (products) => dispatch => {
             localizedPrice: products[i].localizedPrice
         }
         prodlist.push(newProd);
+        prodlist_bool = true;
     }
 
     dispatch({
         type: SET_PRODUCTS,
-        payload: prodlist
+        payload: prodlist,
+        payload_bool: prodlist_bool
     });
 }
