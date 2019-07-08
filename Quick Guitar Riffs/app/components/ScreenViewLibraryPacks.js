@@ -119,8 +119,6 @@ class ScreenViewLibraryPacks extends Component {
 
         disp =
         <Container>
-
-            
             <TouchableOpacity
                 style={styles.packButton} 
                 activeOpacity={0.8}

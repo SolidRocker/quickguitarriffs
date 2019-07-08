@@ -344,13 +344,13 @@ export const styles = StyleSheet.create({
         marginTop: 5,
         alignSelf: 'center',
         fontFamily: 'Roboto',
-        fontSize: 30,
+        fontSize: commons.IsTablet() ? 50 : 30,
         color: 'white'
     },
 
     packButtonText: {
         alignSelf: 'center',
-        fontSize: 14,
+        fontSize: commons.IsTablet() ? 22 : 14,
         color: '#E2E2E2',
         textAlign: 'center'
         
@@ -358,7 +358,7 @@ export const styles = StyleSheet.create({
 
     packButtonCost_NotBought: {
         alignSelf: 'center',
-        fontSize: 20,
+        fontSize: commons.IsTablet() ? 30 : 20,
         fontWeight: 'bold',
         color: '#E2E2E2',
         textAlign: 'center'
@@ -366,7 +366,7 @@ export const styles = StyleSheet.create({
 
     packButtonCost_Bought: {
         alignSelf: 'center',
-        fontSize: 20,
+        fontSize: commons.IsTablet() ? 30 : 20,
         fontWeight: 'bold',
         color: '#FFC33D',
         textAlign: 'center'
