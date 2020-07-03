@@ -375,13 +375,13 @@ class ScreenRiff extends Component{
           </Right>
         </Header>
 
-        <View onLayout={e => this.onLayout(e)} style={{flex:1}}>
+        <View onLayout={e => this.onLayout(e)} style={styles.riffMainView}>
         {loadSpinner}
         <ScrollView maximumZoomScale={3} minimumZoomScale={1}>
         
           <View style={styles.riffCardView}>
             <Card style={styles.riffCard}>
-              <View style={{backgroundColor:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol, borderBottomColor:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol, borderBottomWidth:7}}></View>
+              <View style={{borderBottomColor:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol, borderBottomWidth:7, borderTopLeftRadius: 8, borderTopRightRadius: 8}}></View>
               
               <Text style={[styles.songTitle, {color:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol}]}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song}</Text>
               <Text style={styles.songArtist}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist.toUpperCase()}</Text>     

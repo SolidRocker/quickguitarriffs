@@ -106,7 +106,7 @@ export default class ScreenSuggestSongs extends Component {
     }
 
     PickerList = (cName) => {
-        return <Picker.Item key={this.state.cCount++} label={cName} value={cName} />
+        return <Picker.Item style={styles.countryPickerItem} key={this.state.cCount++} label={cName} value={cName} />
     }
 
     CheckCountryInput(sVal) {
@@ -183,7 +183,7 @@ export default class ScreenSuggestSongs extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={styles.pageColor}>
                <Header style={styles.riffHeaderBG}>
                     {commons.ChangeStatusBar()}
                     <Left>
@@ -200,7 +200,7 @@ export default class ScreenSuggestSongs extends Component {
                     </Right>
                 </Header>
 
-                <Container>
+                <Container style={styles.pageColor}>
                     <ScrollView>
 
                         <Text style={{ paddingTop: 5 }}></Text>
@@ -208,14 +208,14 @@ export default class ScreenSuggestSongs extends Component {
                         <Text style={styles.suggestQuestions} allowFontScaling={false} selectable={true}>Where are you from?</Text>
 
                         <View style={styles.suggestAnswers}>
-                            <Item regular >
+                            <Item regular style={{borderRadius: 8}}>
                                 <Picker
                                     mode="dropdown"
                                     iosIcon={<Icon name="ios-arrow-down-outline"/>}
                                     placeholder={this.state.countrySelected == '' ? "Country" : this.state.countrySelected}
-                                    placeholderStyle={{ color: "#bfc6ea" }}
-                                    placeholderIconColor="#007aff"
-                                    style={{width:Dimensions.get('window').width-25}}
+                                    placeholderStyle={{ color: "#BFC6EA" }}
+                                    placeholderIconColor="#007AFF"
+                                    style={styles.countryPicker}
                                     onValueChange={this.CheckCountryInput.bind(this)}
                                     selectedValue={this.state.countrySelected}
                                 >
@@ -230,7 +230,7 @@ export default class ScreenSuggestSongs extends Component {
                             <Textarea style={styles.suggestAnswers} maxLength={250} onChangeText={val => { this.CheckSongsInput(val) }} rowSpan={4} bordered placeholder="Songs/Artists" />
                         </View>
 
-                        <Button warning style={{ alignSelf: 'center' }} title="submit" disabled={this.IsButtonDisabled()} onPress={() => this.SubmitSongs()}>
+                        <Button dark style={{ alignSelf: 'center', borderRadius: 10}} title="submit" disabled={this.IsButtonDisabled()} onPress={() => this.SubmitSongs()}>
                             <Text allowFontScaling={false}>Submit</Text>
                         </Button>
 

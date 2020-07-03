@@ -42,7 +42,7 @@ export default class ScreenSuggestConfirm extends Component {
                         <Text allowFontScaling={false} style={styles.suggestConfirmHeader}>PURCHASE SUCCESSFUL</Text>
                         <Text style={styles.suggestConfirm}>Thank you for supporting us! We hope you enjoy using Quick Guitar Riffs! Rock on \m/</Text>
 
-                        <Button warning style={{ alignSelf: 'center' }} title="submit" onPress={() => this.BackToMainMenu()}>
+                        <Button dark style={{ alignSelf: 'center' }} title="submit" onPress={() => this.BackToMainMenu()}>
                             <Text allowFontScaling={false}>Back To Main Menu</Text>
                         </Button>
                 </View>

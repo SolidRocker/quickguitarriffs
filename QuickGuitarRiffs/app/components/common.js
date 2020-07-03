@@ -2,6 +2,19 @@ import React from 'react';
 import {Platform, StatusBar, Alert, Dimensions, StyleSheet, View, Image} from 'react-native';
 import {Right, Icon} from 'native-base';
 
+var fontHeader = "GothamNarrow-Black";
+var fontSubHeader = "Gotham-Medium";
+var fontTextGotham = "Gotham-Book";
+var fontTextRoboto = "roboto";
+
+var mainWhite = '#F3F5FF';
+var mainRed = '#EA4335';
+var mainBlack = '#08090A';
+var mainGrey = '#E4E6F0';
+
+var subRed = '#F5AD73';
+var mainDarkGrey = '#B3B5BD';
+
 const commons = {
     ChangeStatusBar() {
         return <StatusBar backgroundColor="#151515" barStyle="light-content"/>
@@ -122,32 +135,161 @@ const commons = {
 }
 
 export const styles = StyleSheet.create({
+
+    buttonStyle: {
+         alignSelf: 'center',
+         backgroundColor: mainBlack,
+         color: mainBlack
+    },
+
     splash: {
         resizeMode:'contain',
         width:'100%',
         height:'100%'
     },
 
+    pageColor: {
+        backgroundColor: mainWhite
+    },
+
+    mainMenuHeaderLeft: {
+        color: mainRed,
+    },
+
+    mainMenuHeaderBody: {
+        alignItems:'center',
+        alignSelf: 'center',
+        color: mainRed
+    },
+
+    quoteContent: {
+        fontFamily: fontHeader,
+        fontSize: 60,
+        textAlign: 'left',
+        paddingHorizontal: 8,
+        paddingTop: 40,
+        color: mainBlack
+    },
+
+    quotePerson: {
+        fontFamily: fontSubHeader,
+        fontSize: 20,
+        textAlign: 'left',
+        paddingHorizontal: 8,
+        paddingTop: 5,
+        color: mainBlack
+    },
+
+    mainMenuInstr: {
+        fontFamily: fontTextGotham,
+        fontSize: 14,
+        textAlign: 'left',
+        paddingHorizontal: 8,
+        paddingTop: 30,
+        paddingBottom: 10,
+        color: '#808080'
+    },
+
+    mainMenuButtonTouch: {
+        //textAlign: 'left',
+        flex: 1,
+        flexDirection: 'column'
+    },
+
+    mainMenuButtonContainer: {
+        borderRadius: 8,
+        backgroundColor: mainBlack,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingLeft: 20,
+        paddingRight: 10,
+        paddingTop: 18,
+        paddingBottom: 20
+    },
+
+    mainMenuSubContainer: {
+        flexDirection: "column",
+    },
+
+    subMenuContainer: {
+        backgroundColor: mainWhite
+    },
+
+    subMenuHeader: {
+        fontFamily: fontHeader,
+        fontSize: 40,
+        textAlign: 'left',
+        paddingHorizontal: 20,
+        paddingTop: 30,
+        marginBottom: 20,
+        color: mainBlack
+    },
+
+    mainMenuButtonTextTitle: {
+        color: mainWhite,
+        fontFamily: fontHeader,
+        fontSize: 20,
+        textAlign: 'left',
+        alignSelf: 'stretch',
+    },
+
+    mainMenuButtonTextDesc: {
+        color: mainWhite,
+        fontFamily: fontTextGotham,
+        fontSize: 11,
+        textAlign: 'left',
+        alignSelf: 'stretch',
+        flexWrap: 'wrap',
+    },
+
+    mainMenuButtonIcon: {
+        width: 45,
+        height: 45,
+        resizeMode: 'stretch'
+    },
+
     riffHeaderBG: {
-        backgroundColor: commons.GetStatusBarBGColor()
+        backgroundColor: mainWhite
     },
 
     riffHeader: {
-        fontFamily: "Roboto",
+        fontFamily: fontTextRoboto,
         fontSize: Platform.OS === 'ios' ? 14 : 16,
         textAlign: Platform.OS === 'ios' ? 'center' : 'left',
         alignSelf: 'stretch',
-        color: 'white'
+        color: mainBlack
     },
 
     menuListItem: {
         width:'100%',
+        height: 'auto',
+        resizeMode: 'contain',
         marginLeft:0,
-        paddingLeft:0,
+        paddingLeft:10,
         marginRight:0,
-        paddingRight:0,
+        paddingRight:10,
         paddingTop:0,
-        paddingBottom:0
+        paddingBottom:0,
+        marginBottom: 10
+    },
+
+    subMenuListItem: {
+        width:'100%',
+        height: 'auto',
+        resizeMode: 'contain',
+        marginLeft:0,
+        paddingLeft:10,
+        marginRight:0,
+        paddingRight:10,
+        paddingTop:0,
+        paddingBottom:0,
+        marginBottom: 15
+    },
+
+    riffMainView: {
+        flex: 1,
+        backgroundColor: mainWhite
     },
 
     riffCardView: {
@@ -156,10 +298,11 @@ export const styles = StyleSheet.create({
 
     riffCard: {
         backgroundColor: '#454545',
+        borderRadius: 10
     },
 
     songTitle:{
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontWeight: 'bold',
         fontSize: 26,
         paddingTop: 10,
@@ -170,7 +313,7 @@ export const styles = StyleSheet.create({
     },
 
     songArtist:{
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 14,
         paddingBottom: 8,
         paddingLeft: 12,
@@ -187,7 +330,7 @@ export const styles = StyleSheet.create({
     },
 
     songInfoTuning: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 15,
         textAlign: 'left',
         color: 'white'
@@ -201,21 +344,20 @@ export const styles = StyleSheet.create({
     },
 
     songInfoKey: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 15,
         textAlign: 'left',
         color: 'white'
     },
 
     gapTab:{
-        paddingTop: 10
+        marginTop: -10
     },
 
     songTab:{
         fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
         fontSize: commons.IsTablet() ? 15 : 12,
         fontWeight: '400',
-        paddingTop: 2,
         paddingLeft: 12,
         textAlign: 'left',
         alignSelf: 'flex-start',
@@ -239,6 +381,7 @@ export const styles = StyleSheet.create({
         width: commons.GetVideoWidth(),
         paddingLeft: 12,
         paddingBottom: 10,
+        backgroundColor: mainWhite
     },
 
     videoWebView: {
@@ -255,16 +398,30 @@ export const styles = StyleSheet.create({
         marginTop: (Platform.OS) === 'ios' ? 20 : 0
     },
 
+    chooselist_main: {
+        backgroundColor: mainWhite
+    },
+
+    chooselist_artist: {
+        backgroundColor: mainGrey,
+        color: mainWhite,
+        height: '130%'
+    },
+
     chooselist_artistName: {
-        fontFamily: "Roboto",
+        fontFamily: fontTextRoboto,
         fontSize: Platform.OS === 'ios' ? 12 : 14,
         textAlign: 'left',
         alignSelf: 'stretch',
-        color: 'grey'
+        color: 'grey',
+    },
+
+    chooselist_songItem: {
+        backgroundColor: mainWhite
     },
 
     chooselist_songName: {
-        fontFamily: "Roboto",
+        fontFamily: fontTextRoboto,
         fontSize: 14,
         textAlign: 'left',
         alignSelf: 'stretch',
@@ -284,7 +441,7 @@ export const styles = StyleSheet.create({
     },
 
     diffStarsBodyFirst: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 14,
         paddingBottom: 15,
         paddingLeft: 12,
@@ -294,14 +451,14 @@ export const styles = StyleSheet.create({
     },
 
     diffStarsBody: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 14,
         color: 'white'
     },
 
     riffIcon: {
         alignSelf: 'center',
-        color: '#EB9800'
+        color: mainRed
     },
 
     riffIconDisabled: {
@@ -314,13 +471,33 @@ export const styles = StyleSheet.create({
     },
 
     footerButtonText: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 11,
         color: 'white'
     },
 
     iconContainer: {
         flexDirection: 'row'
+    },
+
+    packMainContainer: {
+        backgroundColor: mainWhite
+    },
+
+    packContainer: {
+        marginTop: 40,
+        backgroundColor: mainWhite
+    },
+
+    packButtonContainer: {
+        borderRadius: 8,
+        backgroundColor: mainBlack,
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: '90%',
+        paddingVertical: 12,
+        marginBottom: 12
     },
 
     packDescView: {
@@ -334,14 +511,13 @@ export const styles = StyleSheet.create({
 
     packDescText: {
         textAlign: 'center',
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 15,
         color: 'black'
     },
 
     packButton: {
         width: '100%',
-        aspectRatio: 1.4,
         alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -360,24 +536,24 @@ export const styles = StyleSheet.create({
     packButtonTitle: {
         marginTop: 5,
         alignSelf: 'center',
-        fontFamily: 'Roboto',
-        fontSize: commons.IsTablet() ? 50 : 30,
+        fontFamily: fontHeader,
+        fontSize: commons.IsTablet() ? 50 : 25,
         color: 'white'
     },
 
     packButtonText: {
         alignSelf: 'center',
-        fontSize: commons.IsTablet() ? 22 : 14,
+        fontFamily: fontTextGotham,
+        fontSize: commons.IsTablet() ? 22 : 12,
         color: '#E2E2E2',
         textAlign: 'center'
-        
     },
 
     packButtonCost_NotBought: {
         alignSelf: 'center',
         fontSize: commons.IsTablet() ? 30 : 20,
         fontWeight: 'bold',
-        color: '#E2E2E2',
+        color: mainGrey,
         textAlign: 'center'
     },
 
@@ -385,7 +561,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: commons.IsTablet() ? 30 : 20,
         fontWeight: 'bold',
-        color: '#FFC33D',
+        color: subRed,
         textAlign: 'center'
     },
 
@@ -393,6 +569,44 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         padding: 30,
         textAlign: 'center'
+    },
+
+    libViewContainer: {
+        backgroundColor: mainWhite,
+        flex: 1
+    },
+
+    libViewButton: {
+        borderRadius: 8,
+        backgroundColor: mainRed,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingLeft: 20,
+        paddingRight: 10,
+        paddingTop: 18,
+        paddingBottom: 20,
+        marginHorizontal: 20,
+    },
+
+    libViewButtonDisabled: {
+        borderRadius: 8,
+        backgroundColor: mainDarkGrey,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingLeft: 20,
+        paddingRight: 10,
+        paddingTop: 18,
+        paddingBottom: 20,
+        marginHorizontal: 20,
+    },
+
+    libViewButtonText: {
+        fontFamily: fontHeader,
+        fontSize: Platform.OS === 'ios' ? 14 : 18,
+        fontWeight: 'bold',
+        color: mainWhite
     },
 
     libView: {
@@ -405,7 +619,7 @@ export const styles = StyleSheet.create({
     },
 
     libArtist: {
-        fontFamily: "Roboto",
+        fontFamily: fontTextRoboto,
         fontSize: Platform.OS === 'ios' ? 12 : 14,
         fontWeight: 'bold',
         
@@ -414,7 +628,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        color: '#EB9800',
+        //color: '#EB9800',
+        color: mainRed,
 
         paddingLeft: 5,
         paddingTop: 4,
@@ -426,7 +641,7 @@ export const styles = StyleSheet.create({
     },
 
     libSong: {
-        fontFamily: "Roboto",
+        fontFamily: fontTextRoboto,
         fontSize: Platform.OS === 'ios' ? 12 : 14,
         textAlign: 'center',
         alignSelf: 'stretch',
@@ -445,12 +660,12 @@ export const styles = StyleSheet.create({
     },
 
     libDesc: {
-        fontFamily: "Roboto",
+        fontFamily: fontTextRoboto,
         fontSize: commons.IsTablet() ? 20 : 16,
 
         textAlign: 'center',
         alignSelf: 'stretch',
-        color: 'black',
+        color: mainBlack,
 
         paddingLeft: 20,
         paddingRight: 20,
@@ -459,26 +674,46 @@ export const styles = StyleSheet.create({
         //backgroundColor: '#454545'
     },
 
+    countryPicker: {
+        width: Dimensions.get('window').width-25,
+        borderRadius: 8
+    },
+
+    countryPickerItem: {
+        backgroundColor: mainWhite
+    },
+
     suggestQuestions: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 15,
         paddingTop: 10,
         paddingLeft: 12,
         textAlign: 'left',
         alignSelf: 'stretch',
-        color: 'black'
+        color: 'black',
     },
 
     suggestAnswers: {
+        borderRadius: 8,
         paddingTop: 10,
         paddingBottom: 15,
         paddingLeft: 12,
         paddingRight: 12,
         alignSelf: 'stretch',
+        overflow: 'hidden'
+    },
+
+    suggestConfirmView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 30,
+        paddingRight: 30,
+        backgroundColor: mainWhite
     },
 
     suggestConfirmHeader: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 40,
         textAlign: 'center',
         alignSelf: 'stretch',
@@ -486,7 +721,7 @@ export const styles = StyleSheet.create({
     },
 
     suggestConfirm: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 15,
         paddingTop: 30,
         paddingBottom: 40,
@@ -496,7 +731,7 @@ export const styles = StyleSheet.create({
     },
 
     submitted: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 15,
         paddingTop: 3,
         paddingBottom: 14,
@@ -507,12 +742,12 @@ export const styles = StyleSheet.create({
     },
 
     sidebarText: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 14,
     },
 
     noConnection: {
-        fontFamily: 'Roboto',
+        fontFamily: fontTextRoboto,
         fontSize: 12,
         textAlign: 'center',
         alignSelf: 'stretch',

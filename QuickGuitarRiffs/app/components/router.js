@@ -33,7 +33,7 @@ let SlideFromRight = (index, position, width) => {
     outputRange: [width, 0, 0]
   })
   const slideFromRight = { transform: [{ translateX }] }
-  return slideFromRight
+  return slideFromRight;
 };
 
 const NavigationConfig = () => {

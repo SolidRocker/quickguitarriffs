@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import { InterstitialAd, BannerAd, TestIds, AdEventType } from '@react-native-firebase/admob';
 
-var isDebug = true;
+var isDebug = false;
 var bannerID = isDebug ? 'ca-app-pub-3940256099942544/6300978111' : 'ca-app-pub-8431641625411729/6880274713';
 var interID = isDebug ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8431641625411729/5602002004';
 
 export function DisplayBannerAd (shouldDisplay) {
     let disp = null;
-    console.log("SD: " + shouldDisplay);
+    //console.log("SD: " + shouldDisplay);
 
     if(shouldDisplay) {
         disp =

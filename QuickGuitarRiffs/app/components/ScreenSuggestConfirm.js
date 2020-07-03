@@ -28,23 +28,15 @@ export default class ScreenSuggestConfirm extends Component {
             <Container>
                  <Header style={styles.riffHeaderBG}>
                     {commons.ChangeStatusBar()}
-                    <Left>
-                    </Left>
-                    <Body>
-                        <Text allowFontScaling={false} style={styles.riffHeader}>Quick Guitar Riffs</Text>
-                    </Body>
-                    <Right>
-                    </Right>
                 </Header>
 
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingLeft: 30, paddingRight: 30}}>
+                <View style={styles.suggestConfirmView}>
+                    <Text allowFontScaling={false} style={styles.suggestConfirmHeader}>SENT SUCCESSFULLY</Text>
+                    <Text style={styles.suggestConfirm}>We've received your song suggestion! Thank you and hope you continue to enjoy Quick Guitar Riffs! Rock on \m/</Text>
 
-                        <Text allowFontScaling={false} style={styles.suggestConfirmHeader}>SENT SUCCESSFULLY</Text>
-                        <Text style={styles.suggestConfirm}>We've received your song suggestion! Thank you and hope you continue to enjoy Quick Guitar Riffs! Rock on \m/</Text>
-
-                        <Button warning style={{ alignSelf: 'center' }} title="submit" onPress={() => this.BackToMainMenu()}>
-                            <Text allowFontScaling={false}>Back To Main Menu</Text>
-                        </Button>
+                    <Button dark style={{ alignSelf: 'center', borderRadius: 10 }} title="submit" onPress={() => this.BackToMainMenu()}>
+                        <Text allowFontScaling={false}>Back To Main Menu</Text>
+                    </Button>
                 </View>
             </Container>
         );

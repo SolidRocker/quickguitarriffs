@@ -27,7 +27,7 @@ class ScreenSubMenu extends Component{
   BackToMainMenu = () => {
     this.props.navigation.navigate('ScreenMainMenu');
     return true;
-}
+  }
 
   AddMenuItem(item_) {
     let disp = null;
@@ -36,8 +36,46 @@ class ScreenSubMenu extends Component{
             style={{flex:1, aspectRatio:4.8}}
             activeOpacity={0.6}
             onPress={()=>this.DoStuffOnClick(item_)}>
-                <Image source={this.GetImageString(item_)} style={{flex:1, aspectRatio:4.8}} />
+              {this.GetButtonContent(item_)}
             </TouchableOpacity>
+    return disp;
+  }
+
+  GetButtonContent(item_) {
+
+    console.log(item_);
+    let header = "";
+    let desc = "";
+    let imgName = "";
+
+    if(item_ == "Beginner") {
+      header = "Beginner Riffs";
+      desc = "Simple riffs to stretch your hands!";
+    }
+    else if(item_ == "Intermediate") {
+      header = "Intermediate Riffs";
+      desc = "More riffs to jam on!";
+    }
+    else if(item_ == "Advanced") {
+      header = "Advanced Riffs";
+      desc = "Time to go crazy!";
+    }
+    else if(item_ == "All") {
+      header = "All Riffs";
+      desc = "A mash up of all types of riffs!";
+    }
+    else if(item_ == "ChooseRiff") {
+      header = "Choose A Riff";
+      desc = "Find your favourite riffs, or discover new songs!";
+    }
+
+    let disp =  <View style={styles.mainMenuButtonContainer}>
+                  <View style={styles.mainMenuSubContainer}>
+                    <Text style={styles.mainMenuButtonTextTitle}>{header}</Text>
+                    <Text style={styles.mainMenuButtonTextDesc} numberOfLines={2}>{desc}</Text>
+                  </View>
+                  <Image source={require("../img/guitarheadgrey.png")} style={styles.mainMenuButtonIcon} />
+                </View>
     return disp;
   }
 
@@ -101,6 +139,22 @@ class ScreenSubMenu extends Component{
     return "All Riffs";
   }
 
+  GetHeader() {
+    let header = "How do you want to shred today?";
+    if(this.state.menuType == 2) {
+      header = "How do you want to groove today?";
+    }
+    else if(this.state.menuType == 3) {
+      header = "How do you want to jam today?"
+    }
+
+    let disp =
+    <View>
+      <Text style={styles.subMenuHeader}>{header}</Text>
+    </View>
+    return disp;
+  }
+
   render() {
 
     // List of buttons in MainMenu
@@ -131,13 +185,14 @@ class ScreenSubMenu extends Component{
             </Right>
           </Header>
 
-          <Content>
+          <Content style={styles.subMenuContainer}>
+          {this.GetHeader()}
             <ScrollView>
             <List dataArray={menuItems}
               renderRow={(item) =>
                 <ListItem
-                style={styles.menuListItem}
-                title={item}>
+                  style={styles.subMenuListItem}
+                  title={item}>
                   {this.AddMenuItem(item)}
                 </ListItem>
               }>

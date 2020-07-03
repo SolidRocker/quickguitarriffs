@@ -68,11 +68,11 @@ class ScreenChooseList extends Component{
         this.state.currArtist = songBlock.Artist;
         var finalItem =
           <LazyloadView key={index} host="lazyload-list">
-          <Separator bordered> 
-            <Text style={styles.chooselist_artistName} allowFontScaling={false} key={index}>{this.state.currArtist}</Text>
-          </Separator>
+              <Separator bordered style={styles.chooselist_artist}> 
+                <Text style={styles.chooselist_artistName} allowFontScaling={false} key={index}>{this.state.currArtist}</Text>
+              </Separator>
 
-          {songItem}
+              {songItem}
           </LazyloadView>
       }
       else {
@@ -123,7 +123,7 @@ class ScreenChooseList extends Component{
           </Right>
         </Header>
       
-        <LazyloadScrollView contentContainerStyle={styles.content} name="lazyload-list">
+        <LazyloadScrollView style={styles.chooselist_main} contentContainerStyle={styles.content} name="lazyload-list">
           {this.RenderCurrentContents()}
         </LazyloadScrollView>
     </Container>

@@ -108,16 +108,16 @@ class ScreenViewLibrary extends Component {
         if( (this.state.packID == 1 && this.props.pack1) || 
             (this.state.packID == 2 && this.props.pack2) ||
             (this.state.packID == 3 && this.props.pack3)) {
-           return  "You ALREADY HAVE THESE RIFFS"
+           return  "YOU ALREADY HAVE THESE RIFFS"
         }
         return "GET THESE SONGS NOW!"
     }
 
     RenderGetPremiumButton() {
         var disp = 
-        <Button block warning title="submit" disabled={this.IsButtonDisabled()} onPress={() => this.IAP_BuyItem()}>
-            <Text allowFontScaling={false}>{this.GetPremiumButtonText()}</Text>
-        </Button>
+        <TouchableOpacity style={this.IsButtonDisabled() ? styles.libViewButtonDisabled : styles.libViewButton} disabled={this.IsButtonDisabled()} onPress={() => this.IAP_BuyItem()}>
+            <Text style={styles.libViewButtonText} allowFontScaling={false}>{this.GetPremiumButtonText()}</Text>
+        </TouchableOpacity>
         return disp;
     }
 
@@ -141,6 +141,7 @@ class ScreenViewLibrary extends Component {
                 {this.RenderCurrentContents()}
                 <Text style={styles.libDesc}>Add these {this.state.packSize} killer riffs into your collection!</Text>
                 {this.RenderGetPremiumButton()}
+                <View style={{marginBottom: 20}}></View>
             </ScrollView>
             
             this.state.listLoadStage = 2;
@@ -221,7 +222,7 @@ class ScreenViewLibrary extends Component {
                     </Right>
                 </Header>
 
-                <Container>
+                <Container style={styles.libViewContainer}>
                    {this.RenderMainStuff()}
                 </Container>
             </Container>

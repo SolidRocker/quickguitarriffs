@@ -133,15 +133,53 @@ class ScreenViewLibraryPacks extends Component {
     RenderProductInfo() {
         disp = null;
 
-        /*if(this.props.products.length == 0) {
+        if(this.props.products.length == 0) {
             disp =
-                <Container>
-                        <Text allowFontScaling={false} style={styles.packError}>Couldn't load packs. Please check your internet connection and try again!</Text>
+                <Container style={styles.packMainContainer}>
+                    <Text allowFontScaling={false} style={styles.packError}>Couldn't load packs. Please check your internet connection and try again!</Text>
                 </Container>
             return disp;
-        }*/
+        }
 
         disp =
+        <Content style={styles.packContainer}>
+            <ScrollView>
+                <TouchableOpacity
+                    style={styles.packButton} 
+                    activeOpacity={0.8}
+                    onPress={()=>this.GoToLib(1)}>
+                        <View style={styles.packButtonContainer}>
+                            <Text style={styles.packButtonTitle}>THE ESSENTIAL PACK</Text>
+                            <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 130 Guitar Songs</Text>
+                            {this.SetCost('com.hugewall.quickguitarriffs.unlockall', this.props.pack1)}
+                        </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.packButton} 
+                    activeOpacity={0.8}
+                    onPress={()=>this.GoToLib(2)}>
+                        <View style={styles.packButtonContainer}>
+                            <Text style={styles.packButtonTitle}>THE EXTENDED PACK</Text>
+                            <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 60 Guitar Songs</Text>
+                            {this.SetCost('com.hugewall.quickguitarriffs.pack2', this.props.pack2)}
+                        </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                style={styles.packButton} 
+                activeOpacity={0.8}
+                onPress={()=>this.GoToLib(3)}>
+                    <View style={styles.packButtonContainer}>
+                        <Text style={styles.packButtonTitle}>THE BASS GROOVE PACK</Text>
+                        <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 110 BASS Songs</Text>
+                        {this.SetCost('com.hugewall.quickguitarriffs.pack3', this.props.pack3)}
+                    </View>
+            </TouchableOpacity>
+            </ScrollView>
+        </Content>
+
+        /*disp =
         <Content>
         <ScrollView>
             <TouchableOpacity
@@ -177,7 +215,7 @@ class ScreenViewLibraryPacks extends Component {
                     </ImageBackground>
             </TouchableOpacity>
         </ScrollView>
-        </Content>
+        </Content>*/
 
         return disp;
     }

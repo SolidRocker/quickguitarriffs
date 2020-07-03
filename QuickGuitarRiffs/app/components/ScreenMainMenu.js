@@ -201,19 +201,77 @@ class ScreenMainMenu extends Component{
     }
   }
 
+  GetImageString(imgName) {
+
+    return <Image source={require("../img/bassheadgrey.png")} style={styles.mainMenuButtonIcon} />
+
+    switch(imgName) {
+      case 'Title':         return require('../img/Title.jpg');
+      //case 'Beginner':      return require('../img/Beginner.jpg');
+      //case 'Intermediate':  return require('../img/Intermediate.jpg');
+      //case 'Advanced':      return require('../img/Advanced.jpg');
+      //case 'All':           return require('../img/All.jpg');
+      //case 'ChooseRiff':    return require('../img/ChooseRiff.jpg');
+      case 'GuitarRiffs':    return require('../img/GuitarRiffs.jpg');
+      case 'BassRiffs':    return require('../img/BassRiffs.jpg');
+      case 'AllRiffs':    return require('../img/AllRiffs.jpg');
+      case 'SuggestSongs':  return require('../img/SuggestSongs.jpg');
+      case 'ViewLibrary':   return require('../img/View.jpg');
+      default:              return;
+    }
+    return;
+  }
+
+  GetButtonContent(item_) {
+
+    let header = "";
+    let desc = "";
+    let imgName = "";
+
+    if(item_ == "GuitarRiffs") {
+      header = "Guitar Riffs";
+      desc = "All the classic guitar riff to play!";
+    }
+    else if(item_ == "BassRiffs") {
+      header = "Bass Riffs";
+      desc = "All the groovy basslines to jam on!";
+    }
+    else if(item_ == "AllRiffs") {
+      header = "Guitar and Bass Riffs";
+      desc = "Everything mixed together for maximum fun!";
+    }
+    else if(item_ == "SuggestSongs") {
+      header = "Suggest Songs";
+      desc = "Have a favorite riff you want to share? Let us know!";
+    }
+    else if(item_ == "ViewLibrary") {
+      header = "View Additional Riffs";
+      desc = "A whole list of riffs you can add to your library!";
+    }
+
+    let disp =  <View style={styles.mainMenuButtonContainer}>
+                  <View style={styles.mainMenuSubContainer}>
+                    <Text style={styles.mainMenuButtonTextTitle}>{header}</Text>
+                    <Text style={styles.mainMenuButtonTextDesc} numberOfLines={2}>{desc}</Text>
+                  </View>
+                  <Image source={require("../img/guitarheadgrey.png")} style={styles.mainMenuButtonIcon} />
+                </View>
+    return disp;
+  }
+
   AddMenuItem(item_) {
     let disp = null;
 
     // Title does not need TouchableOpacity
     if(item_ == 'Title') {
-      disp =  <Image onPress={()=>this.IAP_TESTCHANGE()} source={this.GetImageString(item_)} style={{flex:1, aspectRatio:2.62}} />
+      //disp =  <Image onPress={()=>this.IAP_TESTCHANGE()} source={this.GetImageString(item_)} style={{flex:1, aspectRatio:2.62}} />
     }
     else {
-      disp =  <TouchableOpacity
-                style={{flex:1, aspectRatio:4.8}}
+      disp = <TouchableOpacity
+                style={styles.mainMenuButtonTouch}
                 activeOpacity={0.6}
                 onPress={()=>this.DoStuffOnClick(item_)}>
-                  <Image source={this.GetImageString(item_)} style={{flex:1, aspectRatio:4.8}} />
+                  {this.GetButtonContent(item_)}
               </TouchableOpacity>
     }
     return disp;
@@ -279,25 +337,6 @@ class ScreenMainMenu extends Component{
       });
   }
 
-  // Helper function to load image path
-  GetImageString(imgName) {
-    switch(imgName) {
-      case 'Title':         return require('../img/Title.jpg');
-      //case 'Beginner':      return require('../img/Beginner.jpg');
-      //case 'Intermediate':  return require('../img/Intermediate.jpg');
-      //case 'Advanced':      return require('../img/Advanced.jpg');
-      //case 'All':           return require('../img/All.jpg');
-      //case 'ChooseRiff':    return require('../img/ChooseRiff.jpg');
-      case 'GuitarRiffs':    return require('../img/GuitarRiffs.jpg');
-      case 'BassRiffs':    return require('../img/BassRiffs.jpg');
-      case 'AllRiffs':    return require('../img/AllRiffs.jpg');
-      case 'SuggestSongs':  return require('../img/SuggestSongs.jpg');
-      case 'ViewLibrary':   return require('../img/View.jpg');
-      default:              return;
-    }
-    return;
-  }
-
   CloseDrawer() {
     this.drawer._root.close();
     this.state.isDrawerOpen = false;
@@ -321,6 +360,15 @@ class ScreenMainMenu extends Component{
       this.ChangeRatio();
     }
     this.forceUpdate();*/
+  }
+
+  GetQuote() {
+    let disp =
+    <View>
+      <Text style={styles.quoteContent}>Grababrushandputonalilmakeup!</Text>
+      <Text style={styles.quotePerson}>- Serj Tankian</Text>
+    </View>
+    return disp;
   }
 
   render() {
@@ -353,28 +401,30 @@ class ScreenMainMenu extends Component{
           panCloseMask={1-this.state.sideBarCoverRatio}
           onClose={() => this.CloseDrawer()} >
 
-        <Container>
-          <Header style={styles.riffHeaderBG}>
+        <Container style={styles.pageColor}>
+          {<Header style={styles.riffHeaderBG}>
             {commons.ChangeStatusBar()}
-            <Left>
+            <Left style={{flex:1}}>
               <Button transparent>
-              <TouchableOpacity title={""} onPress={()=>this.OpenDrawer()}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-menu' : 'menu'} style={styles.riffIcon}/>
+              <TouchableOpacity title={""} onPress={()=>this.OpenDrawer()} >
+                <Icon name={Platform.OS === 'ios' ? 'ios-menu' : 'menu'} style={styles.mainMenuHeaderLeft}/>
               </TouchableOpacity>
               </Button>
             </Left>
-            <Body>
-              <Text allowFontScaling={false} style={styles.riffHeader}>Quick Guitar Riffs</Text>
+            <Body style={{flex:1}} >
+              <Icon name='ios-star' style={styles.mainMenuHeaderBody}/>
             </Body>
-            <Right>
+            <Right style={{flex:1}}>
             </Right>
-          </Header>
+            </Header>}
 
           <Content>
+            {this.GetQuote()}
+            <Text style={styles.mainMenuInstr}>Pick a category to get started!</Text>
             <ScrollView>
             <List dataArray={menuItems}
               renderRow={(item) =>
-                <ListItem
+                <ListItem icon
                 style={styles.menuListItem}
                 title={item}>
                   {this.AddMenuItem(item)}
@@ -382,7 +432,6 @@ class ScreenMainMenu extends Component{
               }>
             </List>
           </ScrollView>
-        
         </Content>
 
         {DisplayBannerAd(!this.props.pack1 && !this.props.pack2)}
