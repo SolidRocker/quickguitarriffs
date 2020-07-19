@@ -130,6 +130,14 @@ class ScreenViewLibraryPacks extends Component {
         return disp;  
     }
 
+    GetHeader() {    
+        let disp =
+        <View>
+          <Text style={styles.subMenuHeader}>Click on any pack to check out more riffs to jam to!</Text>
+        </View>
+        return disp;
+      }
+
     RenderProductInfo() {
         disp = null;
 
@@ -255,7 +263,11 @@ class ScreenViewLibraryPacks extends Component {
                     </Right>
                 </Header>
 
-                {this.RenderProductInfo()}
+                <Content style={styles.subMenuContainer}>
+                    {this.GetHeader()}
+                    {this.RenderProductInfo()}
+                </Content>
+                
             </Container>
         );
     }

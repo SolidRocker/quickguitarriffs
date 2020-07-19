@@ -5,7 +5,8 @@ import {
     SET_PACK_3,
     SET_CHOSE_LIST,
     SET_FIREBASE,
-    SET_PRODUCTS
+    SET_PRODUCTS,
+    SET_QUOTES
  } from './types';
     
 const songlist = {
@@ -23,7 +24,9 @@ const songlist = {
     isfbInit: false,
 
     products: [],
-    products_loaded: false
+    products_loaded: false,
+
+    quotes: []
 }
 
 export default function(state = songlist, action) {
@@ -67,6 +70,11 @@ export default function(state = songlist, action) {
             ...state,
             products: action.payload,
             products_loaded: action.payload_bool
+        }
+        case SET_QUOTES:
+        return {
+            ...state,
+            quotes: action.payload,
         }
         default:
             return state;

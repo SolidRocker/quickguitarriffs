@@ -164,7 +164,7 @@ export const styles = StyleSheet.create({
 
     quoteContent: {
         fontFamily: fontHeader,
-        fontSize: 60,
+        fontSize: 50,
         textAlign: 'left',
         paddingHorizontal: 8,
         paddingTop: 40,
@@ -177,7 +177,7 @@ export const styles = StyleSheet.create({
         textAlign: 'left',
         paddingHorizontal: 8,
         paddingTop: 5,
-        color: mainBlack
+        color: mainRed
     },
 
     mainMenuInstr: {
@@ -485,7 +485,7 @@ export const styles = StyleSheet.create({
     },
 
     packContainer: {
-        marginTop: 40,
+        marginTop: 20,
         backgroundColor: mainWhite
     },
 
@@ -538,7 +538,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: fontHeader,
         fontSize: commons.IsTablet() ? 50 : 25,
-        color: 'white'
+        color: mainWhite
     },
 
     packButtonText: {

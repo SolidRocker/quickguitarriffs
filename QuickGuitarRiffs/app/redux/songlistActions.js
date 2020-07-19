@@ -1,5 +1,5 @@
-import { SET_PACK_1, SET_PACK_2, SET_PACK_3, SET_SONGS, SET_CHOSE_LIST, SET_FIREBASE, SET_PRODUCTS } from './types';
-import { AllSongs } from '../data/T_DATA';
+import { SET_PACK_1, SET_PACK_2, SET_PACK_3, SET_SONGS, SET_CHOSE_LIST, SET_FIREBASE, SET_PRODUCTS, SET_QUOTES } from './types';
+import { AllSongs, AllQuotes } from '../data/T_DATA';
 import firebase from '@react-native-firebase/app';
 
 export const setPack1 = (hasBought) => dispatch => {
@@ -117,5 +117,24 @@ export const setProducts = (products) => dispatch => {
         type: SET_PRODUCTS,
         payload: prodlist,
         payload_bool: prodlist_bool
+    });
+}
+
+export const setQuotes = () => dispatch => {
+
+    let quoteList = [];
+
+    for(var i = 0; i < AllQuotes.length; ++i) {
+
+        let newQuote = {
+            quote: AllQuotes[i].quote,
+            artist: AllQuotes[i].artist
+        }
+        quoteList.push(newQuote);
+    }
+
+    dispatch({
+        type: SET_QUOTES,
+        payload: quoteList,
     });
 }

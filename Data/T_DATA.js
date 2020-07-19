@@ -9229,3 +9229,137 @@ export const Pack3_Song = [
 	"In The Midnight Hour",
 ];
 
+export const AllQuotes = [
+	{
+		"quote": "Works of art make rules; rules do not make works of art.",
+		"artist": "Claude Debussy"
+	},
+	{
+		"quote": "Mournful and yet grand is the destiny of the artist.",
+		"artist": "Franz Liszt"
+	},
+	{
+		"quote": "There was no one near to confuse me, so I was forced to become original.",
+		"artist": "Franz Joseph Haydn"
+	},
+	{
+		"quote": "A creative artist works on his next composition because he was not satisfied with his previous one.",
+		"artist": "Dmitri Shostakovich"
+	},
+	{
+		"quote": "I can't understand why people are frightened of new ideas. I'm frightened of the old ones.",
+		"artist": "John Cage"
+	},
+	{
+		"quote": "I would rather write 10,000 notes than a single letter of the alphabet.",
+		"artist": "Ludwig van Beethoven"
+	},
+	{
+		"quote": "The music is not in the notes, but in the silence between.",
+		"artist": "Wolfgang Amadeus Mozart"
+	},
+	{
+		"quote": "Imagination creates reality.",
+		"artist": "Richard Wagner"
+	},
+	{
+		"quote": "Musicians want to be the loud voice for so many quiet hearts.",
+		"artist": "Billy Joel"
+	},
+	{
+		"quote": "The wise musicians are those who play what they can master.",
+		"artist": "Duke Ellington"
+	},
+	{
+		"quote": "Be your own artist, and always be confident in what you're doing. If you're not going to be confident, you might as well not be doing it.",
+		"artist": "Aretha Franklin"
+	},
+	{
+		"quote": "A musician should only sound like what they do, and no two musicians sound the same. It's an individual-feel thing, you know?",
+		"artist": "Dave Grohl"
+	},
+	{
+		"quote": "Musicians don't retire; they stop when there's no more music in them.",
+		"artist": "Louis Armstrong"
+	},
+	{
+		"quote": "If everything was perfect, you would never learn and you would never grow.",
+		"artist": "Beyonce"
+	},
+	{
+		"quote": "Despite everything, no one can dictate who you are to other people.",
+		"artist": "Prince"
+	},
+	{
+		"quote": "I believe musicians have a duty, a responsibility to reach out, to share your love or pain with others.",
+		"artist": "James Taylor"
+	},
+	{
+		"quote": "The true beauty of music is that it connects people. It carries a message, and we, the musicians, are the messengers.",
+		"artist": "Roy Ayers"
+	},
+	{
+		"quote": "We're musicians. We make music for a living. It's that simple. Nothing else matters.",
+		"artist": "Eddie Van Halen"
+	},
+	{
+		"quote": "The goal is to try and make the perfect song. Which of course will never happen.",
+		"artist": "Chris Martin"
+	},
+	{
+		"quote": "You can't knock on opportunity's door and not be ready.",
+		"artist": "Bruno Mars"
+	},
+	{
+		"quote": "I'm trying to keep a level head. You have to be careful out in the world. It's so easy to get turned.",
+		"artist": "Elvis Presley"
+	},
+	{
+		"quote": "I decided long ago never to walk in anyone's shadow; if I fail, or if I succeed at least I did as I believe.",
+		"artist": "Whitney Houston"
+	},
+	{
+		"quote": "One thing I've learned is that I'm not the owner of my talent; I'm the manager of it.",
+		"artist": "Madonna"
+	},
+	{
+		"quote": "What's money? A man is a success if he gets up in the morning and goes to bed at night and in between does what he wants to do.",
+		"artist": "Bob Dylan"
+	},
+	{
+		"quote": "Time you enjoy wasting, was not wasted.",
+		"artist": "John Lennon"
+	},
+	{
+		"quote": "Do it again on the next verse, and people think you meant it.",
+		"artist": "Chet Atkins"
+	},
+	{
+		"quote": "Life is what happens when you're making other plans.",
+		"artist": "John Lennon"
+	},
+	{
+		"quote": "The beautiful thing about learning is that nobody can take it away from you.",
+		"artist": "BB King"
+	},
+	{
+		"quote": "You can't give up something you really believe in for financial reasons.",
+		"artist": "Robert Plant"
+	},
+	{
+		"quote": "To achieve great things, two things are needed; a plan, and not quite enough time.",
+		"artist": "Leonard Bernstein"
+	},
+	{
+		"quote": "Despite everything, no one can dictate who you are to other people.",
+		"artist": "Prince"
+	},
+	{
+		"quote": "Wanting to be someone else is a waste of the person you are.",
+		"artist": "Kurt Cobain"
+	},
+	{
+		"quote": "Until you're ready to look foolish, you'll never have the possibility of being great.",
+		"artist": "Cher"
+	},
+]

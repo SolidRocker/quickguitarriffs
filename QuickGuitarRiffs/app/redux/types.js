@@ -12,3 +12,5 @@ export const SET_CHOSE_LIST = 'SET_CHOSE_LIST';
 
 export const SET_FIREBASE = 'SET_FIREBASE';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
+
+export const SET_QUOTES = 'SET_QUOTES';

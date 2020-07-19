@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, Alert, StatusBar, AsyncStorage, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
 import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, Button, Icon, Text} from 'native-base';
-import { setPack1, setPack2, setPack3, setSongs, setProducts } from '../redux/songlistActions';
+import { setPack1, setPack2, setPack3, setSongs, setProducts, setQuotes } from '../redux/songlistActions';
 import { connect } from 'react-redux';
 
 import commons, {styles} from './common';
@@ -38,6 +38,7 @@ class ScreenMainMenu extends Component{
 
     // Load data
     this.LoadSongList();
+    this.LoadQuotes();
 
     // Push notifications
     this.configure();
@@ -199,6 +200,10 @@ class ScreenMainMenu extends Component{
     if(this.props.checked_pack1 && this.props.checked_pack2) {
       this.props.setSongs(this.props.pack1, this.props.pack2);
     }
+  }
+
+  async LoadQuotes() {
+      this.props.setQuotes();
   }
 
   GetImageString(imgName) {
@@ -363,12 +368,18 @@ class ScreenMainMenu extends Component{
   }
 
   GetQuote() {
-    let disp =
-    <View>
-      <Text style={styles.quoteContent}>Grababrushandputonalilmakeup!</Text>
-      <Text style={styles.quotePerson}>- Serj Tankian</Text>
-    </View>
-    return disp;
+    if(this.props.quotes && this.props.quotes.length > 0) {
+      let qMax = this.props.quotes.length;
+      let currQuote = Math.floor(Math.random() * qMax);
+
+      let disp =
+      <View>
+        <Text style={styles.quoteContent}>{this.props.quotes[currQuote].quote}</Text>
+        <Text style={styles.quotePerson}>- {this.props.quotes[currQuote].artist}</Text>
+      </View>
+      return disp;
+    }
+    return null;
   }
 
   render() {
@@ -446,6 +457,7 @@ class ScreenMainMenu extends Component{
 
 const mapStateToProps = state => ({
   songs: state.songlist.songs,
+  quotes: state.songlist.quotes,
   pack1: state.songlist.pack1,
   pack2: state.songlist.pack2,
   checked_pack1: state.songlist.checked_pack1,
@@ -453,5 +465,5 @@ const mapStateToProps = state => ({
   productsLoaded: state.songlist.products_loaded
 });
 
-export default connect(mapStateToProps, {setPack1, setPack2, setPack3, setSongs, setProducts})(ScreenMainMenu);
+export default connect(mapStateToProps, {setPack1, setPack2, setPack3, setSongs, setProducts, setQuotes})(ScreenMainMenu);
 AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenMainMenu);
