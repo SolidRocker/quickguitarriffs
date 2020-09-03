@@ -1,6 +1,7 @@
 import {createStackNavigator} from 'react-navigation-stack';
 
 import ScreenSplash from './ScreenSplash';
+import ScreenFirstUse from './ScreenFirstUse';
 import ScreenMainMenu from './ScreenMainMenu';
 import ScreenSubMenu from './ScreenSubMenu';
 import ScreenRiff from './ScreenRiff';
@@ -71,6 +72,7 @@ const NavigationConfig = () => {
 const RootStack = createStackNavigator(
   {
     ScreenSplash: {screen: ScreenSplash},
+    ScreenFirstUse: {screen: ScreenFirstUse},
     ScreenMainMenu: {screen: ScreenMainMenu},
     ScreenSubMenu: {screen: ScreenSubMenu},
     ScreenRiff: {screen: ScreenRiff},

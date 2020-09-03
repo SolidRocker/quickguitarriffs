@@ -8,6 +8,7 @@ import { CardStyleInterpolators } from '@react-navigation/stack';
 
 import { Root } from './app/components/router';
 import ScreenSplash from './app/components/ScreenSplash';
+import ScreenFirstUse from './app/components/ScreenFirstUse';
 import ScreenMainMenu from './app/components/ScreenMainMenu';
 import ScreenSubMenu from './app/components/ScreenSubMenu';
 import ScreenRiff from './app/components/ScreenRiff';
@@ -36,6 +37,10 @@ export default class QuickGuitarRiffs extends Component{
           >
             <Stack.Screen name="ScreenSplash"
                           component={ScreenSplash}
+                          options={{cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,}}
+                          />
+            <Stack.Screen name="ScreenFirstUse"
+                          component={ScreenFirstUse}
                           options={{cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,}}
                           />
             <Stack.Screen name="ScreenMainMenu"

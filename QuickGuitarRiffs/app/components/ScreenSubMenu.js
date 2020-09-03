@@ -43,7 +43,6 @@ class ScreenSubMenu extends Component{
 
   GetButtonContent(item_) {
 
-    console.log(item_);
     let header = "";
     let desc = "";
     let imgName = "";

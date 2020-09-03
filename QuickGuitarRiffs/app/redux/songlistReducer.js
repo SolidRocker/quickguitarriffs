@@ -22,6 +22,7 @@ const songlist = {
     choselist: null,
 
     isfbInit: false,
+    is_first_use: false,
 
     products: [],
     products_loaded: false,

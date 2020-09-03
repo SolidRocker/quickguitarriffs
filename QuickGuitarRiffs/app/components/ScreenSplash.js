@@ -4,7 +4,6 @@ import commons, {styles} from './common';
 import * as RNIap from 'react-native-iap';
 import { setPack1, setPack2, setPack3, initFirebase, setProducts} from '../redux/songlistActions';
 import { connect } from 'react-redux';
-import {InitInterstitial} from './adsRelated';
 
 const itemSkus = Platform.select({
     ios: [
@@ -29,6 +28,9 @@ class ScreenSplash extends Component{
             tmpCheck1: "0",
             tmpCheck2: "0",
             tmpCheck3: "0",
+
+            is_first_use: "0",
+            show_tutorial: false
         }
     }
 
@@ -52,6 +54,12 @@ class ScreenSplash extends Component{
         catch(error) {
         }
 
+        try {
+            this.state.is_first_use = await AsyncStorage.getItem('isFirstUse');
+        }
+        catch(error) {
+        }
+
         if(this.state.tmpCheck1 == null) {
             this.state.rPack1 = 0;
             AsyncStorage.setItem('bPack1', "0");
@@ -66,6 +74,11 @@ class ScreenSplash extends Component{
             this.state.rPack3 = 0;
             AsyncStorage.setItem('bPack3', "0");
         }
+
+        //if(this.state.is_first_use == null || this.state.is_first_use == "0") {
+            this.state.show_tutorial = true;
+            //AsyncStorage.setItem('isFirstUse', "1");
+        //}
     }
 
     async IAP_Init() {
@@ -138,7 +151,14 @@ class ScreenSplash extends Component{
             this.props.setPack1(this.state.rPack1);
             this.props.setPack2(this.state.rPack2);
             this.props.setPack3(this.state.rPack3);
-            this.props.navigation.navigate('ScreenMainMenu');
+
+            if(this.state.show_tutorial) {
+                this.props.navigation.navigate('ScreenFirstUse');
+                //this.props.navigation.navigate('ScreenMainMenu');
+            }
+            else {
+                this.props.navigation.navigate('ScreenMainMenu');
+            }
         }, 3000);
 
         // Debug
@@ -168,7 +188,7 @@ class ScreenSplash extends Component{
 const mapStateToProps = state => ({
     checked_pack1: state.songlist.checked_pack1,
     checked_pack2: state.songlist.checked_pack2,
-    checked_pack3: state.songlist.checked_pack3
+    checked_pack3: state.songlist.checked_pack3,
 });
 
 export default connect(mapStateToProps, {setPack1, setPack2, setPack3, initFirebase, setProducts})(ScreenSplash);

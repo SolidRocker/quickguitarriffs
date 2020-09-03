@@ -21,6 +21,15 @@ const itemSkus = Platform.select({
   ],
 });
 
+const BUTTONS = Object.freeze({
+  'Title': 1,
+  'GuitarRiffs': 2,
+  'BassRiffs': 3,
+  'AllRiffs': 4,
+  'SuggestSongs': 5,
+  'ViewLibrary': 6
+})
+
 class ScreenMainMenu extends Component{
   constructor(props) {
     super(props);
@@ -30,6 +39,9 @@ class ScreenMainMenu extends Component{
      notificationSeconds: 5,
      sideBarCoverRatio: 0.8,
      isDrawerOpen: false,
+
+     hasLoadedQuote: false,
+     isPressedDown: [false, false, false, false, false]
     };
     this.ChangeRatio();
   }
@@ -206,25 +218,59 @@ class ScreenMainMenu extends Component{
       this.props.setQuotes();
   }
 
+  GetTitleString(index) {
+    switch(index) {
+      case BUTTONS.Title: return 'Title';
+      case BUTTONS.GuitarRiffs: return 'GuitarRiffs';
+      case BUTTONS.BassRiffs: return 'BassRiffs';
+      case BUTTONS.AllRiffs: return 'AllRiffs';
+      case BUTTONS.SuggestSongs: return 'SuggestSongs';
+      case BUTTONS.ViewLibrary: return 'ViewLibrary';
+      default: return '';
+    }
+  }
+
   GetImageString(imgName) {
 
-    return <Image source={require("../img/bassheadgrey.png")} style={styles.mainMenuButtonIcon} />
-
     switch(imgName) {
-      case 'Title':         return require('../img/Title.jpg');
-      //case 'Beginner':      return require('../img/Beginner.jpg');
-      //case 'Intermediate':  return require('../img/Intermediate.jpg');
-      //case 'Advanced':      return require('../img/Advanced.jpg');
-      //case 'All':           return require('../img/All.jpg');
-      //case 'ChooseRiff':    return require('../img/ChooseRiff.jpg');
-      case 'GuitarRiffs':    return require('../img/GuitarRiffs.jpg');
-      case 'BassRiffs':    return require('../img/BassRiffs.jpg');
-      case 'AllRiffs':    return require('../img/AllRiffs.jpg');
-      case 'SuggestSongs':  return require('../img/SuggestSongs.jpg');
-      case 'ViewLibrary':   return require('../img/View.jpg');
-      default:              return;
+      case BUTTONS.GuitarRiffs:
+        if(!this.state.isPressedDown[0]) {
+          return require("../img/Icons/guitar-riffs.png");
+        }
+        else {
+          return require("../img/Icons/guitar-riffs-pressed.png");
+        }
+      case BUTTONS.BassRiffs:
+        if(!this.state.isPressedDown[1]) {
+          return require("../img/Icons/bass-riffs.png");
+        }
+        else {
+          return require("../img/Icons/bass-riffs-pressed.png");
+        }
+      case BUTTONS.AllRiffs:
+        if(!this.state.isPressedDown[2]) {
+          return require("../img/Icons/guitar-and-bass-riffs.png");
+        }
+        else {
+          return require("../img/Icons/guitar-and-bass-riffs-pressed.png");
+        }
+      case BUTTONS.SuggestSongs:
+        if(!this.state.isPressedDown[3]) {
+          return require("../img/Icons/suggest-songs.png");
+        }
+        else {
+          return require("../img/Icons/suggest-songs-pressed.png");
+        }
+      case BUTTONS.ViewLibrary:
+        if(!this.state.isPressedDown[4]) {
+          return require("../img/Icons/view-additional-riffs.png");
+        }
+        else {
+          return require("../img/Icons/view-additional-riffs-pressed.png");
+        }
+      default:
+        return;
     }
-    return;
   }
 
   GetButtonContent(item_) {
@@ -233,23 +279,23 @@ class ScreenMainMenu extends Component{
     let desc = "";
     let imgName = "";
 
-    if(item_ == "GuitarRiffs") {
+    if(item_ == BUTTONS.GuitarRiffs) {
       header = "Guitar Riffs";
       desc = "All the classic guitar riff to play!";
     }
-    else if(item_ == "BassRiffs") {
+    else if(item_ == BUTTONS.BassRiffs) {
       header = "Bass Riffs";
       desc = "All the groovy basslines to jam on!";
     }
-    else if(item_ == "AllRiffs") {
+    else if(item_ == BUTTONS.AllRiffs) {
       header = "Guitar and Bass Riffs";
       desc = "Everything mixed together for maximum fun!";
     }
-    else if(item_ == "SuggestSongs") {
+    else if(item_ == BUTTONS.SuggestSongs) {
       header = "Suggest Songs";
       desc = "Have a favorite riff you want to share? Let us know!";
     }
-    else if(item_ == "ViewLibrary") {
+    else if(item_ == BUTTONS.ViewLibrary) {
       header = "View Additional Riffs";
       desc = "A whole list of riffs you can add to your library!";
     }
@@ -259,23 +305,35 @@ class ScreenMainMenu extends Component{
                     <Text style={styles.mainMenuButtonTextTitle}>{header}</Text>
                     <Text style={styles.mainMenuButtonTextDesc} numberOfLines={2}>{desc}</Text>
                   </View>
-                  <Image source={require("../img/guitarheadgrey.png")} style={styles.mainMenuButtonIcon} />
+                  <Image source={this.GetImageString(item_)} style={styles.mainMenuButtonIcon} />
                 </View>
     return disp;
+  }
+
+  OnTouchButton(item_, isPressedDown_) {
+
+    let cIndex = item_ - 2;
+    if(cIndex < 1) {
+      cIndex = 0;
+    }
+    let items = [...this.state.isPressedDown];
+    items[cIndex] = isPressedDown_;
+    this.setState({isPressedDown: items});
   }
 
   AddMenuItem(item_) {
     let disp = null;
 
     // Title does not need TouchableOpacity
-    if(item_ == 'Title') {
-      //disp =  <Image onPress={()=>this.IAP_TESTCHANGE()} source={this.GetImageString(item_)} style={{flex:1, aspectRatio:2.62}} />
-    }
-    else {
+    if(item_ != BUTTONS.Title) {
+
       disp = <TouchableOpacity
                 style={styles.mainMenuButtonTouch}
                 activeOpacity={0.6}
-                onPress={()=>this.DoStuffOnClick(item_)}>
+                onPress={()=>this.DoStuffOnClick(item_)}
+                onPressIn={()=>this.OnTouchButton(item_, true)}
+                onPressOut={()=>this.OnTouchButton(item_, false)}
+                >
                   {this.GetButtonContent(item_)}
               </TouchableOpacity>
     }
@@ -284,43 +342,24 @@ class ScreenMainMenu extends Component{
 
   DoStuffOnClick = (btnName) => {
     switch(btnName) {
-      case 'Beginner':
-        this.GoToRiffs(0);
-        break;
 
-      case 'Intermediate':
-        this.GoToRiffs(1);
-        break;
-
-      case 'Advanced':
-        this.GoToRiffs(2);
-        break;
-
-      case 'All':
-        this.GoToRiffs(3);
-        break;
-
-      case 'GuitarRiffs':
+      case BUTTONS.GuitarRiffs:
         this.GoToSubMenu(1);
         break;
 
-      case 'BassRiffs':
+      case BUTTONS.BassRiffs:
         this.GoToSubMenu(2);
         break;
       
-      case 'AllRiffs':
+      case BUTTONS.AllRiffs:
         this.GoToSubMenu(3);
         break;
 
-      case 'ChooseRiff':
-        this.props.navigation.navigate('ScreenChooseList');
-        break;
-
-      case 'SuggestSongs':
+      case BUTTONS.SuggestSongs:
         this.props.navigation.navigate('ScreenSuggestSongs');
         break;
 
-      case 'ViewLibrary':
+      case BUTTONS.ViewLibrary:
         this.props.navigation.navigate('ScreenViewLibraryPacks');
         break;
 
@@ -370,7 +409,12 @@ class ScreenMainMenu extends Component{
   GetQuote() {
     if(this.props.quotes && this.props.quotes.length > 0) {
       let qMax = this.props.quotes.length;
-      let currQuote = Math.floor(Math.random() * qMax);
+      let currQuote = 0;
+      
+      if(this.state.hasLoadedQuote) {
+        Math.floor(Math.random() * qMax);
+        this.setState({hasLoadedQuote: true});
+      }
 
       let disp =
       <View>
@@ -386,21 +430,18 @@ class ScreenMainMenu extends Component{
 
     // List of buttons in MainMenu
     var menuItems = [
-      'Title',
-      /*'Beginner',
-      'Intermediate',
-      'Advanced',
-      'All',
-      'ChooseRiff',*/
-      'GuitarRiffs',
-      'BassRiffs',
-      'AllRiffs',
-      'SuggestSongs',
-      'ViewLibrary'
+      BUTTONS.Title,
+      BUTTONS.GuitarRiffs,
+      BUTTONS.BassRiffs,
+      BUTTONS.AllRiffs,
+      BUTTONS.SuggestSongs,
+      BUTTONS.ViewLibrary
     ];
 
     return(
-        <Container onLayout={e => this.onLayout(e)}>
+        <Container
+          onLayout={e => this.onLayout(e)}
+        >
 
         <Drawer
           ref={(ref) => { this.drawer = ref; }}
@@ -437,7 +478,7 @@ class ScreenMainMenu extends Component{
               renderRow={(item) =>
                 <ListItem icon
                 style={styles.menuListItem}
-                title={item}>
+                title={this.GetTitleString(item)}>
                   {this.AddMenuItem(item)}
                 </ListItem>
               }>

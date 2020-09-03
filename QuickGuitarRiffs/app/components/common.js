@@ -116,6 +116,11 @@ const commons = {
         return true;
     },
 
+    DebugShowScreenDimension() {
+        console.log("W: " + Dimensions.get('window').width);
+        console.log("H: " + Dimensions.get('window').height);
+    },
+
     GetVideoWidth() {
         if(this.IsPortrait())
             return Dimensions.get('window').width * 0.75;
@@ -152,6 +157,136 @@ export const styles = StyleSheet.create({
         backgroundColor: mainWhite
     },
 
+    introPageContainer: {
+        backgroundColor: mainBlack,
+        width:'100%',
+        height: '100%',
+    },
+
+    introPageFooter: {
+        backgroundColor: mainBlack,
+        width: '100%',
+        marginBottom: 36
+    },
+
+    introEmpty: {
+        width: '100%',
+    },
+
+    introPageEmptyTop: {
+        flex: 4
+    },
+
+    introPageImages: {
+        //backgroundColor: mainWhite,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 5,
+    },
+
+    introPageDots: {
+        //backgroundColor: mainRed,
+        justifyContent: 'flex-start',
+        marginTop: 40,
+        flex: 1
+    },
+
+    introPageText: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        flex: 3
+    },
+
+    introPageMainImgView: {
+        zIndex: 5
+    },
+
+    introPageBGImgView: {
+        marginBottom: '5%'
+    },
+
+    introCircle: {
+        resizeMode: "center",
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 40,
+    },
+
+    introMainImg: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        resizeMode: 'contain',
+
+        width: '22%',
+        left: '4%',
+        bottom : 0,
+        marginBottom: '6%'
+    },
+
+    introBGImg: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        resizeMode: 'contain',
+
+        width: '40%',
+        left: '-16%',
+        bottom : 0,
+        marginBottom: '2%'
+    },
+
+    introText: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        paddingHorizontal: 20,
+        marginBottom: 40,
+        fontFamily: fontTextGotham,
+        fontSize: 20,
+        color: mainWhite
+    },
+
+    introButtonNormal: {
+        borderRadius: 8,
+        borderStyle: 'solid',
+        borderWidth: 2,
+        borderColor: mainWhite,
+        backgroundColor: mainBlack,
+        justifyContent: "center",
+        alignItems: "center",
+
+        paddingTop: 15,
+        paddingBottom: 15,
+        width: '95%'
+    },
+
+    introButtonFinal: {
+        borderRadius: 8,
+        borderStyle: 'solid',
+        borderWidth: 2,
+        borderColor: mainRed,
+        backgroundColor: mainRed,
+        justifyContent: "center",
+        alignItems: "center",
+
+        paddingTop: 15,
+        paddingBottom: 15,
+        width: '95%'
+    },
+
+    introButtonText: {
+        fontFamily: fontHeader,
+        fontSize: commons.IsTablet() ? 26 : 18,
+        fontWeight: 'bold',
+        color: mainWhite,
+        textAlign: 'center',
+        alignSelf: 'stretch',
+    },
+
     mainMenuHeaderLeft: {
         color: mainRed,
     },
@@ -184,9 +319,9 @@ export const styles = StyleSheet.create({
         fontFamily: fontTextGotham,
         fontSize: 14,
         textAlign: 'left',
-        paddingHorizontal: 8,
-        paddingTop: 30,
-        paddingBottom: 10,
+        paddingHorizontal: '5%',
+        paddingTop: '6%',
+        paddingBottom: '4%',
         color: '#808080'
     },
 
@@ -202,10 +337,9 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingLeft: 20,
-        paddingRight: 10,
-        paddingTop: 18,
-        paddingBottom: 20
+        paddingLeft: '5%',
+        paddingTop: '4%',
+        paddingBottom: '5%'
     },
 
     mainMenuSubContainer: {
@@ -220,9 +354,9 @@ export const styles = StyleSheet.create({
         fontFamily: fontHeader,
         fontSize: 40,
         textAlign: 'left',
-        paddingHorizontal: 20,
-        paddingTop: 30,
-        marginBottom: 20,
+        paddingHorizontal: '5%',
+        paddingTop: '4%',
+        marginBottom: '5%',
         color: mainBlack
     },
 
@@ -244,9 +378,11 @@ export const styles = StyleSheet.create({
     },
 
     mainMenuButtonIcon: {
-        width: 45,
-        height: 45,
-        resizeMode: 'stretch'
+        //backgroundColor: mainWhite,
+        position: 'absolute',
+        right: 0,
+        width: '20%',
+        height: '180%',
     },
 
     riffHeaderBG: {
