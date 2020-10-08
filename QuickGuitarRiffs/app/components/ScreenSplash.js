@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {AppRegistry, Platform, AsyncStorage, Image, View} from 'react-native';
 import commons, {styles} from './common';
 import * as RNIap from 'react-native-iap';
-import { setPack1, setPack2, setPack3, initFirebase, setProducts} from '../redux/songlistActions';
+import { setPack1, setPack2, setPack3,setHasAds, initFirebase, setProducts} from '../redux/songlistActions';
 import { connect } from 'react-redux';
 
 const itemSkus = Platform.select({
@@ -100,6 +100,7 @@ class ScreenSplash extends Component{
 
         try {
             const purchases = await RNIap.getAvailablePurchases();
+
             if(purchases) {
                 purchases.forEach(purchase => {
 
@@ -120,7 +121,14 @@ class ScreenSplash extends Component{
                         this.props.setPack3(true);
                         AsyncStorage.setItem('bPack3', "1");
                     }
-                })
+                });
+
+                if(this.state.rPack1 == 0 && this.state.rPack2 == 0 & this.state.rPack3 == 0) {
+                    this.props.setHasAds(true);
+                }
+                else {
+                    this.props.setHasAds(false);
+                }
             }
         } catch(err) {
             console.warn(err); // standardized err.code and err.message available
@@ -141,7 +149,11 @@ class ScreenSplash extends Component{
         this.props.initFirebase();
 
         // If everything is already marked as purchased in local, then no need to restore purchases.
-        if(this.state.rPack1 != 1 || this.state.rPack2 != 1 || this.state.rPack3 != 1)
+        if(this.state.rPack1 == 1 && this.state.rPack2 == 1 && this.state.rPack3 == 1)
+        {
+            this.props.setHasAds(false);
+        }
+        else
         {
             console.log("RESTORING PURCHASES");
             this.IAP_RestorePurchases();
@@ -191,5 +203,5 @@ const mapStateToProps = state => ({
     checked_pack3: state.songlist.checked_pack3,
 });
 
-export default connect(mapStateToProps, {setPack1, setPack2, setPack3, initFirebase, setProducts})(ScreenSplash);
+export default connect(mapStateToProps, {setPack1, setPack2, setPack3, setHasAds, initFirebase, setProducts})(ScreenSplash);
 AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenSplash);

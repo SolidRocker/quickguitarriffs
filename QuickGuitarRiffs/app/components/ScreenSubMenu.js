@@ -65,13 +65,13 @@ class ScreenSubMenu extends Component{
     }
     else if(item_ == "ChooseRiff") {
       header = "Choose A Riff";
-      desc = "Find your favourite riffs, or discover new songs!";
+      desc = "Take your pick!";
     }
 
     let disp =  <View style={styles.mainMenuButtonContainer}>
                   <View style={styles.mainMenuSubContainer}>
                     <Text style={styles.mainMenuButtonTextTitle}>{header}</Text>
-                    <Text style={styles.mainMenuButtonTextDesc} numberOfLines={2}>{desc}</Text>
+                    <Text style={styles.mainMenuButtonTextDesc}>{desc}</Text>
                   </View>
                   <Image source={require("../img/guitarheadgrey.png")} style={styles.mainMenuButtonIcon} />
                 </View>
@@ -168,12 +168,12 @@ class ScreenSubMenu extends Component{
     return(
 
         <Container>
-          <Header style={styles.riffHeaderBG}>
+          <Header style={styles.menuHeaderBG}>
             {commons.ChangeStatusBar()}
             <Left>
               <Button transparent>
               <TouchableOpacity onPress={()=>this.BackToMainMenu()}>
-                    <Icon name='arrow-back' style={styles.riffIcon}/>
+                    <Icon name='arrow-back' style={styles.mainMenuIcon}/>
                </TouchableOpacity>
               </Button>
             </Left>
@@ -189,7 +189,7 @@ class ScreenSubMenu extends Component{
             <ScrollView>
             <List dataArray={menuItems}
               renderRow={(item) =>
-                <ListItem
+                <ListItem icon
                   style={styles.subMenuListItem}
                   title={item}>
                   {this.AddMenuItem(item)}

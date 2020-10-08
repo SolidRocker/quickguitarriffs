@@ -209,8 +209,8 @@ class ScreenMainMenu extends Component{
 
   async LoadSongList() {
 
-    if(this.props.checked_pack1 && this.props.checked_pack2) {
-      this.props.setSongs(this.props.pack1, this.props.pack2);
+    if(this.props.checked_pack1 && this.props.checked_pack2 && this.props.checked_pack3) {
+      this.props.setSongs(this.props.pack1, this.props.pack2, this.props.pack3);
     }
   }
 
@@ -293,17 +293,17 @@ class ScreenMainMenu extends Component{
     }
     else if(item_ == BUTTONS.SuggestSongs) {
       header = "Suggest Songs";
-      desc = "Have a favorite riff you want to share? Let us know!";
+      desc = "Share your favorite riffs with us!";
     }
     else if(item_ == BUTTONS.ViewLibrary) {
       header = "View Additional Riffs";
-      desc = "A whole list of riffs you can add to your library!";
+      desc = "Packs and packs of extra riffs!";
     }
 
     let disp =  <View style={styles.mainMenuButtonContainer}>
                   <View style={styles.mainMenuSubContainer}>
                     <Text style={styles.mainMenuButtonTextTitle}>{header}</Text>
-                    <Text style={styles.mainMenuButtonTextDesc} numberOfLines={2}>{desc}</Text>
+                    <Text style={styles.mainMenuButtonTextDesc}>{desc}</Text>
                   </View>
                   <Image source={this.GetImageString(item_)} style={styles.mainMenuButtonIcon} />
                 </View>
@@ -454,7 +454,7 @@ class ScreenMainMenu extends Component{
           onClose={() => this.CloseDrawer()} >
 
         <Container style={styles.pageColor}>
-          {<Header style={styles.riffHeaderBG}>
+          {<Header style={styles.menuHeaderBG}>
             {commons.ChangeStatusBar()}
             <Left style={{flex:1}}>
               <Button transparent>
@@ -486,7 +486,7 @@ class ScreenMainMenu extends Component{
           </ScrollView>
         </Content>
 
-        {DisplayBannerAd(!this.props.pack1 && !this.props.pack2)}
+        {DisplayBannerAd(this.props.hasAds)}
         {this.configure()}
 
       </Container>
@@ -501,8 +501,11 @@ const mapStateToProps = state => ({
   quotes: state.songlist.quotes,
   pack1: state.songlist.pack1,
   pack2: state.songlist.pack2,
+  pack3: state.songlist.pack3,
+  hasAds: state.songlist.hasAds,
   checked_pack1: state.songlist.checked_pack1,
   checked_pack2: state.songlist.checked_pack2,
+  checked_pack3: state.songlist.checked_pack3,
   productsLoaded: state.songlist.products_loaded
 });
 

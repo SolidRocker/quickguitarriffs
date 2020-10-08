@@ -2,10 +2,10 @@ import React from 'react';
 import {Platform, StatusBar, Alert, Dimensions, StyleSheet, View, Image} from 'react-native';
 import {Right, Icon} from 'native-base';
 
-var fontHeader = "GothamNarrow-Black";
-var fontSubHeader = "Gotham-Medium";
-var fontTextGotham = "Gotham-Book";
-var fontTextRoboto = "roboto";
+var fontHeader = "Gotham-Black";
+var fontSubHeader = "GothamBold";
+var fontTextGotham = "GothamBook";
+var fontTextRoboto = "GothamBook";
 
 var mainWhite = '#F3F5FF';
 var mainRed = '#EA4335';
@@ -62,13 +62,15 @@ const commons = {
         return starIcons;
     },
 
-    GetDifficultyIconBody(diff_) {
+    GetDifficultyIconBody(diff_, isRiffPage_ = false) {
         
         let starIcons;
         if(diff_ == 1) {
         starIcons =
         <View style={styles.iconContainer}>
-            <Icon style={styles.diffStarsBodyFirst} name='ios-star'/>
+            <Icon style={styles.diffStarsBodyFirst} name='star'/>
+            <Icon style={styles.diffStarsBody} name='star-outline'/>
+            <Icon style={styles.diffStarsBody} name='star-outline'/>
         </View>
         }
         else if(diff_ == 2) {
@@ -76,6 +78,7 @@ const commons = {
         <View style={styles.iconContainer}>
             <Icon style={styles.diffStarsBodyFirst} name='ios-star'/>
             <Icon style={styles.diffStarsBody} name='ios-star'/>
+            <Icon style={styles.diffStarsBody} name='star-outline'/>
         </View>
         }
         else if(diff_ == 3) {
@@ -281,14 +284,14 @@ export const styles = StyleSheet.create({
     introButtonText: {
         fontFamily: fontHeader,
         fontSize: commons.IsTablet() ? 26 : 18,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: mainWhite,
         textAlign: 'center',
         alignSelf: 'stretch',
     },
 
     mainMenuHeaderLeft: {
-        color: mainRed,
+        color: mainBlack,
     },
 
     mainMenuHeaderBody: {
@@ -317,11 +320,11 @@ export const styles = StyleSheet.create({
 
     mainMenuInstr: {
         fontFamily: fontTextGotham,
-        fontSize: 14,
+        fontSize: 15,
         textAlign: 'left',
         paddingHorizontal: '5%',
         paddingTop: '6%',
-        paddingBottom: '4%',
+        paddingBottom: '2%',
         color: '#808080'
     },
 
@@ -346,6 +349,11 @@ export const styles = StyleSheet.create({
         flexDirection: "column",
     },
 
+    mainMenuIcon: {
+        alignSelf: 'center',
+        color: mainBlack
+    },
+
     subMenuContainer: {
         backgroundColor: mainWhite
     },
@@ -362,7 +370,7 @@ export const styles = StyleSheet.create({
 
     mainMenuButtonTextTitle: {
         color: mainWhite,
-        fontFamily: fontHeader,
+        fontFamily: fontSubHeader,
         fontSize: 20,
         textAlign: 'left',
         alignSelf: 'stretch',
@@ -371,26 +379,30 @@ export const styles = StyleSheet.create({
     mainMenuButtonTextDesc: {
         color: mainWhite,
         fontFamily: fontTextGotham,
-        fontSize: 11,
+        fontSize: 12,
         textAlign: 'left',
         alignSelf: 'stretch',
         flexWrap: 'wrap',
+        paddingTop: "1%"
     },
 
     mainMenuButtonIcon: {
-        //backgroundColor: mainWhite,
         position: 'absolute',
         right: 0,
         width: '20%',
         height: '180%',
     },
 
-    riffHeaderBG: {
+    menuHeaderBG: {
         backgroundColor: mainWhite
     },
 
+    riffHeaderBG: {
+        backgroundColor: mainBlack
+    },
+
     riffHeader: {
-        fontFamily: fontTextRoboto,
+        fontFamily: fontSubHeader,
         fontSize: Platform.OS === 'ios' ? 14 : 16,
         textAlign: Platform.OS === 'ios' ? 'center' : 'left',
         alignSelf: 'stretch',
@@ -401,12 +413,12 @@ export const styles = StyleSheet.create({
         width:'100%',
         height: 'auto',
         resizeMode: 'contain',
-        marginLeft:0,
-        paddingLeft:10,
-        marginRight:0,
-        paddingRight:10,
-        paddingTop:0,
-        paddingBottom:0,
+        marginLeft: 0,
+        paddingLeft: 10,
+        marginRight: 0,
+        paddingRight: 10,
+        paddingTop: 0,
+        paddingBottom: 0,
         marginBottom: 10
     },
 
@@ -414,42 +426,59 @@ export const styles = StyleSheet.create({
         width:'100%',
         height: 'auto',
         resizeMode: 'contain',
-        marginLeft:0,
-        paddingLeft:10,
-        marginRight:0,
-        paddingRight:10,
-        paddingTop:0,
-        paddingBottom:0,
-        marginBottom: 15
+        marginLeft: 0,
+        paddingLeft: 10,
+        marginRight: 0,
+        paddingRight: 10,
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginBottom: 8,
     },
 
     riffMainView: {
         flex: 1,
-        backgroundColor: mainWhite
+        backgroundColor: mainBlack
+    },
+
+    riffContainer: {
+        display: "flex",
+        justifyContent: 'flex-start',
+        flexDirection: "column"
     },
 
     riffCardView: {
+        flexGrow: 1,
+        height: "25%",
         padding: 7,
+        paddingLeft: 12
     },
 
-    riffCard: {
-        backgroundColor: '#454545',
-        borderRadius: 10
+    songContentView: {
+        flexGrow: 3,
+        height: "75%",
+        backgroundColor: mainWhite,
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24,
+        marginTop: 15
     },
 
     songTitle:{
-        fontFamily: fontTextRoboto,
-        fontWeight: 'bold',
-        fontSize: 26,
+        fontFamily: fontSubHeader,
+        //fontWeight: 'bold',
+        fontSize: 24,
         paddingTop: 10,
         paddingLeft: 12,
+        paddingRight: 12,
+        paddingBottom: 5,
         textAlign: 'left',
-        alignSelf: 'stretch',
+        //alignSelf: 'stretch',
         color: 'white',
+        lineHeight: 30
     },
 
     songArtist:{
         fontFamily: fontTextRoboto,
+        //fontWeight: "bold",
         fontSize: 14,
         paddingBottom: 8,
         paddingLeft: 12,
@@ -459,42 +488,58 @@ export const styles = StyleSheet.create({
     },
 
     songInfoTuningView: {
-        flex:1,
+        flex: 1,
         flexDirection:'row',
         paddingLeft: 12,
-        paddingTop:10
+        paddingTop: 10
     },
 
     songInfoTuning: {
         fontFamily: fontTextRoboto,
-        fontSize: 15,
+        fontSize: 14,
         textAlign: 'left',
         color: 'white'
     },
 
+    songInfoTuningLeft: {
+        fontFamily: fontTextRoboto,
+        fontSize: 14,
+        textAlign: 'left',
+        color: 'white',
+        width: 77
+    },
+
     songInfoKeyView: {
-        flex:1,
+        flex: 1,
         flexDirection:'row',
         paddingLeft: 12,
-        paddingBottom:12
+        paddingBottom: 12
     },
 
     songInfoKey: {
         fontFamily: fontTextRoboto,
-        fontSize: 15,
+        fontSize: 14,
         textAlign: 'left',
         color: 'white'
     },
 
-    gapTab:{
-        marginTop: -10
+    songInfoKeyLeft: {
+        fontFamily: fontTextRoboto,
+        fontSize: 14,
+        textAlign: 'left',
+        color: 'white',
+        width: 77
     },
 
-    songTab:{
+    gapTab:{
+        marginTop: 15
+    },
+
+    songTab: {
         fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
         fontSize: commons.IsTablet() ? 15 : 12,
-        fontWeight: '400',
-        paddingLeft: 12,
+        //fontWeight: '400',
+        paddingLeft: 15,
         textAlign: 'left',
         alignSelf: 'flex-start',
         color: 'black',
@@ -503,7 +548,7 @@ export const styles = StyleSheet.create({
     songTabNotes:{
         fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
         fontSize: commons.IsTablet() ? 13 : 11,
-        fontWeight: '400',
+        //fontWeight: '400',
         paddingTop: 2,
         paddingLeft: 12,
         paddingRight: 15,
@@ -514,24 +559,27 @@ export const styles = StyleSheet.create({
 
     videoView:{
         height: commons.GetVideoHeight(),
-        width: commons.GetVideoWidth(),
+        width: "100%",
         paddingLeft: 12,
-        paddingBottom: 10,
+        paddingBottom: "3%",
         backgroundColor: mainWhite
     },
 
     videoWebView: {
         marginTop: (Platform.OS == 'ios') ? 20 : 0,
-        width: commons.GetVideoWidth()
+        height: commons.GetVideoHeight(),
+        width: commons.GetVideoWidth(),
+        backgroundColor: mainWhite
     },
 
     tabWebView: {
         justifyContent: 'center',
         alignItems: 'center',
-        flex:1,
+        flex: 1,
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
-        marginTop: (Platform.OS) === 'ios' ? 20 : 0
+        marginTop: (Platform.OS) === 'ios' ? 20 : 0,
+        backgroundColor: mainWhite
     },
 
     chooselist_main: {
@@ -545,7 +593,7 @@ export const styles = StyleSheet.create({
     },
 
     chooselist_artistName: {
-        fontFamily: fontTextRoboto,
+        fontFamily: fontSubHeader,
         fontSize: Platform.OS === 'ios' ? 12 : 14,
         textAlign: 'left',
         alignSelf: 'stretch',
@@ -578,23 +626,23 @@ export const styles = StyleSheet.create({
 
     diffStarsBodyFirst: {
         fontFamily: fontTextRoboto,
-        fontSize: 14,
-        paddingBottom: 15,
+        fontSize: 16,
         paddingLeft: 12,
         alignSelf: 'flex-start',
         textAlign: 'left',
-        color: 'white'
+        color: mainRed
     },
 
     diffStarsBody: {
         fontFamily: fontTextRoboto,
-        fontSize: 14,
-        color: 'white'
+        fontSize: 16,
+        paddingLeft: 3,
+        color: mainRed
     },
 
     riffIcon: {
         alignSelf: 'center',
-        color: mainRed
+        color: mainWhite
     },
 
     riffIconDisabled: {
@@ -602,8 +650,21 @@ export const styles = StyleSheet.create({
         color: '#808080'
     },
 
+    riffFooterIcon: {
+        alignSelf: 'center',
+        color: mainRed,
+        fontSize: 18
+    },
+
+    footerView: {
+        backgroundColor: mainWhite,
+    },
+
     footerTab: {
-        backgroundColor: commons.GetStatusBarBGColor()
+        //backgroundColor: commons.GetStatusBarBGColor(),
+        backgroundColor: mainBlack,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
     },
 
     footerButtonText: {
@@ -673,7 +734,7 @@ export const styles = StyleSheet.create({
         marginTop: 5,
         alignSelf: 'center',
         fontFamily: fontHeader,
-        fontSize: commons.IsTablet() ? 50 : 25,
+        fontSize: commons.IsTablet() ? 50 : 22,
         color: mainWhite
     },
 
@@ -682,21 +743,25 @@ export const styles = StyleSheet.create({
         fontFamily: fontTextGotham,
         fontSize: commons.IsTablet() ? 22 : 12,
         color: '#E2E2E2',
-        textAlign: 'center'
+        textAlign: 'center',
+        paddingTop: 5,
+        paddingBottom: 5
     },
 
     packButtonCost_NotBought: {
         alignSelf: 'center',
+        fontFamily: fontSubHeader,
         fontSize: commons.IsTablet() ? 30 : 20,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: mainGrey,
         textAlign: 'center'
     },
 
     packButtonCost_Bought: {
         alignSelf: 'center',
-        fontSize: commons.IsTablet() ? 30 : 20,
-        fontWeight: 'bold',
+        fontFamily: fontSubHeader,
+        fontSize: commons.IsTablet() ? 30 : 18,
+        //fontWeight: 'bold',
         color: subRed,
         textAlign: 'center'
     },
@@ -741,8 +806,9 @@ export const styles = StyleSheet.create({
     libViewButtonText: {
         fontFamily: fontHeader,
         fontSize: Platform.OS === 'ios' ? 14 : 18,
-        fontWeight: 'bold',
-        color: mainWhite
+        //fontWeight: 'bold',
+        color: mainWhite,
+        textAlign: "center"
     },
 
     libView: {
@@ -757,7 +823,7 @@ export const styles = StyleSheet.create({
     libArtist: {
         fontFamily: fontTextRoboto,
         fontSize: Platform.OS === 'ios' ? 12 : 14,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         
         textAlign: 'center',
         alignSelf: 'stretch',
@@ -811,11 +877,13 @@ export const styles = StyleSheet.create({
     },
 
     countryPicker: {
+        fontFamily: fontTextRoboto,
         width: Dimensions.get('window').width-25,
         borderRadius: 8
     },
 
     countryPickerItem: {
+        fontFamily: fontTextRoboto,
         backgroundColor: mainWhite
     },
 
@@ -824,12 +892,14 @@ export const styles = StyleSheet.create({
         fontSize: 15,
         paddingTop: 10,
         paddingLeft: 12,
+        paddingRight: 12,
         textAlign: 'left',
         alignSelf: 'stretch',
         color: 'black',
     },
 
     suggestAnswers: {
+        fontFamily: fontTextRoboto,
         borderRadius: 8,
         paddingTop: 10,
         paddingBottom: 15,

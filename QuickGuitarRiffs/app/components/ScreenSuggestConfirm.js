@@ -26,7 +26,7 @@ export default class ScreenSuggestConfirm extends Component {
     render() {
         return (
             <Container>
-                 <Header style={styles.riffHeaderBG}>
+                 <Header style={styles.menuHeaderBG}>
                     {commons.ChangeStatusBar()}
                 </Header>
 

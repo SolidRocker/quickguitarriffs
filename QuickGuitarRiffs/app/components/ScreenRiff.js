@@ -121,7 +121,7 @@ class ScreenRiff extends Component{
       const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
       console.log("chance ", chanceToShowAd);
       if(chanceToShowAd < 30) {
-        DisplayInterstitialAd(!this.props.pack1 && !this.props.pack2 && !this.props.pack3);
+        DisplayInterstitialAd(this.props.hasAds);
       }
       this.props.navigation.navigate('ScreenMainMenu');
     }
@@ -148,7 +148,8 @@ class ScreenRiff extends Component{
     const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
     console.log("chance ", chanceToShowAd);
     if(chanceToShowAd < 30) {
-      DisplayInterstitialAd(!this.props.pack1 && !this.props.pack2 && !this.props.pack3);
+      console.log("AD: " + this.props.hasAds);
+      DisplayInterstitialAd(this.props.hasAds);
     }
     
     this.forceUpdate();
@@ -186,8 +187,8 @@ class ScreenRiff extends Component{
       showbtn = 
       <Button vertical>
         <TouchableOpacity onPress={()=>this.ClickRandomAgain()} >
-          <Icon name="ios-skip-forward" style={styles.riffIcon}/>
-          <Text allowFontScaling={false} style={styles.footerButtonText}>NEXT SONG</Text>
+          <Icon name="ios-skip-forward" style={styles.riffFooterIcon}/>
+          <Text allowFontScaling={false} style={styles.footerButtonText}>Next Song</Text>
         </TouchableOpacity>
       </Button>
     }
@@ -375,56 +376,53 @@ class ScreenRiff extends Component{
           </Right>
         </Header>
 
-        <View onLayout={e => this.onLayout(e)} style={styles.riffMainView}>
-        {loadSpinner}
-        <ScrollView maximumZoomScale={3} minimumZoomScale={1}>
-        
-          <View style={styles.riffCardView}>
-            <Card style={styles.riffCard}>
-              <View style={{borderBottomColor:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol, borderBottomWidth:7, borderTopLeftRadius: 8, borderTopRightRadius: 8}}></View>
-              
-              <Text style={[styles.songTitle, {color:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol}]}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song}</Text>
-              <Text style={styles.songArtist}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist.toUpperCase()}</Text>     
+        <Body style={styles.riffContainer}>
+
+          <View onLayout={e => this.onLayout(e)} style={styles.riffMainView}>
+          {loadSpinner}
+
+          <ScrollView style={styles.riffCardView}>
               {commons.GetDifficultyIconBody(this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Diff)}
+              <Text style={styles.songTitle}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song}</Text>
+              <Text style={styles.songArtist}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist}</Text>     
               
-              <View style={{borderBottomColor: this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol, borderBottomWidth: 1}}/>
               <View style={styles.songInfoTuningView}> 
-                <Text style={{width: 77, color:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol}} allowFontScaling={false} selectable={true}>TUNING</Text>
-                <Text style={styles.songInfoTuning} allowFontScaling={false} selectable={true}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Tune}</Text>
+                <Text style={styles.songInfoTuningLeft}>Tuning:</Text>
+                <Text style={styles.songInfoTuning} >{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Tune}</Text>
               </View>
               <View style={styles.songInfoKeyView}>
-                <Text style={{width: 77, color:this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Gcol}} allowFontScaling={false} selectable={true}>KEY</Text>
-                <Text style={styles.songInfoKey} allowFontScaling={false} selectable={true}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Key}</Text>
+                <Text style={styles.songInfoKeyLeft}>Key:</Text>
+                <Text style={styles.songInfoKey}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Key}</Text>
               </View>
-            </Card>
-          </View>
-          
-          <View>
-            <Text style={styles.gapTab}></Text>
-            {this.DisplayTab()}
-            {this.DisplayNotes()}
-          </View>
+          </ScrollView>
 
-        </ScrollView>
+          <ScrollView maximumZoomScale={3} minimumZoomScale={1} style={styles.songContentView}>
+            <View>
+              <Text style={styles.gapTab}></Text>
+              {this.DisplayTab()}
+              {this.DisplayNotes()}
+            </View>
+          </ScrollView>
 
-        {this.ShowUnconnectedText()}
-        </View>
+          {this.ShowUnconnectedText()}
+          </View>
+        </Body>
 
         {renderVideo}
         
-         <Footer>
+         <Footer style={styles.footerView}>
           <FooterTab style={styles.footerTab}>
             <Button vertical>
               <TouchableOpacity disabled={!this.state.isConnected} onPress={()=>this.TogglePlayVid()}>
-                <Icon name="ios-play" style={ this.state.isConnected ? styles.riffIcon : styles.riffIconDisabled}/>
-                <Text allowFontScaling={false} style={styles.footerButtonText}>LISTEN</Text>
+                <Icon name="ios-play" style={ this.state.isConnected ? styles.riffFooterIcon : styles.riffIconDisabled}/>
+                <Text allowFontScaling={false} style={styles.footerButtonText}>Listen</Text>
               </TouchableOpacity>
             </Button>
 
             <Button vertical>
               <TouchableOpacity disabled={!this.state.isConnected} onPress={()=>this.ToggleDispTab()} >
-                <Icon name="ios-document" style={ this.state.isConnected ? styles.riffIcon : styles.riffIconDisabled}/>
-                <Text allowFontScaling={false} style={styles.footerButtonText}>FULL TAB</Text>
+                <Icon name="ios-document" style={ this.state.isConnected ? styles.riffFooterIcon : styles.riffIconDisabled}/>
+                <Text allowFontScaling={false} style={styles.footerButtonText}>Full Tab</Text>
               </TouchableOpacity>
             </Button>
             {this.ShowNextSongButton()}
@@ -438,9 +436,7 @@ class ScreenRiff extends Component{
 
 const mapStateToProps = state => ({
   songs: state.songlist.songs,
-  pack1: state.songlist.pack1,
-  pack2: state.songlist.pack2,
-  pack3: state.songlist.pack3,
+  hasAds: state.songlist.hasAds
 });
 
 export default connect(mapStateToProps, {})(ScreenRiff);

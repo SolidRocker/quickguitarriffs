@@ -3,6 +3,7 @@ import {
     SET_PACK_1,
     SET_PACK_2,
     SET_PACK_3,
+    SET_HAS_ADS,
     SET_CHOSE_LIST,
     SET_FIREBASE,
     SET_PRODUCTS,
@@ -18,6 +19,8 @@ const songlist = {
     checked_pack1: false,
     checked_pack2: false,
     checked_pack3: false,
+    hasAds: false,
+
     songs_loaded: false,
     choselist: null,
 
@@ -56,27 +59,32 @@ export default function(state = songlist, action) {
                 pack3: action.payload,
                 checked_pack3: true
             }
+         case SET_HAS_ADS:
+            return {
+                ...state,
+                hasAds: action.payload,
+            }
         case SET_CHOSE_LIST:
-        return {
-            ...state,
-            choselist: action.payload
-        }
+            return {
+                ...state,
+                choselist: action.payload
+            }
         case SET_FIREBASE:
-        return {
-            ...state,
-            isfbInit: action.payload_bool
-        }
+            return {
+                ...state,
+                isfbInit: action.payload_bool
+            }
         case SET_PRODUCTS:
-        return {
-            ...state,
-            products: action.payload,
-            products_loaded: action.payload_bool
-        }
+            return {
+                ...state,
+                products: action.payload,
+                products_loaded: action.payload_bool
+            }
         case SET_QUOTES:
-        return {
-            ...state,
-            quotes: action.payload,
-        }
+            return {
+                ...state,
+                quotes: action.payload,
+            }
         default:
             return state;
     }

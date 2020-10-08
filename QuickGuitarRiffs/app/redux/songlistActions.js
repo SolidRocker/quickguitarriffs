@@ -1,9 +1,8 @@
-import { SET_PACK_1, SET_PACK_2, SET_PACK_3, SET_SONGS, SET_CHOSE_LIST, SET_FIREBASE, SET_PRODUCTS, SET_QUOTES } from './types';
+import { SET_PACK_1, SET_PACK_2, SET_PACK_3, SET_HAS_ADS, SET_SONGS, SET_CHOSE_LIST, SET_FIREBASE, SET_PRODUCTS, SET_QUOTES } from './types';
 import { AllSongs, AllQuotes } from '../data/T_DATA';
 import firebase from '@react-native-firebase/app';
 
 export const setPack1 = (hasBought) => dispatch => {
-
     dispatch({
         type: SET_PACK_1,
         payload: hasBought
@@ -11,7 +10,6 @@ export const setPack1 = (hasBought) => dispatch => {
 }
 
 export const setPack2 = (hasBought) => dispatch => {
-
     dispatch({
         type: SET_PACK_2,
         payload: hasBought
@@ -19,13 +17,18 @@ export const setPack2 = (hasBought) => dispatch => {
 }
 
 export const setPack3 = (hasBought) => dispatch => {
-
     dispatch({
         type: SET_PACK_3,
         payload: hasBought
     })
 }
 
+export const setHasAds = (hasAds) => dispatch => {
+    dispatch({
+        type: SET_HAS_ADS,
+        payload: hasAds
+    })
+}
 
 export const setSongs = (pack1, pack2, pack3) => dispatch => {
 

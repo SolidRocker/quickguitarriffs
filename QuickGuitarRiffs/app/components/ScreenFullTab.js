@@ -62,12 +62,12 @@ export default class ScreenFullTab extends Component {
   render() {
     return (
         <Container>
-             <Header style={styles.riffHeaderBG}>
+             <Header style={styles.menuHeaderBG}>
                 {commons.ChangeStatusBar()}
                 <Left>
                 <Button transparent title="">
                 <TouchableOpacity onPress={()=>this.BackToRiff()}>
-                    <Icon name='arrow-back' style={styles.riffIcon}/>
+                    <Icon name='arrow-back' style={styles.mainMenuIcon}/>
                </TouchableOpacity>
                 </Button>
                 </Left>

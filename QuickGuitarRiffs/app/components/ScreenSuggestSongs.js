@@ -184,12 +184,12 @@ export default class ScreenSuggestSongs extends Component {
     render() {
         return (
             <Container style={styles.pageColor}>
-               <Header style={styles.riffHeaderBG}>
+               <Header style={styles.menuHeaderBG}>
                     {commons.ChangeStatusBar()}
                     <Left>
                         <Button transparent title="back">
                         <TouchableOpacity onPress={() => this.BackToMainMenu()}>
-                            <Icon name='arrow-back' style={styles.riffIcon}/>
+                            <Icon name='arrow-back' style={styles.mainMenuIcon}/>
                         </TouchableOpacity>
                         </Button>
                     </Left>

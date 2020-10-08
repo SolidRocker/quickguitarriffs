@@ -7,6 +7,7 @@ export const SET_SONGS = 'SET_SONGS';
 export const SET_PACK_1 = 'SET_PACK_1';
 export const SET_PACK_2 = 'SET_PACK_2';
 export const SET_PACK_3 = 'SET_PACK_3';
+export const SET_HAS_ADS = 'SET_HAS_ADS';
 
 export const SET_CHOSE_LIST = 'SET_CHOSE_LIST';
 
