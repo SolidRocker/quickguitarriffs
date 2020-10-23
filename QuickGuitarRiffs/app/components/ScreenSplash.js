@@ -179,7 +179,6 @@ class ScreenSplash extends Component{
             this.props.setPack2(true);
             this.props.navigation.navigate('ScreenMainMenu');
         }, 1000);*/
-
     }
 
     componentWillUnmount() {

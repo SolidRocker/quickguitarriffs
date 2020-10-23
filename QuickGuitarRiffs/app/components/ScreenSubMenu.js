@@ -33,7 +33,7 @@ class ScreenSubMenu extends Component{
     let disp = null;
     
     disp =  <TouchableOpacity
-            style={{flex:1, aspectRatio:4.8}}
+            style={{flex:1}}
             activeOpacity={0.6}
             onPress={()=>this.DoStuffOnClick(item_)}>
               {this.GetButtonContent(item_)}

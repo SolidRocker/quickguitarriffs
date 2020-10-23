@@ -230,7 +230,7 @@ export default class ScreenSuggestSongs extends Component {
                             <Textarea style={styles.suggestAnswers} maxLength={250} onChangeText={val => { this.CheckSongsInput(val) }} rowSpan={4} bordered placeholder="Songs/Artists" />
                         </View>
 
-                        <Button dark style={{ alignSelf: 'center', borderRadius: 10}} title="submit" disabled={this.IsButtonDisabled()} onPress={() => this.SubmitSongs()}>
+                        <Button dark style={styles.suggestSubmit} title="submit" disabled={this.IsButtonDisabled()} onPress={() => this.SubmitSongs()}>
                             <Text allowFontScaling={false}>Submit</Text>
                         </Button>
 

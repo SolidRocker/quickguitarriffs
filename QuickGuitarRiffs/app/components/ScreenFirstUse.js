@@ -4,6 +4,7 @@ import commons, {styles} from './common';
 import Dots from 'react-native-dots-pagination';
 import { Container, View, Body, Footer, Text } from 'native-base';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 export default class ScreenFirstUse extends Component{
 
@@ -12,6 +13,7 @@ export default class ScreenFirstUse extends Component{
         this.state = {
             currentPage: 1,
             maxPage: 3,
+            canTap: true,
 
             mainFadeValue: new Animated.Value(0.5),
             mainMoveValue: new Animated.Value(0),
@@ -86,18 +88,32 @@ export default class ScreenFirstUse extends Component{
 
     ChangePage() {
 
+        console.log(this.state.canTap);
+        if(!this.state.canTap) {
+            return;
+        }
+
         if(this.state.currentPage == this.state.maxPage && !this.state.isFadeIn) {
             this.props.navigation.navigate('ScreenMainMenu');
         }
         else {
-            let mainTrans_ = Dimensions.get('window').width * -0.3;
-            let BGTrans_ = Dimensions.get('window').width * -0.08;
+            let scale = commons.IsTablet() ? 0.3 : 0.2;
+
+            let mainImgSource = resolveAssetSource(this.GetMainImg());
+            let mainHalfWidth = mainImgSource.width * (-scale / 1.2);
+
+            let BGImgSource = resolveAssetSource(this.GetBGImg());
+            let BGHalfWidth = BGImgSource.width * (-scale / 1.2);
+
+            let mainTrans_ = mainHalfWidth;
+            let BGTrans_ = BGHalfWidth;
 
             this.setState({
                 prevBGTrans: this.state.BGTrans,
                 prevMainTrans: this.state.mainTrans,
                 BGTrans: BGTrans_,
-                mainTrans: mainTrans_
+                mainTrans: mainTrans_,
+                canTap: false
             }, this.AnimateScreen());
         }
     }
@@ -109,7 +125,6 @@ export default class ScreenFirstUse extends Component{
             <Image source={require('../img/IntroScreen/redCircle.png')} style={styles.introCircle}/>
 
             <Animated.View style={
-                styles.introPageBGImgView,
                 {opacity: this.state.subFadeValue,
                 transform: [
                     {
@@ -133,7 +148,7 @@ export default class ScreenFirstUse extends Component{
                         })
                     }
                 ]}}>
-                <Image source={this.GetMainImg()} style={styles.introMainImg} />
+                <Image source={this.GetMainImg()} style={styles.introMainImg}  />
             </Animated.View>
         </View>
 
@@ -145,7 +160,7 @@ export default class ScreenFirstUse extends Component{
         var fadeToValue = this.state.isFadeIn ? 1 : 0;
         var moveToValue = this.state.isFadeIn ? 1 : 2;
         var AnimFadeDuration = this.state.isFadeIn ? 300 : 250;
-        var AnimMoveDuration = this.state.isFadeIn ? 400 : 350;
+        //var AnimMoveDuration = this.state.isFadeIn ? 400 : 350;
 
         Animated.parallel([
             Animated.timing(this.state.mainFadeValue, {
@@ -155,7 +170,6 @@ export default class ScreenFirstUse extends Component{
             }),
             Animated.timing(this.state.mainMoveValue, {
                 toValue : moveToValue,
-                duration : AnimMoveDuration,
                 useNativeDriver: true
             }),
             Animated.timing(this.state.subFadeValue, {
@@ -165,10 +179,10 @@ export default class ScreenFirstUse extends Component{
             }),
             Animated.timing(this.state.subMoveValue, {
                 toValue : moveToValue,
-                duration : AnimMoveDuration,
                 useNativeDriver: true
             })
         ]).start(() => {
+            this.state.canTap = true;
             if(this.state.isFadeIn) {
                 this.setState({isFadeIn : false});
             }

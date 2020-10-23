@@ -181,9 +181,11 @@ export const styles = StyleSheet.create({
     },
 
     introPageImages: {
-        //backgroundColor: mainWhite,
         justifyContent: 'center',
-        alignItems: 'center',
+        //backgroundColor: mainWhite,
+        //width: Dimensions.get('window').width,
+        //height: Dimensions.get('window').height,
+        width: "100%",
         flex: 5,
     },
 
@@ -202,18 +204,8 @@ export const styles = StyleSheet.create({
         flex: 3
     },
 
-    introPageMainImgView: {
-        zIndex: 5
-    },
-
-    introPageBGImgView: {
-        marginBottom: '5%'
-    },
-
     introCircle: {
         resizeMode: "center",
-        marginLeft: 'auto',
-        marginRight: 'auto',
         marginBottom: 40,
     },
 
@@ -222,9 +214,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'absolute',
         resizeMode: 'contain',
+        //backgroundColor: mainDarkGrey,
 
-        width: '22%',
-        left: '4%',
+        width: commons.IsTablet() ? '30%' : '20%',
+        left: "50%",
         bottom : 0,
         marginBottom: '6%'
     },
@@ -234,11 +227,12 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'absolute',
         resizeMode: 'contain',
+        //backgroundColor: mainDarkGrey,
 
-        width: '40%',
-        left: '-16%',
+        width: commons.IsTablet() ? '60%' : '40%',
+        left: "50%",
         bottom : 0,
-        marginBottom: '2%'
+        marginBottom: commons.IsTablet() ? '4%' : '2%'
     },
 
     introText: {
@@ -246,10 +240,11 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: "10%",
         marginBottom: 40,
         fontFamily: fontTextGotham,
         fontSize: 20,
+        letterSpacing: 0,
         color: mainWhite
     },
 
@@ -283,7 +278,7 @@ export const styles = StyleSheet.create({
 
     introButtonText: {
         fontFamily: fontHeader,
-        fontSize: commons.IsTablet() ? 26 : 18,
+        fontSize: commons.IsTablet() ? 22 : 18,
         //fontWeight: 'bold',
         color: mainWhite,
         textAlign: 'center',
@@ -304,16 +299,16 @@ export const styles = StyleSheet.create({
         fontFamily: fontHeader,
         fontSize: 50,
         textAlign: 'left',
-        paddingHorizontal: 8,
+        paddingHorizontal: "4%",
         paddingTop: 40,
         color: mainBlack
     },
 
     quotePerson: {
         fontFamily: fontSubHeader,
-        fontSize: 20,
+        fontSize: commons.IsTablet() ? 24 : 20,
         textAlign: 'left',
-        paddingHorizontal: 8,
+        paddingHorizontal: "4%",
         paddingTop: 5,
         color: mainRed
     },
@@ -321,6 +316,7 @@ export const styles = StyleSheet.create({
     mainMenuInstr: {
         fontFamily: fontTextGotham,
         fontSize: 15,
+        letterSpacing: 0,
         textAlign: 'left',
         paddingHorizontal: '5%',
         paddingTop: '6%',
@@ -342,7 +338,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         paddingLeft: '5%',
         paddingTop: '4%',
-        paddingBottom: '5%'
+        paddingBottom: '6%'
     },
 
     mainMenuSubContainer: {
@@ -371,7 +367,7 @@ export const styles = StyleSheet.create({
     mainMenuButtonTextTitle: {
         color: mainWhite,
         fontFamily: fontSubHeader,
-        fontSize: 20,
+        fontSize: commons.IsTablet() ? 25 : 20,
         textAlign: 'left',
         alignSelf: 'stretch',
     },
@@ -379,7 +375,8 @@ export const styles = StyleSheet.create({
     mainMenuButtonTextDesc: {
         color: mainWhite,
         fontFamily: fontTextGotham,
-        fontSize: 12,
+        letterSpacing: 0,
+        fontSize: commons.IsTablet() ? 16 : 12,
         textAlign: 'left',
         alignSelf: 'stretch',
         flexWrap: 'wrap',
@@ -389,8 +386,9 @@ export const styles = StyleSheet.create({
     mainMenuButtonIcon: {
         position: 'absolute',
         right: 0,
+        resizeMode: 'contain',
         width: '20%',
-        height: '180%',
+        height: '230%',
     },
 
     menuHeaderBG: {
@@ -404,7 +402,7 @@ export const styles = StyleSheet.create({
     riffHeader: {
         fontFamily: fontSubHeader,
         fontSize: Platform.OS === 'ios' ? 14 : 16,
-        textAlign: Platform.OS === 'ios' ? 'center' : 'left',
+        textAlign: 'left',
         alignSelf: 'stretch',
         color: mainBlack
     },
@@ -437,51 +435,49 @@ export const styles = StyleSheet.create({
 
     riffMainView: {
         flex: 1,
-        backgroundColor: mainBlack
+        backgroundColor: mainBlack,
     },
 
     riffContainer: {
         display: "flex",
         justifyContent: 'flex-start',
-        flexDirection: "column"
+        flexDirection: "row",
     },
 
     riffCardView: {
-        flexGrow: 1,
-        height: "25%",
-        padding: 7,
-        paddingLeft: 12
+        height: "15%",
+        padding: "3%",
+        paddingLeft: "3%",
     },
 
     songContentView: {
         flexGrow: 3,
         height: "75%",
+        width: "100%",
         backgroundColor: mainWhite,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
-        marginTop: 15
+        marginTop: "4%",
     },
 
     songTitle:{
         fontFamily: fontSubHeader,
         //fontWeight: 'bold',
         fontSize: 24,
-        paddingTop: 10,
-        paddingLeft: 12,
-        paddingRight: 12,
-        paddingBottom: 5,
+        padding: "2%",
         textAlign: 'left',
         //alignSelf: 'stretch',
         color: 'white',
-        lineHeight: 30
+        lineHeight: 30,
     },
 
     songArtist:{
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         //fontWeight: "bold",
         fontSize: 14,
-        paddingBottom: 8,
-        paddingLeft: 12,
+        paddingBottom: "2%",
+        paddingLeft: "2%",
         textAlign: 'left',
         alignSelf: 'stretch',
         color: 'white'
@@ -490,12 +486,13 @@ export const styles = StyleSheet.create({
     songInfoTuningView: {
         flex: 1,
         flexDirection:'row',
-        paddingLeft: 12,
-        paddingTop: 10
+        paddingLeft: "2%",
+        paddingTop: "1%"
     },
 
     songInfoTuning: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
         color: 'white'
@@ -503,6 +500,7 @@ export const styles = StyleSheet.create({
 
     songInfoTuningLeft: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
         color: 'white',
@@ -512,12 +510,13 @@ export const styles = StyleSheet.create({
     songInfoKeyView: {
         flex: 1,
         flexDirection:'row',
-        paddingLeft: 12,
-        paddingBottom: 12
+        paddingLeft: "2%",
+        paddingBottom: "2%"
     },
 
     songInfoKey: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
         color: 'white'
@@ -525,6 +524,7 @@ export const styles = StyleSheet.create({
 
     songInfoKeyLeft: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
         color: 'white',
@@ -539,9 +539,8 @@ export const styles = StyleSheet.create({
         fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
         fontSize: commons.IsTablet() ? 15 : 12,
         //fontWeight: '400',
-        paddingLeft: 15,
+        paddingLeft: "4%",
         textAlign: 'left',
-        alignSelf: 'flex-start',
         color: 'black',
     },
 
@@ -553,7 +552,6 @@ export const styles = StyleSheet.create({
         paddingLeft: 12,
         paddingRight: 15,
         textAlign: 'left',
-        alignSelf: 'stretch',
         color: 'black',
     },
 
@@ -606,6 +604,7 @@ export const styles = StyleSheet.create({
 
     chooselist_songName: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
         alignSelf: 'stretch',
@@ -626,6 +625,7 @@ export const styles = StyleSheet.create({
 
     diffStarsBodyFirst: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 16,
         paddingLeft: 12,
         alignSelf: 'flex-start',
@@ -635,6 +635,7 @@ export const styles = StyleSheet.create({
 
     diffStarsBody: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 16,
         paddingLeft: 3,
         color: mainRed
@@ -709,6 +710,7 @@ export const styles = StyleSheet.create({
     packDescText: {
         textAlign: 'center',
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 15,
         color: 'black'
     },
@@ -734,14 +736,15 @@ export const styles = StyleSheet.create({
         marginTop: 5,
         alignSelf: 'center',
         fontFamily: fontHeader,
-        fontSize: commons.IsTablet() ? 50 : 22,
+        fontSize: commons.IsTablet() ? 35 : 22,
         color: mainWhite
     },
 
     packButtonText: {
         alignSelf: 'center',
         fontFamily: fontTextGotham,
-        fontSize: commons.IsTablet() ? 22 : 12,
+        letterSpacing: 0,
+        fontSize: commons.IsTablet() ? 20 : 12,
         color: '#E2E2E2',
         textAlign: 'center',
         paddingTop: 5,
@@ -822,6 +825,7 @@ export const styles = StyleSheet.create({
 
     libArtist: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: Platform.OS === 'ios' ? 12 : 14,
         //fontWeight: 'bold',
         
@@ -844,6 +848,7 @@ export const styles = StyleSheet.create({
 
     libSong: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: Platform.OS === 'ios' ? 12 : 14,
         textAlign: 'center',
         alignSelf: 'stretch',
@@ -863,6 +868,7 @@ export const styles = StyleSheet.create({
 
     libDesc: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: commons.IsTablet() ? 20 : 16,
 
         textAlign: 'center',
@@ -878,48 +884,55 @@ export const styles = StyleSheet.create({
 
     countryPicker: {
         fontFamily: fontTextRoboto,
-        width: Dimensions.get('window').width-25,
+        letterSpacing: 0,
         borderRadius: 8
     },
 
     countryPickerItem: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         backgroundColor: mainWhite
     },
 
     suggestQuestions: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 15,
-        paddingTop: 10,
-        paddingLeft: 12,
-        paddingRight: 12,
+        paddingTop: "5%",
+        paddingLeft: "6%",
+        paddingRight: "6%",
         textAlign: 'left',
         alignSelf: 'stretch',
         color: 'black',
     },
 
     suggestAnswers: {
-        fontFamily: fontTextRoboto,
         borderRadius: 8,
-        paddingTop: 10,
-        paddingBottom: 15,
-        paddingLeft: 12,
-        paddingRight: 12,
+        paddingTop: "3%",
+        paddingLeft: "4%",
+        paddingRight: "4%",
         alignSelf: 'stretch',
         overflow: 'hidden'
+    },
+    
+    suggestSubmit: {
+        alignSelf: 'center',
+        borderRadius: 10,
+        marginTop: "2%"
     },
 
     suggestConfirmView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingLeft: "5%",
+        paddingRight: "5%",
         backgroundColor: mainWhite
     },
 
     suggestConfirmHeader: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 40,
         textAlign: 'center',
         alignSelf: 'stretch',
@@ -928,9 +941,10 @@ export const styles = StyleSheet.create({
 
     suggestConfirm: {
         fontFamily: fontTextRoboto,
+        letterSpacing: 0,
         fontSize: 15,
-        paddingTop: 30,
-        paddingBottom: 40,
+        paddingTop: "10%",
+        paddingBottom: "20%",
         textAlign: 'center',
         alignSelf: 'stretch',
         color: 'black'
