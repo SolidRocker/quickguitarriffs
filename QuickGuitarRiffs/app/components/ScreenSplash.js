@@ -188,9 +188,9 @@ class ScreenSplash extends Component{
     render() {
 
         return(
-            <View style={{backgroundColor:'#cca25a'}}>
+            <View style={styles.splashBG}>
                 {commons.ChangeStatusBar()}
-                <Image source={require('../img/SplashBig.jpg')} style={styles.splash} />
+                <Image source={require('../img/Logo/logo-text-lockup-black.jpg')} style={styles.splash} />
             </View>
         );
     }

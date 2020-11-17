@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import commons, {styles} from './common';
 import SideBar from './SideBar';
 import {DisplayBannerAd} from './adsRelated';
-//import PushNotification from 'react-native-push-notification'
+import PushNotification from 'react-native-push-notification'
 import * as RNIap from 'react-native-iap';
 
 const itemSkus = Platform.select({
@@ -52,8 +52,6 @@ class ScreenMainMenu extends Component{
     this.LoadSongList();
     this.LoadQuotes();
 
-    // Push notifications
-    this.configure();
     AppState.addEventListener('change', this.handleAppStateChange);
 
     // IAP
@@ -148,7 +146,7 @@ class ScreenMainMenu extends Component{
       }*/
 
       // Cancel before making again
-      //PushNotification.cancelAllLocalNotifications();
+      PushNotification.cancelAllLocalNotifications();
 
       //var noofDays = 1 //Math.floor(1 + Math.random() * 2)  // 1 to 2 days
       var noofHours = 20;// = (noofDays * 24) - 4;
@@ -188,23 +186,15 @@ class ScreenMainMenu extends Component{
         //var timeInMilli = noofHours * 50;
     
         // Notification
-        /*PushNotification.localNotificationSchedule({
+        PushNotification.localNotificationSchedule({
           message: msg,
           date: new Date(Date.now() + timeInMilli)
-        });*/
+        });
       }
     }
     else {
-      //PushNotification.cancelAllLocalNotifications();
+      PushNotification.cancelAllLocalNotifications();
     }
-  }
-
-  configure() {
-    /*PushNotification.configure({
-      onNotification: function(notification) {
-        console.log( 'NOTIFICATION:', notification );
-      },
-    });*/
   }
 
   async LoadSongList() {
@@ -464,7 +454,7 @@ class ScreenMainMenu extends Component{
               </Button>
             </Left>
             <Body style={{flex:1}} >
-              <Icon name='ios-star' style={styles.mainMenuHeaderBody}/>
+              <Image source={require("../img/Logo/logo-transparent.png")} style={styles.mainMenuHeaderBody}/>
             </Body>
             <Right style={{flex:1}}>
             </Right>
@@ -487,7 +477,6 @@ class ScreenMainMenu extends Component{
         </Content>
 
         {DisplayBannerAd(this.props.hasAds)}
-        {this.configure()}
 
       </Container>
       </Drawer>

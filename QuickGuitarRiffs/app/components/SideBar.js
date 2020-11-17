@@ -138,7 +138,7 @@ export default class SideBar extends Component {
                       resizeMode:'cover',
                       height:this.state.screenCoverHeight,
                       width:this.state.screenCoverWidth}}
-                      source={require('../img/SideBar.jpg')} />        
+                      source={require('../img/Logo/logo-text-lockup-black.jpg')} />        
           <List>
             <ListItem onPress={()=>{this.PressRateUs()}}>
               <Text style={styles.sidebarText} allowFontScaling={false} selectable={true}>Rate Us</Text>

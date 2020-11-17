@@ -3,6 +3,7 @@ package com.HugeWall.QuickGuitarRiffs;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.analytics.ReactNativeFirebaseAnalyticsPackage;
 import io.invertase.firebase.database.ReactNativeFirebaseDatabasePackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import io.invertase.firebase.admob.ReactNativeFirebaseAdmobPackage;
@@ -16,6 +17,7 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import com.google.android.gms.ads.MobileAds;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.dooboolab.RNIap.RNIapPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
 			new MainReactPackage(),
+            new ReactNativeFirebaseAnalyticsPackage(),
             new ReactNativeFirebaseDatabasePackage(),
             new RNCWebViewPackage(),
             new ReactNativeFirebaseAdmobPackage(),
@@ -39,7 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNGestureHandlerPackage(),
 			new SafeAreaContextPackage(),
 			new ReactNativeFirebaseAppPackage(),
-			new RNIapPackage()
+			new RNIapPackage(),
+			new ReactNativePushNotificationPackage()
       );
     }
 

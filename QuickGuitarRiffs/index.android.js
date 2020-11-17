@@ -19,6 +19,13 @@ import ScreenViewLibrary from './app/components/ScreenViewLibrary';
 import ScreenSuggestSongs from './app/components/ScreenSuggestSongs';
 import ScreenSuggestConfirm from './app/components/ScreenSuggestConfirm';
 import ScreenAfterBuy from './app/components/ScreenAfterBuy';
+import PushNotification from "react-native-push-notification";
+
+PushNotification.configure({
+  onNotification: function(notification) {
+    console.log( 'NOTIFICATION:', notification );
+  },
+});
 
 const Stack = createStackNavigator();
 

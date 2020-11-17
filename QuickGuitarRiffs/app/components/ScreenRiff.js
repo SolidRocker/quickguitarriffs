@@ -89,6 +89,12 @@ class ScreenRiff extends Component{
     if(this.state.isChoosingSong) {
       this.state.cRiffID = this.state.cChoseSongID;
       this.state.cListDifficulty = 3;
+
+      var songType = this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Type == 1 ? "Guitar" : "Bass";
+
+      commons.LogAnalytics(this.state.cListType, songType,
+                        this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song,
+                        this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist);
       //this.state.cRiffID = this.props.songs[this.state.cListDifficulty][this.state.cRiffID].RID;
     }
     else {

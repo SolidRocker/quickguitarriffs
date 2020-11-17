@@ -4,12 +4,21 @@ import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, B
 import { connect } from 'react-redux';
 import commons, {styles} from './common';
 
+const BUTTONS = Object.freeze({
+  'Beginner': 1,
+  'Intermediate': 2,
+  'Advanced': 3,
+  'All': 4,
+  'Choose': 5
+})
+
 class ScreenSubMenu extends Component{
   constructor(props) {
     super(props);
 
     this.state = {
-        menuType: this.props.route.params.rMenuType
+        menuType: this.props.route.params.rMenuType,
+        isPressedDown: [false, false, false, false, false]
     };
   }
   
@@ -29,16 +38,73 @@ class ScreenSubMenu extends Component{
     return true;
   }
 
+  OnTouchButton(item_, isPressedDown_) {
+
+    let cIndex = item_ - 1;
+    if(cIndex < 1) {
+      cIndex = 0;
+    }
+    let items = [...this.state.isPressedDown];
+    items[cIndex] = isPressedDown_;
+    this.setState({isPressedDown: items});
+  }
+
   AddMenuItem(item_) {
     let disp = null;
     
     disp =  <TouchableOpacity
             style={{flex:1}}
             activeOpacity={0.6}
-            onPress={()=>this.DoStuffOnClick(item_)}>
+            onPress={()=>this.DoStuffOnClick(item_)}
+            onPressIn={()=>this.OnTouchButton(item_, true)}
+            onPressOut={()=>this.OnTouchButton(item_, false)}
+            >
               {this.GetButtonContent(item_)}
             </TouchableOpacity>
     return disp;
+  }
+
+  GetImageString(imgName) {
+
+    switch(imgName) {
+      case BUTTONS.Beginner:
+        if(!this.state.isPressedDown[0]) {
+          return require("../img/Icons/beginner-riffs.png");
+        }
+        else {
+          return require("../img/Icons/beginner-riffs-pressed.png");
+        }
+      case BUTTONS.Intermediate:
+        if(!this.state.isPressedDown[1]) {
+          return require("../img/Icons/intermediate-riffs.png");
+        }
+        else {
+          return require("../img/Icons/intermediate-riffs-pressed.png");
+        }
+      case BUTTONS.Advanced:
+        if(!this.state.isPressedDown[2]) {
+          return require("../img/Icons/advanced-riffs.png");
+        }
+        else {
+          return require("../img/Icons/advanced-riffs-pressed.png");
+        }
+      case BUTTONS.All:
+        if(!this.state.isPressedDown[3]) {
+          return require("../img/Icons/all-riffs.png");
+        }
+        else {
+          return require("../img/Icons/all-riffs-pressed.png");
+        }
+      case BUTTONS.Choose:
+        if(!this.state.isPressedDown[4]) {
+          return require("../img/Icons/choose-a-riff.png");
+        }
+        else {
+          return require("../img/Icons/choose-a-riff-pressed.png");
+        }
+      default:
+        return;
+    }
   }
 
   GetButtonContent(item_) {
@@ -47,25 +113,31 @@ class ScreenSubMenu extends Component{
     let desc = "";
     let imgName = "";
 
-    if(item_ == "Beginner") {
-      header = "Beginner Riffs";
-      desc = "Simple riffs to stretch your hands!";
-    }
-    else if(item_ == "Intermediate") {
-      header = "Intermediate Riffs";
-      desc = "More riffs to jam on!";
-    }
-    else if(item_ == "Advanced") {
-      header = "Advanced Riffs";
-      desc = "Time to go crazy!";
-    }
-    else if(item_ == "All") {
-      header = "All Riffs";
-      desc = "A mash up of all types of riffs!";
-    }
-    else if(item_ == "ChooseRiff") {
-      header = "Choose A Riff";
-      desc = "Take your pick!";
+    switch(item_) {
+      case BUTTONS.Beginner:
+        header = "Beginner Riffs";
+        desc = "Simple riffs to stretch your hands!";
+        break;
+
+        case BUTTONS.Intermediate:
+          header = "Intermediate Riffs";
+          desc = "More riffs to jam on!";
+          break;
+
+        case BUTTONS.Advanced:
+          header = "Advanced Riffs";
+          desc = "Time to go crazy!";
+          break;
+
+        case BUTTONS.All:
+          header = "All Riffs";
+          desc = "A mash up of all types of riffs!";
+          break;
+
+        case BUTTONS.Choose:
+          header = "Choose A Riff";
+          desc = "Take your pick!";
+          break;
     }
 
     let disp =  <View style={styles.mainMenuButtonContainer}>
@@ -73,30 +145,35 @@ class ScreenSubMenu extends Component{
                     <Text style={styles.mainMenuButtonTextTitle}>{header}</Text>
                     <Text style={styles.mainMenuButtonTextDesc}>{desc}</Text>
                   </View>
-                  <Image source={require("../img/guitarheadgrey.png")} style={styles.mainMenuButtonIcon} />
+                  <Image source={this.GetImageString(item_)} style={styles.mainMenuButtonIcon} />
                 </View>
     return disp;
   }
 
+
   DoStuffOnClick = (btnName) => {
     switch(btnName) {
-      case 'Beginner':
+      case BUTTONS.Beginner:
+        commons.LogAnalytics(this.state.menuType, "Beginner");
         this.GoToRiffs(0);
         break;
 
-      case 'Intermediate':
+      case BUTTONS.Intermediate:
+        commons.LogAnalytics(this.state.menuType, "Intermediate");
         this.GoToRiffs(1);
         break;
 
-      case 'Advanced':
+      case BUTTONS.Advanced:
+        commons.LogAnalytics(this.state.menuType, "Advanced");
         this.GoToRiffs(2);
         break;
 
-      case 'All':
+      case BUTTONS.All:
+        commons.LogAnalytics(this.state.menuType, "All");
         this.GoToRiffs(3);
         break;
 
-      case 'ChooseRiff':
+      case BUTTONS.Choose:
       console.log(this.state.menuType);
         this.props.navigation.navigate('ScreenChooseList', {
           rListType: this.state.menuType
@@ -114,18 +191,6 @@ class ScreenSubMenu extends Component{
         rListType: this.state.menuType,
         rChoseSongID : 1,
       });
-  }
-
-  // Helper function to load image path
-  GetImageString(imgName) {
-    switch(imgName) {
-      case 'Beginner':      return require('../img/Beginner.jpg');
-      case 'Intermediate':  return require('../img/Intermediate.jpg');
-      case 'Advanced':      return require('../img/Advanced.jpg');
-      case 'All':           return require('../img/All.jpg');
-      case 'ChooseRiff':    return require('../img/ChooseRiff.jpg');
-      default:              return;
-    }
   }
 
   GetSubMenuTitle() {
@@ -158,11 +223,11 @@ class ScreenSubMenu extends Component{
 
     // List of buttons in MainMenu
     var menuItems = [
-      'Beginner',
-      'Intermediate',
-      'Advanced',
-      'All',
-      'ChooseRiff'
+      BUTTONS.Beginner,
+      BUTTONS.Intermediate,
+      BUTTONS.Advanced,
+      BUTTONS.All,
+      BUTTONS.Choose
     ];
 
     return(

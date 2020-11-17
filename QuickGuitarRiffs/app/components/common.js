@@ -1,6 +1,7 @@
 import React from 'react';
 import {Platform, StatusBar, Alert, Dimensions, StyleSheet, View, Image} from 'react-native';
 import {Right, Icon} from 'native-base';
+import analytics from '@react-native-firebase/analytics';
 
 var fontHeader = "Gotham-Black";
 var fontSubHeader = "GothamBold";
@@ -17,7 +18,7 @@ var mainDarkGrey = '#B3B5BD';
 
 const commons = {
     ChangeStatusBar() {
-        return <StatusBar backgroundColor="#151515" barStyle="light-content"/>
+        return <StatusBar backgroundColor={mainBlack} barStyle="light-content"/>
     },
 
     GetStatusBarBGColor() {
@@ -139,6 +140,31 @@ const commons = {
 
     ShowConnectionErrorMsg() {
         Alert.alert("Connection Error", "Oops! Please check your internet connection!");
+    },
+
+    LogAnalytics(mType_, subType_ = "", songname_ = "", artistname_ = "") {
+        //console.log("MS: " + mType_ + ", " + subType_ + ", " + songname_ + ", " + artistname_);
+        var evtLog = "";
+
+        if(mType_ == 1) {
+            evtLog = "click_guitar_" + subType_.toLowerCase();
+        }
+        else if(mType_ == 2) {
+            evtLog = "click_bass_" + subType_.toLowerCase();
+        }
+        else if(mType_ == 3) {
+            evtLog = "click_both_" + subType_.toLowerCase();
+        }
+
+        else if(mType == 4) {
+            analytics().logEvent("click_choose_song", {
+                instr: subType_,
+                song: songname_,
+                artist: artistname_
+            });
+            return;
+        }
+        analytics().logEvent(evtLog);
     }
 }
 
@@ -152,9 +178,20 @@ export const styles = StyleSheet.create({
 
     splash: {
         resizeMode:'contain',
-        width:'100%',
-        height:'100%'
+        width:'80%',
+        height: '80%',
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
+
+    splashBG: {
+        backgroundColor: mainBlack,
+        width: '100%',
+        height: '100%',
+        alignSelf: 'center',
+        display: 'flex',
+        justifyContent: 'space-around'
+   },
 
     pageColor: {
         backgroundColor: mainWhite
@@ -292,6 +329,8 @@ export const styles = StyleSheet.create({
     mainMenuHeaderBody: {
         alignItems:'center',
         alignSelf: 'center',
+        width: '30%',
+        resizeMode: 'contain',
         color: mainRed
     },
 
@@ -404,7 +443,7 @@ export const styles = StyleSheet.create({
         fontSize: Platform.OS === 'ios' ? 14 : 16,
         textAlign: 'left',
         alignSelf: 'stretch',
-        color: mainBlack
+        color: mainWhite
     },
 
     menuListItem: {

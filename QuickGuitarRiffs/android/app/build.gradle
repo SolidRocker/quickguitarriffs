@@ -110,8 +110,8 @@ android {
         applicationId "com.HugeWall.QuickGuitarRiffs"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 68
-        versionName "1.35"
+        versionCode 69
+        versionName "1.38"
 		multiDexEnabled true
         ndk {
             abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
@@ -168,6 +168,9 @@ dependencies {
 	implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 	
+	implementation platform('com.google.firebase:firebase-bom:26.1.0')
+	implementation 'com.google.firebase:firebase-analytics'
+	
     implementation "com.google.firebase:firebase-core:16.0.9"
     implementation "com.google.android.gms:play-services-base:17.0.0"
 	implementation "com.google.android.gms:play-services-ads:18.0.0"
@@ -178,8 +181,10 @@ dependencies {
 	implementation project(path: ":@react-native-firebase_app")
 	implementation project(path: ":@react-native-firebase_admob")
 	implementation project(path: ":@react-native-firebase_database")
+	implementation project(path: ":@react-native-firebase_analytics")
 	implementation project(":react-native-webview")
 	implementation project(':react-native-iap')
+	implementation project(':react-native-push-notification')
 	
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:28.0.0"
