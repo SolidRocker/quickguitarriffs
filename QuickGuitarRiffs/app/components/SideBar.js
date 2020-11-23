@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, Alert, AsyncStorage, Dimensions, Image, Platform, Share, Linking} from "react-native";
+import {AppRegistry, Alert, Dimensions, Image, Platform, Share, Linking} from "react-native";
 import {Text, Container, List, ListItem, Content} from "native-base";
 import commons, {styles} from './common';
 import * as RNIap from 'react-native-iap';

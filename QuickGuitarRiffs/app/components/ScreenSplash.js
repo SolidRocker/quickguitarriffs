@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {AppRegistry, Platform, AsyncStorage, Image, View} from 'react-native';
+import {AppRegistry, Platform, Image, View} from 'react-native';
 import commons, {styles} from './common';
 import * as RNIap from 'react-native-iap';
 import { setPack1, setPack2, setPack3,setHasAds, initFirebase, setProducts} from '../redux/songlistActions';
 import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const itemSkus = Platform.select({
     ios: [
@@ -75,10 +76,10 @@ class ScreenSplash extends Component{
             AsyncStorage.setItem('bPack3', "0");
         }
 
-        //if(this.state.is_first_use == null || this.state.is_first_use == "0") {
+        if(this.state.is_first_use == null || this.state.is_first_use == "0") {
             this.state.show_tutorial = true;
-            //AsyncStorage.setItem('isFirstUse', "1");
-        //}
+            AsyncStorage.setItem('isFirstUse', "1");
+        }
     }
 
     async IAP_Init() {
@@ -142,10 +143,10 @@ class ScreenSplash extends Component{
 
     // ================================ IAP STUFF ENDS =================================
 
-    componentDidMount() {
+    async componentDidMount() {
 
-        this.IAP_Init();   
-        this.LoadLocalPurchase();
+        await this.IAP_Init();  
+        await this.LoadLocalPurchase();
         this.props.initFirebase();
 
         // If everything is already marked as purchased in local, then no need to restore purchases.

@@ -66,6 +66,7 @@
 		AA1E685D2B0B4DE9A06F5EF4 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B10EAE3596A940938C8BC0D0 /* libRNCWebView.a */; };
 		F01C78E7F8824A43B6D19F12 /* libRNFBDatabase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A2ACE313DA4107AB692D6C /* libRNFBDatabase.a */; };
 		2435EDA269924035BDB5BFD9 /* libRNFBAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F1C236360E41509A0C78A3 /* libRNFBAnalytics.a */; };
+		8EAE280D17CD455E94BB3CD6 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B47C536B26949648A3EF7FA /* libRNCAsyncStorage.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -407,6 +408,8 @@
 		A0A2ACE313DA4107AB692D6C /* libRNFBDatabase.a */ = {isa = PBXFileReference; name = "libRNFBDatabase.a"; path = "libRNFBDatabase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		E79C43921F194C588920AFF5 /* RNFBAnalytics.xcodeproj */ = {isa = PBXFileReference; name = "RNFBAnalytics.xcodeproj"; path = "../node_modules/@react-native-firebase/analytics/ios/RNFBAnalytics.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		E3F1C236360E41509A0C78A3 /* libRNFBAnalytics.a */ = {isa = PBXFileReference; name = "libRNFBAnalytics.a"; path = "libRNFBAnalytics.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		68F26E443B2A4432BF068673 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; name = "RNCAsyncStorage.xcodeproj"; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5B47C536B26949648A3EF7FA /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; name = "libRNCAsyncStorage.a"; path = "libRNCAsyncStorage.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,6 +446,7 @@
 				AA1E685D2B0B4DE9A06F5EF4 /* libRNCWebView.a in Frameworks */,
 				F01C78E7F8824A43B6D19F12 /* libRNFBDatabase.a in Frameworks */,
 				2435EDA269924035BDB5BFD9 /* libRNFBAnalytics.a in Frameworks */,
+				8EAE280D17CD455E94BB3CD6 /* libRNCAsyncStorage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +645,7 @@
 				D954D8A3EF1D468795E872D1 /* RNCWebView.xcodeproj */,
 				B76D0C6A035743A3B3272E1A /* RNFBDatabase.xcodeproj */,
 				E79C43921F194C588920AFF5 /* RNFBAnalytics.xcodeproj */,
+				68F26E443B2A4432BF068673 /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1321,12 +1326,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
 					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
+					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
@@ -1363,12 +1370,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
 					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
+					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
@@ -1407,6 +1416,7 @@
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
+					"$(SRCROOT)/..",
 				);
 			};
 			name = Debug;
@@ -1430,6 +1440,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
 					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
+					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
@@ -1475,12 +1486,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
 					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
+					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
@@ -1526,12 +1539,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
 					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
+					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
@@ -1576,12 +1591,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
 					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
+					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
@@ -1626,12 +1643,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-firebase\ios\RNFirebase/**",
 					"$(SRCROOT)\..\node_modules\react-native-iap\ios",
 					"$(SRCROOT)\..\node_modules\react-native-admob\ios",
+					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",
 					"$(SRCROOT)/..",

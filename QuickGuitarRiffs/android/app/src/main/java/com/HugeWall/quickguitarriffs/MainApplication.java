@@ -3,6 +3,7 @@ package com.HugeWall.QuickGuitarRiffs;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import io.invertase.firebase.analytics.ReactNativeFirebaseAnalyticsPackage;
 import io.invertase.firebase.database.ReactNativeFirebaseDatabasePackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
 			new MainReactPackage(),
+            new AsyncStoragePackage(),
             new ReactNativeFirebaseAnalyticsPackage(),
             new ReactNativeFirebaseDatabasePackage(),
             new RNCWebViewPackage(),

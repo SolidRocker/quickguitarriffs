@@ -329,7 +329,7 @@ export const styles = StyleSheet.create({
     mainMenuHeaderBody: {
         alignItems:'center',
         alignSelf: 'center',
-        width: '30%',
+        width: commons.IsTablet() ? '20%' : '30%',
         resizeMode: 'contain',
         color: mainRed
     },
@@ -403,6 +403,14 @@ export const styles = StyleSheet.create({
         color: mainBlack
     },
 
+    subMenuTitleHeader: {
+        fontFamily: fontSubHeader,
+        fontSize: Platform.OS === 'ios' ? 14 : 16,
+        textAlign: 'left',
+        alignSelf: 'stretch',
+        color: mainBlack
+    },
+
     mainMenuButtonTextTitle: {
         color: mainWhite,
         fontFamily: fontSubHeader,
@@ -473,30 +481,28 @@ export const styles = StyleSheet.create({
     },
 
     riffMainView: {
-        flex: 1,
+        //flex: 1,
         backgroundColor: mainBlack,
+        width: '100%'
     },
 
     riffContainer: {
-        display: "flex",
-        justifyContent: 'flex-start',
-        flexDirection: "row",
+        width: '100%'
+        //display: "flex",
+        //justifyContent: 'flex-start',
+        //flexDirection: "row",
     },
 
     riffCardView: {
-        height: "15%",
         padding: "3%",
         paddingLeft: "3%",
+        width: '100%',
     },
 
-    songContentView: {
-        flexGrow: 3,
-        height: "75%",
-        width: "100%",
+    songContentScrollView: {
         backgroundColor: mainWhite,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
-        marginTop: "4%",
     },
 
     songTitle:{
@@ -523,10 +529,10 @@ export const styles = StyleSheet.create({
     },
 
     songInfoTuningView: {
-        flex: 1,
         flexDirection:'row',
         paddingLeft: "2%",
-        paddingTop: "1%"
+        paddingTop: "2%",
+        paddingBottom: "1%"
     },
 
     songInfoTuning: {
@@ -547,7 +553,6 @@ export const styles = StyleSheet.create({
     },
 
     songInfoKeyView: {
-        flex: 1,
         flexDirection:'row',
         paddingLeft: "2%",
         paddingBottom: "2%"
@@ -612,7 +617,7 @@ export const styles = StyleSheet.create({
     tabWebView: {
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
+        //flex: 1,
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
         marginTop: (Platform.OS) === 'ios' ? 20 : 0,
@@ -908,17 +913,27 @@ export const styles = StyleSheet.create({
     libDesc: {
         fontFamily: fontTextRoboto,
         letterSpacing: 0,
-        fontSize: commons.IsTablet() ? 20 : 16,
+        lineHeight: 20,
+        fontSize: commons.IsTablet() ? 16 : 16,
 
         textAlign: 'center',
         alignSelf: 'stretch',
         color: mainBlack,
 
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 15,
-        paddingBottom: 20,
+        paddingLeft: commons.IsTablet() ? '8%' : '5%',
+        paddingRight: commons.IsTablet() ? '8%' : '5%',
+        paddingTop: '3%',
+        paddingBottom: '3%',
         //backgroundColor: '#454545'
+    },
+
+    libDescRiffType: {
+        fontSize: commons.IsTablet() ? 16 : 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        alignSelf: 'stretch',
+        color: mainBlack,
+        paddingBottom: '4%',
     },
 
     countryPicker: {
@@ -981,7 +996,8 @@ export const styles = StyleSheet.create({
     suggestConfirm: {
         fontFamily: fontTextRoboto,
         letterSpacing: 0,
-        fontSize: 15,
+        fontSize: 18,
+        lineHeight: 24,
         paddingTop: "10%",
         paddingBottom: "20%",
         textAlign: 'center',

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { AppRegistry, BackHandler, ImageBackground, TouchableOpacity, View, ActivityIndicator, ScrollView } from 'react-native';
 import { Content, Header, Left, Right, Body, Container, Button, Icon, Text } from 'native-base';
-import { setPack1, setPack2, setPack3, setSongs, setProducts } from '../redux/songlistActions';
+import { setPack1, setPack2, setPack3, setHasAds, setSongs, setProducts } from '../redux/songlistActions';
 import commons, {styles} from './common';
 import { connect } from 'react-redux';
 import * as RNIap from 'react-native-iap';
+import GestureRecognizer from 'react-native-swipe-gestures';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const itemSkus = Platform.select({
     ios: [
@@ -24,7 +26,8 @@ class ScreenViewLibraryPacks extends Component {
     
         this.state = {
             checkingProducts: false,
-            isLoaded: false
+            isLoaded: false,
+            isRefreshing: false
         };
       }
 
@@ -53,49 +56,53 @@ class ScreenViewLibraryPacks extends Component {
         
         try {
             const products = await RNIap.getProducts(itemSkus);
-            console.log('Products', products);
+            //console.log('Products', products);
             this.props.setProducts(products);
         } catch(err) {
             console.warn(err); // standardized err.code and err.message available
         }
       }
     
-      async IAP_RestorePurchases(showAlert = false) {
-    
-          try {
-              const purchases = await RNIap.getAvailablePurchases();
-              purchases.forEach(purchase => {
-                if (purchase.productId === 'com.hugewall.quickguitarriffs.unlockall') {
-                    this.props.setPack1(true);
-                    this.forceUpdate();
+      async IAP_RestorePurchases() {
+
+        try {
+            const purchases = await RNIap.getAvailablePurchases();
+
+            if(purchases) {
+                purchases.forEach(purchase => {
+
+                    if (purchase.productId === 'com.hugewall.quickguitarriffs.unlockall') {
+                        this.state.rPack1 = 1;
+                        this.props.setPack1(true);
+                        AsyncStorage.setItem('bPack1', "1");
+                    }
+
+                    if (purchase.productId === 'com.hugewall.quickguitarriffs.pack2') {
+                        this.state.rPack2 = 1;
+                        this.props.setPack2(true);
+                        AsyncStorage.setItem('bPack2', "1");
+                    }
+
+                    if (purchase.productId === 'com.hugewall.quickguitarriffs.pack3') {
+                        this.state.rPack3 = 1;
+                        this.props.setPack3(true);
+                        AsyncStorage.setItem('bPack3', "1");
+                    }
+                });
+
+                if(this.state.rPack1 == 0 && this.state.rPack2 == 0 & this.state.rPack3 == 0) {
+                    this.props.setHasAds(true);
                 }
                 else {
-                    this.props.setPack1(false);
-                    this.forceUpdate();
+                    this.props.setHasAds(false);
                 }
-                if (purchase.productId === 'com.hugewall.quickguitarriffs.pack2') {
-                    this.props.setPack2(true);
-                    this.forceUpdate();
-                }
-                else {
-                    this.props.setPack2(false);
-                    this.forceUpdate();
-                }
-                if (purchase.productId === 'com.hugewall.quickguitarriffs.pack3') {
-                    this.props.setPack3(true);
-                    this.forceUpdate();
-                }
-                else {
-                    this.props.setPack3(false);
-                    this.forceUpdate();
-                }
-              })
-          } catch(err) {
-              console.warn(err); // standardized err.code and err.message available
-              //Alert.alert(err.message);
-          }
-          this.forceUpdate();
-      }
+                this.forceUpdate();
+            }
+        } catch(err) {
+            console.warn(err); // standardized err.code and err.message available
+            //Alert.alert(err.message);
+        }
+    }
     
     IAP_EndConnection() {
         RNIap.endConnectionAndroid();
@@ -106,8 +113,8 @@ class ScreenViewLibraryPacks extends Component {
         return true;
     }
 
-    GoToLib = (pack) => {
-        this.props.navigation.navigate('ScreenViewLibrary', {rPackID : pack});
+    GoToLib = (pack, type) => {
+        this.props.navigation.navigate('ScreenViewLibrary', {rPackID: pack, rRiffType: type});
         return true;
     }
 
@@ -144,7 +151,7 @@ class ScreenViewLibraryPacks extends Component {
         if(this.props.products.length == 0) {
             disp =
                 <Container style={styles.packMainContainer}>
-                    <Text allowFontScaling={false} style={styles.packError}>Couldn't load packs. Please check your internet connection and try again!</Text>
+                    <Text allowFontScaling={false} style={styles.packError}>Couldn't load packs. Swipe down to refresh the library!</Text>
                 </Container>
             return disp;
         }
@@ -155,7 +162,7 @@ class ScreenViewLibraryPacks extends Component {
                 <TouchableOpacity
                     style={styles.packButton} 
                     activeOpacity={0.8}
-                    onPress={()=>this.GoToLib(1)}>
+                    onPress={()=>this.GoToLib(1, 1)}>
                         <View style={styles.packButtonContainer}>
                             <Text style={styles.packButtonTitle}>THE ESSENTIAL PACK</Text>
                             <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 130 Guitar Songs</Text>
@@ -166,7 +173,7 @@ class ScreenViewLibraryPacks extends Component {
                 <TouchableOpacity
                     style={styles.packButton} 
                     activeOpacity={0.8}
-                    onPress={()=>this.GoToLib(2)}>
+                    onPress={()=>this.GoToLib(2, 1)}>
                         <View style={styles.packButtonContainer}>
                             <Text style={styles.packButtonTitle}>THE EXTENDED PACK</Text>
                             <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 60 Guitar Songs</Text>
@@ -177,7 +184,7 @@ class ScreenViewLibraryPacks extends Component {
                 <TouchableOpacity
                 style={styles.packButton} 
                 activeOpacity={0.8}
-                onPress={()=>this.GoToLib(3)}>
+                onPress={()=>this.GoToLib(3, 2)}>
                     <View style={styles.packButtonContainer}>
                         <Text style={styles.packButtonTitle}>THE BASS GROOVE PACK</Text>
                         <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 110 BASS Songs</Text>
@@ -187,44 +194,27 @@ class ScreenViewLibraryPacks extends Component {
             </ScrollView>
         </Content>
 
-        /*disp =
-        <Content>
-        <ScrollView>
-            <TouchableOpacity
-                style={styles.packButton} 
-                activeOpacity={0.8}
-                onPress={()=>this.GoToLib(1)}>
-                    <ImageBackground source={require('../img/PackEssential.jpg')} style={styles.packButtonBG}>
-                        <Text style={styles.packButtonTitle}>THE ESSENTIAL PACK</Text>
-                        <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 130 Guitar Songs</Text>
-                        {this.SetCost('com.hugewall.quickguitarriffs.unlockall', this.props.pack1)}
-                    </ImageBackground>
-            </TouchableOpacity>
+        return disp;
+    }
 
-            <TouchableOpacity
-                style={styles.packButton}
-                activeOpacity={0.8}
-                onPress={()=>this.GoToLib(2)}>
-                    <ImageBackground source={require('../img/PackExtended.jpg')} style={styles.packButtonBG}>
-                        <Text style={styles.packButtonTitle}>THE EXTENDED PACK</Text>
-                        <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 60 Guitar Songs</Text>
-                        {this.SetCost('com.hugewall.quickguitarriffs.pack2', this.props.pack2)}
-                    </ImageBackground>
-            </TouchableOpacity>
+    async onSwipeLeft(gestureState) {
+        this.setState({isRefreshing: true});
 
-            <TouchableOpacity
-                style={styles.packButton} 
-                activeOpacity={0.8}
-                onPress={()=>this.GoToLib(3)}>
-                    <ImageBackground source={require('../img/PackEssential.jpg')} style={styles.packButtonBG}>
-                        <Text style={styles.packButtonTitle}>THE BASS GROOVE PACK</Text>
-                        <Text allowFontScaling={false} style={styles.packButtonText}>Remove Ads + 110 BASS Songs</Text>
-                        {this.SetCost('com.hugewall.quickguitarriffs.pack3', this.props.pack3)}
-                    </ImageBackground>
-            </TouchableOpacity>
-        </ScrollView>
-        </Content>*/
+        await this.IAP_Init();
+        await this.IAP_RestorePurchases();
+        this.setState({
+            isRefreshing: false
+        });
+    }
 
+    ShowSpinner() {
+        let disp = null;
+    
+        if(this.state.isRefreshing) {
+            disp =  <View style={{marginTop:"10%"}}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    </View>
+        }
         return disp;
     }
 
@@ -257,15 +247,20 @@ class ScreenViewLibraryPacks extends Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Text allowFontScaling={false} style={styles.riffHeader}>View Library</Text>
+                        <Text allowFontScaling={false} style={styles.subMenuTitleHeader}>View Library</Text>
                     </Body>
                     <Right>
                     </Right>
                 </Header>
 
                 <Content style={styles.subMenuContainer}>
-                    {this.GetHeader()}
-                    {this.RenderProductInfo()}
+                    <GestureRecognizer
+                        onSwipeDown={(state) => this.onSwipeLeft(state)}
+                    >
+                        {this.ShowSpinner()}
+                        {this.GetHeader()}
+                        {this.RenderProductInfo()}
+                    </GestureRecognizer>
                 </Content>
                 
             </Container>
@@ -281,5 +276,5 @@ const mapStateToProps = state => ({
     pack3: state.songlist.pack3,
   });
   
-export default connect(mapStateToProps, {setPack1, setPack2, setPack3, setSongs, setProducts})(ScreenViewLibraryPacks);
+export default connect(mapStateToProps, {setPack1, setPack2, setPack3, setHasAds, setSongs, setProducts})(ScreenViewLibraryPacks);
 AppRegistry.registerComponent('QuickGuitarRiffs', () => ScreenViewLibraryPacks);

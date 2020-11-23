@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from 'react';
-import { AppRegistry, Alert, AsyncStorage, BackHandler, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { AppRegistry, Alert, BackHandler, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Header, Left, Right, Body, Container, Button, Icon, Text } from 'native-base';
 import { setPack1, setPack2, setPack3 } from '../redux/songlistActions';
 import { connect } from 'react-redux';
@@ -26,6 +26,7 @@ class ScreenViewLibrary extends Component {
         this.timeOut = null;
         this.state = {
             packID : this.props.route.params.rPackID,
+            riffType : this.props.route.params.rRiffType,
             packName: '',
             packSize: 0,
             listLoadStage: 0
@@ -113,6 +114,19 @@ class ScreenViewLibrary extends Component {
         return "GET THESE SONGS NOW!"
     }
 
+    GetRiffType() {
+        let resPre = "Note: All riffs listed below are ";
+        let resPost = " riffs.";
+        if(this.state.riffType == 1) {
+            return resPre + "GUITAR" + resPost;
+            
+        }
+        else if(this.state.riffType == 2) {
+            return resPre + "BASS" + resPost;
+        }
+        return "";
+    }
+
     RenderGetPremiumButton() {
         var disp = 
         <TouchableOpacity style={this.IsButtonDisabled() ? styles.libViewButtonDisabled : styles.libViewButton} disabled={this.IsButtonDisabled()} onPress={() => this.IAP_BuyItem()}>
@@ -138,6 +152,7 @@ class ScreenViewLibrary extends Component {
             <ScrollView>
                 {this.RenderGetPremiumButton()}
                 <Text style={styles.libDesc}>This is the list of the {this.state.packSize} killer riffs you can add to your riffs library from this pack! Spanning across many genres, they're guaranteed to spice up your practice routine and get those fingers working!</Text>
+                <Text style={styles.libDescRiffType}>{this.GetRiffType()}</Text>
                 {this.RenderCurrentContents()}
                 <Text style={styles.libDesc}>Add these {this.state.packSize} killer riffs into your collection!</Text>
                 {this.RenderGetPremiumButton()}
@@ -216,7 +231,7 @@ class ScreenViewLibrary extends Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Text allowFontScaling={false} style={styles.riffHeader}>View Library</Text>
+                        <Text allowFontScaling={false} style={styles.subMenuTitleHeader}>View Library</Text>
                     </Body>
                     <Right>
                     </Right>

@@ -117,7 +117,7 @@ class ScreenChooseList extends Component{
              </Button>
           </Left>
           <Body>
-            <Text allowFontScaling={false} style={styles.riffHeader}>Choose A Riff</Text>
+            <Text allowFontScaling={false} style={styles.subMenuTitleHeader}>Choose A Riff</Text>
           </Body>
           <Right>
           </Right>

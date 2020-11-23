@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, Alert, StatusBar, AsyncStorage, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
+import {AppRegistry, Alert, StatusBar, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
 import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, Button, Icon, Text} from 'native-base';
 import { connect } from 'react-redux';
 import commons, {styles} from './common';
@@ -243,7 +243,7 @@ class ScreenSubMenu extends Component{
               </Button>
             </Left>
             <Body>
-              <Text allowFontScaling={false} style={styles.riffHeader}>{this.GetSubMenuTitle()}</Text>
+              <Text allowFontScaling={false} style={styles.subMenuTitleHeader}>{this.GetSubMenuTitle()}</Text>
             </Body>
             <Right>
             </Right>

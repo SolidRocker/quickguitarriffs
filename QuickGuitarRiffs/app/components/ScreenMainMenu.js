@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, Alert, StatusBar, AsyncStorage, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
+import {AppRegistry, Alert, StatusBar, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, Button, Icon, Text} from 'native-base';
 import { setPack1, setPack2, setPack3, setSongs, setProducts, setQuotes } from '../redux/songlistActions';
 import { connect } from 'react-redux';
@@ -9,6 +9,7 @@ import SideBar from './SideBar';
 import {DisplayBannerAd} from './adsRelated';
 import PushNotification from 'react-native-push-notification'
 import * as RNIap from 'react-native-iap';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 const itemSkus = Platform.select({
   ios: [
@@ -39,8 +40,10 @@ class ScreenMainMenu extends Component{
      notificationSeconds: 5,
      sideBarCoverRatio: 0.8,
      isDrawerOpen: false,
+     isRefreshing: false,
 
      hasLoadedQuote: false,
+     currQuote: 0,
      isPressedDown: [false, false, false, false, false]
     };
     this.ChangeRatio();
@@ -399,21 +402,44 @@ class ScreenMainMenu extends Component{
   GetQuote() {
     if(this.props.quotes && this.props.quotes.length > 0) {
       let qMax = this.props.quotes.length;
-      let currQuote = 0;
       
-      if(this.state.hasLoadedQuote) {
-        Math.floor(Math.random() * qMax);
-        this.setState({hasLoadedQuote: true});
+      if(!this.state.hasLoadedQuote) {
+        this.setState({
+          hasLoadedQuote: true,
+          currQuote: Math.floor(Math.random() * qMax)
+        });
       }
-
+      
       let disp =
       <View>
-        <Text style={styles.quoteContent}>{this.props.quotes[currQuote].quote}</Text>
-        <Text style={styles.quotePerson}>- {this.props.quotes[currQuote].artist}</Text>
+        <Text style={styles.quoteContent}>{this.props.quotes[this.state.currQuote].quote}</Text>
+        <Text style={styles.quotePerson}>- {this.props.quotes[this.state.currQuote].artist}</Text>
       </View>
       return disp;
     }
     return null;
+  }
+
+  onSwipeLeft(gestureState) {
+    this.setState({isRefreshing: true});
+
+    setTimeout(() => {
+      this.setState({
+        hasLoadedQuote: false,
+        isRefreshing: false
+      });
+    }, 500);
+  }
+
+  ShowSpinner() {
+    let disp = null;
+
+    if(this.state.isRefreshing) {
+        disp =  <View style={{marginTop:"10%"}}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                </View>
+    }
+    return disp;
   }
 
   render() {
@@ -427,6 +453,8 @@ class ScreenMainMenu extends Component{
       BUTTONS.SuggestSongs,
       BUTTONS.ViewLibrary
     ];
+
+
 
     return(
         <Container
@@ -461,19 +489,24 @@ class ScreenMainMenu extends Component{
             </Header>}
 
           <Content>
-            {this.GetQuote()}
-            <Text style={styles.mainMenuInstr}>Pick a category to get started!</Text>
-            <ScrollView>
-            <List dataArray={menuItems}
-              renderRow={(item) =>
-                <ListItem icon
-                style={styles.menuListItem}
-                title={this.GetTitleString(item)}>
-                  {this.AddMenuItem(item)}
-                </ListItem>
-              }>
-            </List>
-          </ScrollView>
+            <GestureRecognizer
+                  onSwipeDown={(state) => this.onSwipeLeft(state)}
+            >
+              <ScrollView>
+              {this.ShowSpinner()}
+              {this.GetQuote()}
+              <Text style={styles.mainMenuInstr}>Pick a category to get started!</Text>
+              <List dataArray={menuItems}
+                renderRow={(item) =>
+                  <ListItem icon
+                  style={styles.menuListItem}
+                  title={this.GetTitleString(item)}>
+                    {this.AddMenuItem(item)}
+                  </ListItem>
+                }>
+              </List>
+            </ScrollView>
+          </GestureRecognizer>
         </Content>
 
         {DisplayBannerAd(this.props.hasAds)}

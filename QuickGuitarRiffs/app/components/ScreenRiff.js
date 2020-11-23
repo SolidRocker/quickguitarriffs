@@ -387,7 +387,7 @@ class ScreenRiff extends Component{
           <View onLayout={e => this.onLayout(e)} style={styles.riffMainView}>
             {loadSpinner}
 
-            <ScrollView style={styles.riffCardView}>
+            <View style={styles.riffCardView}>
                 {commons.GetDifficultyIconBody(this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Diff)}
                 <Text style={styles.songTitle}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song}</Text>
                 <Text style={styles.songArtist}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist}</Text>     
@@ -400,9 +400,9 @@ class ScreenRiff extends Component{
                   <Text style={styles.songInfoKeyLeft}>Key:</Text>
                   <Text style={styles.songInfoKey}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Key}</Text>
                 </View>
-            </ScrollView>
+            </View>
 
-            <ScrollView maximumZoomScale={3} minimumZoomScale={1} style={styles.songContentView}>
+            <ScrollView maximumZoomScale={3} minimumZoomScale={1} style={styles.songContentScrollView}>
               <View>
                 <Text style={styles.gapTab}></Text>
                 {this.DisplayTab()}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { AppRegistry, Alert, Platform, Dimensions, AsyncStorage, BackHandler, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { AppRegistry, Alert, Platform, Dimensions, BackHandler, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Header, Left, Right, Body, Container, Button, Picker, Icon, Item, Text, Textarea } from 'native-base';
 import NetInfo from "@react-native-community/netinfo";
 import commons, {styles, androidConfig} from './common';
 import database from '@react-native-firebase/database';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class ScreenSuggestSongs extends Component {
     constructor(props) {
@@ -194,7 +195,7 @@ export default class ScreenSuggestSongs extends Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Text allowFontScaling={false} style={styles.riffHeader}>Suggest Songs</Text>
+                        <Text allowFontScaling={false} style={styles.subMenuTitleHeader}>Suggest Songs</Text>
                     </Body>
                     <Right>
                     </Right>
