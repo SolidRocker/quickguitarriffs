@@ -17,6 +17,11 @@ var subRed = '#F5AD73';
 var mainDarkGrey = '#B3B5BD';
 
 const commons = {
+
+    GetBlack() {
+        return mainBlack;
+    },
+
     ChangeStatusBar() {
         return <StatusBar backgroundColor={mainBlack} barStyle="light-content"/>
     },
@@ -329,7 +334,7 @@ export const styles = StyleSheet.create({
     mainMenuHeaderBody: {
         alignItems:'center',
         alignSelf: 'center',
-        width: commons.IsTablet() ? '20%' : '30%',
+        width: commons.IsTablet() || !commons.IsPortrait() ? '20%' : '30%',
         resizeMode: 'contain',
         color: mainRed
     },
@@ -494,7 +499,12 @@ export const styles = StyleSheet.create({
     },
 
     riffCardView: {
-        padding: "3%",
+        //padding: "3%",
+        paddingLeft: "3%",
+        width: '100%',
+    },
+
+    riffCardViewLandscape: {
         paddingLeft: "3%",
         width: '100%',
     },
@@ -512,7 +522,7 @@ export const styles = StyleSheet.create({
         padding: "2%",
         textAlign: 'left',
         //alignSelf: 'stretch',
-        color: 'white',
+        color: mainWhite,
         lineHeight: 30,
     },
 
@@ -525,14 +535,14 @@ export const styles = StyleSheet.create({
         paddingLeft: "2%",
         textAlign: 'left',
         alignSelf: 'stretch',
-        color: 'white'
+        color: mainWhite
     },
 
     songInfoTuningView: {
         flexDirection:'row',
         paddingLeft: "2%",
         paddingTop: "2%",
-        paddingBottom: "1%"
+        paddingBottom: "1%",
     },
 
     songInfoTuning: {
@@ -540,7 +550,7 @@ export const styles = StyleSheet.create({
         letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
-        color: 'white'
+        color: mainWhite,
     },
 
     songInfoTuningLeft: {
@@ -548,14 +558,14 @@ export const styles = StyleSheet.create({
         letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
-        color: 'white',
+        color: mainWhite,
         width: 77
     },
 
     songInfoKeyView: {
         flexDirection:'row',
-        paddingLeft: "2%",
-        paddingBottom: "2%"
+        paddingLeft:"2%",
+        paddingBottom: "3%",
     },
 
     songInfoKey: {
@@ -563,7 +573,7 @@ export const styles = StyleSheet.create({
         letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
-        color: 'white'
+        color: mainWhite,
     },
 
     songInfoKeyLeft: {
@@ -571,8 +581,44 @@ export const styles = StyleSheet.create({
         letterSpacing: 0,
         fontSize: 14,
         textAlign: 'left',
-        color: 'white',
+        color: mainWhite,
         width: 77
+    },
+
+    songTitleLandscape:{
+        fontFamily: fontSubHeader,
+        //fontWeight: 'bold',
+        fontSize: 24,
+        padding: "1%",
+        textAlign: 'left',
+        //alignSelf: 'stretch',
+        color: mainBlack,
+        lineHeight: 30,
+    },
+
+    songArtistLandscape:{
+        fontFamily: fontTextRoboto,
+        letterSpacing: 0,
+        //fontWeight: "bold",
+        fontSize: 14,
+        paddingBottom: "1%",
+        paddingLeft: "1%",
+        textAlign: 'left',
+        alignSelf: 'stretch',
+        color: mainBlack
+    },
+
+    songInfoTuningViewLandscape: {
+        flexDirection:'row',
+        paddingLeft: "1%",
+        paddingTop: "1%",
+        paddingBottom: "1%",
+    },
+
+    songInfoKeyViewLandscape: {
+        flexDirection:'row',
+        paddingLeft:"1%",
+        paddingBottom: "3%",
     },
 
     gapTab:{

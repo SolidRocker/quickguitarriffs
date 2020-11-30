@@ -28,7 +28,9 @@ class ScreenRiff extends Component{
 
       tabstringID : 0,
       maxSavedSet : 1,
-      isLoading: false
+      isLoading: false,
+
+      isPortrait: commons.IsPortrait()
     }
 
     this.GetDifficulty();
@@ -37,6 +39,10 @@ class ScreenRiff extends Component{
 
     NetInfo.fetch().then(state => {
       this.state.isConnected = state.isConnected;
+    });
+
+    Dimensions.addEventListener('change', () => {
+      this.setState({isPortrait: commons.IsPortrait()});
     });
   }
 
@@ -199,6 +205,47 @@ class ScreenRiff extends Component{
       </Button>
     }
     return showbtn;
+  }
+
+  DisplayHeaderInfo() {
+    if(this.state.isPortrait) {
+      return <View style={styles.riffCardView}>
+        {commons.GetDifficultyIconBody(this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Diff)}
+        <Text style={styles.songTitle}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song}</Text>
+        <Text style={styles.songArtist}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist}</Text>     
+        
+        <View style={styles.songInfoTuningView}> 
+          <Text style={styles.songInfoTuningLeft}>Tuning:</Text>
+          <Text style={styles.songInfoTuning} >{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Tune}</Text>
+        </View>
+        <View style={styles.songInfoKeyView}>
+          <Text style={styles.songInfoKeyLeft}>Key:</Text>
+          <Text style={styles.songInfoKey}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Key}</Text>
+        </View>
+      </View>
+    }
+    return null;
+  }
+
+  DisplayHeaderInfoInBody() {
+    if(!this.state.isPortrait) {
+      let clr = commons.GetBlack();
+      return <View style={styles.riffCardViewLandscape}>
+        {commons.GetDifficultyIconBody(this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Diff)}
+        <Text style={styles.songTitleLandscape}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song}</Text>
+        <Text style={styles.songArtistLandscape}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist}</Text>     
+        
+        <View style={styles.songInfoTuningViewLandscape}> 
+          <Text style={[styles.songInfoTuningLeft, {color: clr}]}>Tuning:</Text>
+          <Text style={[styles.songInfoTuning, {color: clr}]} >{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Tune}</Text>
+        </View>
+        <View style={styles.songInfoKeyViewLandscape}>
+          <Text style={[styles.songInfoKeyLeft, {color: clr}]}>Key:</Text>
+          <Text style={[styles.songInfoKey, {color: clr}]}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Key}</Text>
+        </View>
+      </View>
+    }
+    return null;
   }
 
   DisplayNotes() {
@@ -387,24 +434,12 @@ class ScreenRiff extends Component{
           <View onLayout={e => this.onLayout(e)} style={styles.riffMainView}>
             {loadSpinner}
 
-            <View style={styles.riffCardView}>
-                {commons.GetDifficultyIconBody(this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Diff)}
-                <Text style={styles.songTitle}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Song}</Text>
-                <Text style={styles.songArtist}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Artist}</Text>     
-                
-                <View style={styles.songInfoTuningView}> 
-                  <Text style={styles.songInfoTuningLeft}>Tuning:</Text>
-                  <Text style={styles.songInfoTuning} >{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Tune}</Text>
-                </View>
-                <View style={styles.songInfoKeyView}>
-                  <Text style={styles.songInfoKeyLeft}>Key:</Text>
-                  <Text style={styles.songInfoKey}>{this.props.songs[this.state.cListDifficulty][this.state.cRiffID].Key}</Text>
-                </View>
-            </View>
+            {this.DisplayHeaderInfo()}
 
             <ScrollView maximumZoomScale={3} minimumZoomScale={1} style={styles.songContentScrollView}>
               <View>
                 <Text style={styles.gapTab}></Text>
+                {this.DisplayHeaderInfoInBody()}
                 {this.DisplayTab()}
                 {this.DisplayNotes()}
               </View>
