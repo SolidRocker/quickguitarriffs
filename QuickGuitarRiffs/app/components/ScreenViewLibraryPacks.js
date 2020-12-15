@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, BackHandler, ImageBackground, TouchableOpacity, View, ActivityIndicator, ScrollView } from 'react-native';
+import { AppRegistry, BackHandler, ImageBackground, Dimensions, TouchableOpacity, View, ActivityIndicator, ScrollView } from 'react-native';
 import { Content, Header, Left, Right, Body, Container, Button, Icon, Text } from 'native-base';
 import { setPack1, setPack2, setPack3, setHasAds, setSongs, setProducts } from '../redux/songlistActions';
 import commons, {styles} from './common';
@@ -27,8 +27,13 @@ class ScreenViewLibraryPacks extends Component {
         this.state = {
             checkingProducts: false,
             isLoaded: false,
-            isRefreshing: false
-        };
+            isRefreshing: false,
+            isPortrait: commons.IsPortrait()
+        }
+
+        Dimensions.addEventListener('change', () => {
+            this.setState({isPortrait: commons.IsPortrait()});
+        });
       }
 
     componentDidMount() {
@@ -138,11 +143,15 @@ class ScreenViewLibraryPacks extends Component {
     }
 
     GetHeader() {    
-        let disp =
-        <View>
-          <Text style={styles.subMenuHeader}>Click on any pack to check out more riffs to jam to!</Text>
-        </View>
-        return disp;
+        let headerText = "Click on any pack to check out more riffs to jam to!";
+        if(this.state.isPortrait) {
+        return <View>
+                <Text style={styles.subMenuHeader}>{headerText}</Text>
+               </View>
+        }
+        return <View>
+                <Text style={styles.subMenuHeaderLandscape}>{headerText}</Text>
+               </View>
       }
 
     RenderProductInfo() {

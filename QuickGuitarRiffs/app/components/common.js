@@ -334,9 +334,15 @@ export const styles = StyleSheet.create({
     mainMenuHeaderBody: {
         alignItems:'center',
         alignSelf: 'center',
-        width: commons.IsTablet() || !commons.IsPortrait() ? '20%' : '30%',
+        width: commons.IsTablet() ? '20%' : '30%',
         resizeMode: 'contain',
-        color: mainRed
+    },
+
+    mainMenuHeaderBodyLandscape: {
+        alignItems:'center',
+        alignSelf: 'center',
+        width: '18%',
+        resizeMode: 'contain',
     },
 
     quoteContent: {
@@ -408,9 +414,19 @@ export const styles = StyleSheet.create({
         color: mainBlack
     },
 
+    subMenuHeaderLandscape: {
+        fontFamily: fontHeader,
+        fontSize: 40,
+        textAlign: 'left',
+        paddingHorizontal: '4%',
+        paddingTop: '3%',
+        marginBottom: '4%',
+        color: mainBlack
+    },
+
     subMenuTitleHeader: {
         fontFamily: fontSubHeader,
-        fontSize: Platform.OS === 'ios' ? 14 : 16,
+        fontSize: 16,
         textAlign: 'left',
         alignSelf: 'stretch',
         color: mainBlack
@@ -639,8 +655,8 @@ export const styles = StyleSheet.create({
         fontSize: commons.IsTablet() ? 13 : 11,
         //fontWeight: '400',
         paddingTop: 2,
-        paddingLeft: 12,
-        paddingRight: 15,
+        paddingLeft: "4%",
+        paddingLeft: "3%",
         textAlign: 'left',
         color: 'black',
     },
@@ -650,24 +666,32 @@ export const styles = StyleSheet.create({
         width: "100%",
         paddingLeft: 12,
         paddingBottom: "3%",
-        backgroundColor: mainWhite
+        backgroundColor: mainBlack
     },
 
     videoWebView: {
         marginTop: (Platform.OS == 'ios') ? 20 : 0,
         height: commons.GetVideoHeight(),
         width: commons.GetVideoWidth(),
-        backgroundColor: mainWhite
+        backgroundColor: mainBlack
     },
 
     tabWebView: {
         justifyContent: 'center',
         alignItems: 'center',
-        //flex: 1,
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
         marginTop: (Platform.OS) === 'ios' ? 20 : 0,
-        backgroundColor: mainWhite
+        backgroundColor: mainBlack
+    },
+
+    tabWebViewLandscape: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+        marginTop: 1,
+        backgroundColor: mainBlack
     },
 
     chooselist_main: {
@@ -973,6 +997,23 @@ export const styles = StyleSheet.create({
         //backgroundColor: '#454545'
     },
 
+    libDescLandscape: {
+        fontFamily: fontTextRoboto,
+        letterSpacing: 0,
+        lineHeight: 20,
+        fontSize: commons.IsTablet() ? 16 : 16,
+
+        textAlign: 'center',
+        alignSelf: 'stretch',
+        color: mainBlack,
+
+        paddingLeft: commons.IsTablet() ? '7%' : '4%',
+        paddingRight: commons.IsTablet() ? '7%' : '4%',
+        paddingTop: '3%',
+        paddingBottom: '3%',
+        //backgroundColor: '#454545'
+    },
+
     libDescRiffType: {
         fontSize: commons.IsTablet() ? 16 : 16,
         fontWeight: 'bold',
@@ -1001,6 +1042,18 @@ export const styles = StyleSheet.create({
         paddingTop: "5%",
         paddingLeft: "6%",
         paddingRight: "6%",
+        textAlign: 'left',
+        alignSelf: 'stretch',
+        color: 'black',
+    },
+
+    suggestQuestionsLandscape: {
+        fontFamily: fontTextRoboto,
+        letterSpacing: 0,
+        fontSize: 15,
+        paddingTop: "3%",
+        paddingLeft: "4%",
+        paddingRight: "4%",
         textAlign: 'left',
         alignSelf: 'stretch',
         color: 'black',
@@ -1050,7 +1103,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'stretch',
         color: 'black'
     },
-
+    
     submitted: {
         fontFamily: fontTextRoboto,
         fontSize: 15,

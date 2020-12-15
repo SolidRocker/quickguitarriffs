@@ -21,14 +21,20 @@ export default class ScreenSuggestSongs extends Component {
             isConnected: true,
 
             hasCountryInput: false,
-            hasSongsInput: false
-        }
+            hasSongsInput: false,
+            isPortrait: commons.IsPortrait()
+        };
+
         this.SetCountries();
         this.LoadLocalID();
         this.LoadCountry();
 
         NetInfo.fetch().then(state => {
             this.state.isConnected = state.isConnected;
+        });
+
+        Dimensions.addEventListener('change', () => {
+            this.setState({isPortrait: commons.IsPortrait()});
         });
     }
 
@@ -171,6 +177,18 @@ export default class ScreenSuggestSongs extends Component {
         });
     }
 
+    GetQuestionText(qn) {
+        let qnText = "Where are you from?";
+        if(qn == 2) {
+            qnText = "What artists/songs would you like to see more in Quick Guitar Riffs?";
+        }
+
+        if(this.state.isPortrait) {
+            return <Text style={styles.suggestQuestions}>{qnText}</Text>
+        }
+        return <Text style={styles.suggestQuestionsLandscape}>{qnText}</Text>
+    }
+
     ShowSpinner() {
         disp = null;
 
@@ -203,10 +221,7 @@ export default class ScreenSuggestSongs extends Component {
 
                 <Container style={styles.pageColor}>
                     <ScrollView>
-
-                        <Text style={{ paddingTop: 5 }}></Text>
-
-                        <Text style={styles.suggestQuestions} allowFontScaling={false} selectable={true}>Where are you from?</Text>
+                        {this.GetQuestionText(1)}
 
                         <View style={styles.suggestAnswers}>
                             <Item regular style={{borderRadius: 8}}>
@@ -225,7 +240,7 @@ export default class ScreenSuggestSongs extends Component {
                             </Item>
                         </View>
 
-                        <Text style={styles.suggestQuestions} allowFontScaling={false} selectable={true}>What artists/songs would you like to see more in Quick Guitar Riffs?</Text>
+                        {this.GetQuestionText(2)}
 
                         <View style={styles.suggestAnswers}>
                             <Textarea style={styles.suggestAnswers} maxLength={250} onChangeText={val => { this.CheckSongsInput(val) }} rowSpan={4} bordered placeholder="Songs/Artists" />

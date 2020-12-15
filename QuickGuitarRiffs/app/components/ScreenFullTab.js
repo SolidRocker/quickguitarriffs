@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, BackHandler, TouchableOpacity} from "react-native";
+import {AppRegistry, BackHandler, Dimensions, TouchableOpacity} from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { WebView } from 'react-native-webview';
 import {Text, Button, Icon, Container, Header, Left, Body, Right} from "native-base";
@@ -14,7 +14,12 @@ export default class ScreenFullTab extends Component {
       cSongName: this.props.route.params.rSong,
       cTabLink: this.props.route.params.rTabLink,
       isConnected: true,
+      isPortrait: commons.IsPortrait()
     }
+
+    Dimensions.addEventListener('change', () => {
+      this.setState({isPortrait: commons.IsPortrait()});
+    });
   }
 
   componentDidMount() {
@@ -46,16 +51,31 @@ export default class ScreenFullTab extends Component {
   LoadFullTabs() {
     let disp = null;
 
+    if(this.state.isPortrait) {
       disp =
-            <WebView 
-                style={styles.tabWebView} 
-                source={{uri: this.state.cTabLink}} 
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                startInLoadingState={true}
-                onError={() => this.LoadTabError}
-                renderError={() => this.LoadTabError2}
-              />
+        <WebView 
+            style={styles.tabWebView} 
+            source={{uri: this.state.cTabLink}} 
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            startInLoadingState={true}
+            onError={() => this.LoadTabError}
+            renderError={() => this.LoadTabError2}
+          />
+    }
+    else {
+      disp =
+        <WebView 
+            style={styles.tabWebViewLandscape} 
+            source={{uri: this.state.cTabLink}} 
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            startInLoadingState={true}
+            onError={() => this.LoadTabError}
+            renderError={() => this.LoadTabError2}
+          />
+
+    }
     return disp;
   }
 
@@ -72,7 +92,7 @@ export default class ScreenFullTab extends Component {
                 </Button>
                 </Left>
                 <Body>
-                    <Text adjustsFontSizeToFit numberOfLines={1} style={styles.riffHeader}>{this.state.cSongName}</Text>
+                    <Text adjustsFontSizeToFit numberOfLines={1} style={styles.subMenuTitleHeader}>{this.state.cSongName}</Text>
                 </Body>
                 <Right>
                 </Right>

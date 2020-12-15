@@ -26,8 +26,14 @@ export default class ScreenFirstUse extends Component{
             prevBGTrans: 0.0,
             prevMainTrans: 0.0,
             BGTrans: 0.0,
-            mainTrans: 0.0
+            mainTrans: 0.0,
+
+            isPortrait: commons.IsPortrait()
         }
+
+        Dimensions.addEventListener('change', () => {
+            this.setState({isPortrait: commons.IsPortrait()});
+        });
     }
 
     InitAnim() {
@@ -59,13 +65,23 @@ export default class ScreenFirstUse extends Component{
     }
 
     GetText() {
+        let resText = "";
         if(this.state.currentPage == 1) {
-            return "Learn and play the defining parts of your favorite songs";
+            resTexxt = "Learn and play the defining parts of your favorite songs";
         }
-        if(this.state.currentPage == 2) {
-            return "Enhance your warm-up routine with a wider variety of selections";
+        else if(this.state.currentPage == 2) {
+            resText = "Enhance your warm-up routine with a wider variety of selections";
         }
-        return "Discover new songs with killer riffs!";
+        else {
+            resText = "Discover new songs with killer riffs!";
+        }
+
+        if(this.state.isPortrait) {
+            return <Text style={styles.introText}>{resText}</Text>
+        }
+        else {
+            return <Text style={styles.introTextLandscape}>{resText}</Text>
+        }
     }
 
     GetButtonStyle() {
@@ -225,7 +241,7 @@ export default class ScreenFirstUse extends Component{
                         </View>
 
                         <View style={styles.introPageText}>   
-                            <Text style={styles.introText}>{this.GetText()}</Text>
+                            {this.GetText()}
                         </View>
                     </View>
                 </Body>

@@ -25,6 +25,7 @@ class ScreenRiff extends Component{
       isConnected: true,
       isPlayingVid: false,
       renderVideo : 0,
+      showAdChance: 15,
 
       tabstringID : 0,
       maxSavedSet : 1,
@@ -132,7 +133,7 @@ class ScreenRiff extends Component{
     else {
       const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
       console.log("chance ", chanceToShowAd);
-      if(chanceToShowAd < 30) {
+      if(chanceToShowAd < this.state.showAdChance) {
         DisplayInterstitialAd(this.props.hasAds);
       }
       this.props.navigation.navigate('ScreenMainMenu');
@@ -159,7 +160,7 @@ class ScreenRiff extends Component{
 
     const chanceToShowAd = Math.floor(1 + Math.random() * 100) 
     console.log("chance ", chanceToShowAd);
-    if(chanceToShowAd < 30) {
+    if(chanceToShowAd < this.state.showAdChance) {
       console.log("AD: " + this.props.hasAds);
       DisplayInterstitialAd(this.props.hasAds);
     }

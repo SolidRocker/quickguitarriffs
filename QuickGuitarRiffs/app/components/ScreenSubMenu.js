@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, Alert, StatusBar, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
+import {AppRegistry, Alert, StatusBar, Dimensions, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity} from 'react-native';
 import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, Button, Icon, Text} from 'native-base';
 import { connect } from 'react-redux';
 import commons, {styles} from './common';
@@ -18,8 +18,13 @@ class ScreenSubMenu extends Component{
 
     this.state = {
         menuType: this.props.route.params.rMenuType,
-        isPressedDown: [false, false, false, false, false]
+        isPressedDown: [false, false, false, false, false],
+        isPortrait: commons.IsPortrait()
     };
+
+    Dimensions.addEventListener('change', () => {
+      this.setState({isPortrait: commons.IsPortrait()});
+    });
   }
   
   componentDidMount() {
@@ -212,10 +217,19 @@ class ScreenSubMenu extends Component{
       header = "How do you want to jam today?"
     }
 
-    let disp =
-    <View>
-      <Text style={styles.subMenuHeader}>{header}</Text>
-    </View>
+    let disp = null;
+    if(this.state.isPortrait) {
+      disp =
+      <View>
+        <Text style={styles.subMenuHeader}>{header}</Text>
+      </View>
+    }
+    else {
+      disp =
+      <View>
+        <Text style={styles.subMenuHeaderLandscape}>{header}</Text>
+      </View>
+    }
     return disp;
   }
 

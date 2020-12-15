@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, Alert, StatusBar, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {AppRegistry, Alert, StatusBar, Dimensions, BackHandler, AppState, Image, View, ScrollView, Platform, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {Content, Drawer, List, ListItem, Header, Left, Body, Right, Container, Button, Icon, Text} from 'native-base';
 import { setPack1, setPack2, setPack3, setSongs, setProducts, setQuotes } from '../redux/songlistActions';
 import { connect } from 'react-redux';
@@ -44,9 +44,15 @@ class ScreenMainMenu extends Component{
 
      hasLoadedQuote: false,
      currQuote: 0,
-     isPressedDown: [false, false, false, false, false]
+     isPressedDown: [false, false, false, false, false],
+
+     isPortrait: commons.IsPortrait(),
     };
     this.ChangeRatio();
+
+    Dimensions.addEventListener('change', () => {
+      this.setState({isPortrait: commons.IsPortrait()});
+    });
   }
   
   componentDidMount() {
@@ -442,6 +448,13 @@ class ScreenMainMenu extends Component{
     return disp;
   }
 
+  DisplayHeaderIcon() {
+    if(this.state.isPortrait) {
+      return  <Image source={require("../img/Logo/logo-transparent.png")} style={styles.mainMenuHeaderBody}/>;
+    }
+    return  <Image source={require("../img/Logo/logo-transparent.png")} style={styles.mainMenuHeaderBodyLandscape}/>;
+  }
+
   render() {
 
     // List of buttons in MainMenu
@@ -477,12 +490,12 @@ class ScreenMainMenu extends Component{
             <Left style={{flex:1}}>
               <Button transparent>
               <TouchableOpacity title={""} onPress={()=>this.OpenDrawer()} >
-                <Icon name={Platform.OS === 'ios' ? 'ios-menu' : 'menu'} style={styles.mainMenuHeaderLeft}/>
+                <Icon name={'menu'} style={styles.mainMenuHeaderLeft}/>
               </TouchableOpacity>
               </Button>
             </Left>
             <Body style={{flex:1}} >
-              <Image source={require("../img/Logo/logo-transparent.png")} style={styles.mainMenuHeaderBody}/>
+              {this.DisplayHeaderIcon()}
             </Body>
             <Right style={{flex:1}}>
             </Right>
