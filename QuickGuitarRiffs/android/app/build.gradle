@@ -110,8 +110,8 @@ android {
         applicationId "com.HugeWall.QuickGuitarRiffs"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 76
-        versionName "1.4"
+        versionCode 78
+        versionName "1.41"
 		multiDexEnabled true
         ndk {
             abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'

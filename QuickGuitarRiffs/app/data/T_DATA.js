@@ -9243,14 +9243,6 @@ export const AllQuotes = [
 		"artist": "Franz Joseph Haydn"
 	},
 	{
-		"quote": "A creative artist works on his next composition because he was not satisfied with his previous one.",
-		"artist": "Dmitri Shostakovich"
-	},
-	{
-		"quote": "I can't understand why people are frightened of new ideas. I'm frightened of the old ones.",
-		"artist": "John Cage"
-	},
-	{
 		"quote": "I would rather write 10,000 notes than a single letter of the alphabet.",
 		"artist": "Ludwig van Beethoven"
 	},
@@ -9271,14 +9263,6 @@ export const AllQuotes = [
 		"artist": "Duke Ellington"
 	},
 	{
-		"quote": "Be your own artist, and always be confident in what you're doing. If you're not going to be confident, you might as well not be doing it.",
-		"artist": "Aretha Franklin"
-	},
-	{
-		"quote": "A musician should only sound like what they do, and no two musicians sound the same. It's an individual-feel thing, you know?",
-		"artist": "Dave Grohl"
-	},
-	{
 		"quote": "Musicians don't retire; they stop when there's no more music in them.",
 		"artist": "Louis Armstrong"
 	},
@@ -9291,18 +9275,6 @@ export const AllQuotes = [
 		"artist": "Prince"
 	},
 	{
-		"quote": "I believe musicians have a duty, a responsibility to reach out, to share your love or pain with others.",
-		"artist": "James Taylor"
-	},
-	{
-		"quote": "The true beauty of music is that it connects people. It carries a message, and we, the musicians, are the messengers.",
-		"artist": "Roy Ayers"
-	},
-	{
-		"quote": "We're musicians. We make music for a living. It's that simple. Nothing else matters.",
-		"artist": "Eddie Van Halen"
-	},
-	{
 		"quote": "The goal is to try and make the perfect song. Which of course will never happen.",
 		"artist": "Chris Martin"
 	},
@@ -9311,20 +9283,8 @@ export const AllQuotes = [
 		"artist": "Bruno Mars"
 	},
 	{
-		"quote": "I'm trying to keep a level head. You have to be careful out in the world. It's so easy to get turned.",
-		"artist": "Elvis Presley"
-	},
-	{
-		"quote": "I decided long ago never to walk in anyone's shadow; if I fail, or if I succeed at least I did as I believe.",
-		"artist": "Whitney Houston"
-	},
-	{
 		"quote": "One thing I've learned is that I'm not the owner of my talent; I'm the manager of it.",
 		"artist": "Madonna"
-	},
-	{
-		"quote": "What's money? A man is a success if he gets up in the morning and goes to bed at night and in between does what he wants to do.",
-		"artist": "Bob Dylan"
 	},
 	{
 		"quote": "Time you enjoy wasting, was not wasted.",

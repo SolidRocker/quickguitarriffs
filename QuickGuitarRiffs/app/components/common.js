@@ -347,11 +347,13 @@ export const styles = StyleSheet.create({
 
     quoteContent: {
         fontFamily: fontHeader,
-        fontSize: 50,
+        fontSize: 40,
         textAlign: 'left',
         paddingHorizontal: "4%",
         paddingTop: 40,
-        color: mainBlack
+        color: mainBlack,
+        lineHeight: 40,
+        letterSpacing: -2
     },
 
     quotePerson: {

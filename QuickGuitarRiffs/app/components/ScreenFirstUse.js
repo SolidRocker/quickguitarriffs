@@ -67,7 +67,7 @@ export default class ScreenFirstUse extends Component{
     GetText() {
         let resText = "";
         if(this.state.currentPage == 1) {
-            resTexxt = "Learn and play the defining parts of your favorite songs";
+            resText = "Learn and play the defining parts of your favorite songs";
         }
         else if(this.state.currentPage == 2) {
             resText = "Enhance your warm-up routine with a wider variety of selections";
